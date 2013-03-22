@@ -1,27 +1,44 @@
-\documentclass[12pt]{article}
+\documentclass[12pt,a4paper]{report}
+\usepackage[margin=1in]{geometry}
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{fullpage}
 \usepackage[english]{babel}
 \usepackage{csquotes}
 \usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage{blindtext}
+\blindmathtrue
 \addbibresource{CloudAssure.bib}
 
-\title{CloudAssure: }
-\author{Jeremy Wright}
+\title{CloudAssure: A Data Transfer Decision Framework for 
+Cloud-based Systems using Dynamic Trust 
+Metrics}
+%\subtitle{CSE-543 \dots Group 1}
+\author{A. Alnori, A. Buduru, S. Dhal, D. Lucero, A. Nedunoori, J. Wright}
 
 \begin{document}
 \maketitle
+\tableofcontents
 
+\chapter{Introduction}
+\input{Chapters/Introduction}
 
-\section{Introduction}
-Placeholder \autocite{Cisco}
-\section{Architecture}
-Placeholder
+\chapter{Architecture}
+\input{Chapters/Architecture}
 
-\section{Conclusion}
-Placeholder
+\chapter{Planning}
+\input{Chapters/Planning}
 
+\chapter{Classification}
+\input{Chapters/Classification}
+
+\chapter{Trust Management}
+\input{Chapters/TrustManagement}
+
+\chapter{Conclusion}
+\input{Chapters/Conclusion}
+
+\clearpage
 \printbibliography
 
 
