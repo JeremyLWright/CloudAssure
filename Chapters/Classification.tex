@@ -1,2 +1,55 @@
-\Blindtext
+
+
+\section{Overview}
+While classification is only a single part of the CloudAssure system, all
+operations hinge off its information grouping. The Classification System thusly
+needs to be properly trained for the best performance. The Classifier has two
+possible algorithms available. Depending on the implementor's dataset, one will
+offer more accurate results.
+
+The Classifier, should provide a statically significant improvemnet over simply
+guessing the category. For instance, if the dataset contains 4 categories, then
+random chance will classify a document in the correct category 25\% of the time.
+To be useful, our classifier must do more accurate job than this. With our
+demonstration dataset, the Bayesian classifier scored 82.54\% accurate,
+and the Decision Tree classifier scored 86.87\% accurate.
+
+\section{Implementation}
+Our implementation is divided into two parts: A Direct Implementation, and
+a second implementation utilizing \ac{nltk}
+	- What nltk actually does
+	- Compare initial naïve version with the high performance nltk version
+	- Walk through how the implementation works.
+
+\subsection{Direct Implementation}
+Performance Problems
+
+\subsection{NLTK Implementation}
+
+\section{Bayesian Classifier}
+	- Bayasian
+		? How "independence" makes the equation easier
+
+\section{Decision Tree Classifier}
+
+
+\section{Training the Classifiers}
+\subsection{Choosing a DataSet}
+
+\subsection{Implementor Workflow}
+	- Describe the IT implementor workflow
+		? Obtain sufficiently classified data
+		? Build the database
+			§ Document selection needs to be done carefully. Adding poor data will decrease the precision of the qualifier
+		? Build the model (Choose an algorithm) 
+			§ Tree model for 3695 documents took 75 minutes (0.868741542625 accurate)
+			§ Bayes model for 3695 documents took 3 minutes (0.8254 accurate)
+		? Use the classifier and the model to classify new documents
+
+\subsection{Security Concerns}
+It is critically important that the .plk file be stored in a secure place, or be
+cryptographically secured and verified prior to each load. The .plk file if
+manipulated by a maleficent agent can be used to subvert the trust system and
+classify data into anyfor category of the agent's choosing.  
+
 
