@@ -2,7 +2,38 @@
 
 \section{Overview}
 While classification is only a single part of the CloudAssure system, all
-operations hinge off its information grouping. The Classification System thusly
+operations hinge off its categorization decision. Classification is currently an
+very active area of research \autocite{Zhang2000}, expecially with respect to
+internet documents. Classification is a branch of machine learning which
+attempts to predict the underlying topic, or classification of a given document.
+As a discipline under machine learning it's helpful to describe machine learning
+at a high level, before describing the classification techniqus evaluated and
+finally implemented in CloudAssure
+
+\section{Machine Learning with Respect to Classification}
+Machine Learning is a 
+\autocite{Bishop2009}
+
+\subsection{Latent Dirichlet Allocation}
+In ``Probabilistic Topic Models'', Blei describes the Latent Dirichlet
+Allocation and its probabilistic approach to topic prediction
+\autocite{Blei2012}. 
+\autocite{Blei2009}. 
+\autocite{RadimRehurek2010}
+\subsection{Neural Nets}
+\autocite{Zhang2000}
+\autocite{Merkl}
+
+\subsection{Bayesian Inference}
+\autocite{Bishop2009}
+
+\subsection{Decision Trees}
+\autocite{Segaran2008}
+\autocite{Russell2008}
+
+\subsection{Support Vector Machines}
+\autocite{Chang2011}
+The Classification System thusly
 needs to be properly trained for the best performance. The Classifier has two
 possible algorithms available. Depending on the implementor's dataset, one will
 offer more accurate results.
@@ -16,14 +47,14 @@ and the Decision Tree classifier scored 86.87\% accurate.
 
 \section{Implementation}
 Our implementation is divided into two parts: A Direct Implementation, and
-a second implementation utilizing \ac{nltk}
+a second implementation utilizing nltk
 	- What nltk actually does
 	- Compare initial naïve version with the high performance nltk version
 	- Walk through how the implementation works.
-
+University
 \subsection{Direct Implementation}
-Performance Problems
-
+Performance Problems \autocite{Graham-Cummings2005}
+\autocite{Denoyer2004}
 \subsection{NLTK Implementation}
 
 \section{Bayesian Classifier}
