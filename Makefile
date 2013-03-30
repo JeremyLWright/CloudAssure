@@ -1,7 +1,8 @@
-CloudAssure.pdf: CloudAssure.tex CloudAssure.bib Makefile Chapters/Planning.tex Chapters/Conclusion.tex Chapters/Classification.tex
+CloudAssure.pdf: CloudAssure.tex CloudAssure.bib Makefile Chapters/TrustManagement.tex Chapters/Planning.tex Chapters/Conclusion.tex Chapters/Classification.tex
 	pdflatex CloudAssure.tex
 	makeglossaries CloudAssure
 	biber CloudAssure
+	pdflatex CloudAssure.tex
 	pdflatex CloudAssure.tex
 
 clean:
