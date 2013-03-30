@@ -1,5 +1,5 @@
-
-
+\newacronym{LDA}{LDA}{Latent Dirichlet Allocation}
+\newacronym{nltk}{NLTK}{Natural Language Toolkit}
 \section{Overview}
 While classification is only a single part of the CloudAssure system, all
 operations hinge off its categorization decision. Classification is currently an
@@ -15,7 +15,7 @@ Machine Learning can be described as a mathematical model which reverses a human
 processes \autocite{Bishop2009}. In the area of classification this is
 a straightforward description. A given document is composed of words which
 intend to presuade or inform the reader. Thus, the documents words are related
-by some list of topics \autocite{Blei2009}. LDA supposes that documents are
+by some list of topics \autocite{Blei2009}. \gls{LDA} supposes that documents are
 written in the following fashion:
 \begin{enumerate}
     \item The author has a finite set of lists. Each list contains a vocabulary
@@ -31,64 +31,69 @@ written in the following fashion:
 \end{enumerate}
 %TODO Insert the pretty colored document picture here.
 Now given any document, what are the topics contained in it? The original topic
-lists were destroyed, so LDA proposes a method to recreate them. Thus reversing
+lists were destroyed, so \gls{LDA} proposes a method to recreate them. Thus reversing
 the process of writing a document.
 
 All classification methods use some algorithm which assumes a specific
 distribution to the document with the intent of extracting some unobservable
 property. During the course of CloudAssure, we looked at a number of techniques
-including LDA, Neural Nets, Bayesian Inference, Decision Trees, and finally,
+including \gls{LDA}, Neural Nets, Bayesian Inference, Decision Trees, and finally,
 Support Vector Machines.
 
 \subsection{Latent Dirichlet Allocation}
 In ``Probabilistic Topic Models'', Blei describes the Latent Dirichlet
 Allocation and its probabilistic approach to topic prediction
-\autocite{Blei2012}. 
-\autocite{RadimRehurek2010}
+\autocite{Blei2012}. \gls{LDA} is different among the classical classifiers we
+surveyed for CloudAssure. \gls{LDA} supposed documents are generated in
+a mathematical way. Blei then uses this generative model to show how the original topic lists can be
+recomposed from the document. This technique is very powerful for extracting for
+topics from a document, but for our usecase, there is a second step of
+translating those topics to classifications. Due to this secondary step, we
+choose not to use the LDA algorithm \autocite{RadimRehurek2010}.
 
 \subsection{Neural Nets}
-\autocite{Zhang2000}
-\autocite{Merkl}
+Neural Nets are another powerful classification technique. An artificial neural
+net's power
+extends from its non-linearity \autocite{Zhang2000}. A neural net is composed on
+a number of nodes connected by a ``hidden'' layer. The input and output nodes
+then filter features through this hidden layer which triggers specific outputs
+thus classifying a document \autocite{Merkl}. The neural net is very good at
+doing this however since the ``hidden layer'' is, by definition, unobservable
+the results are not traceable i.e. given a result one cannot easily trace to
+find the series of decision which lead to that decision. This increases the
+complexity of implementation and debugging. Secondly, neural nets are sensitive
+to their input data, more so that other techniques, thus a great deal of time
+needs to be spend to tune the classifier. For these two reasons, we choose not
+to implements the Neural Net technique for CloudAssure. 
 
 \subsection{Bayesian Inference}
-\autocite{Bishop2009}
+Bayesian Inference is a classical technique leveraging Bayes Theorum of
+conditional probabilities as stated in equation \ref{eq:BayesTheorum}.
+\begin{equation}
+    P(A|B) = \frac{P(B | A) P(A)}{P(B)}
+    \label{eq:BayesTheorum}
+\end{equation}
+In Equation \ref{eq:BayesTheorum} we see how to reverse the condition on a conditional probability.
+This reversal is precisely the goal of classification in general \autocite{Bishop2009}.
 
 \subsection{Decision Trees}
-\autocite{Segaran2008}
-\autocite{Russell2008}
+The final technique we surveyed for a classification technique is the Decision
+Tree. The Decision Tree divides the search space into a tree. This tree can be
+described as a series of nested if statements as in
+Algorithm \ref{alg:decision_tree}. Each branch of the
+tree prunes a set of features from the search space reducing the features to
+check at each decision \autocite{Segaran2008}. This tree structure is
+proportional to the size of the training set, and our experiments show it to be
+only 15\% smaller than the training set, which the frequency distribution table
+for the Bayesian implementation is 84\% smaller than the training set. Despite
+this increase memory load for this technique we found the classification
+results to be more accurate than the Bayesian method, and included it in
+CloudAssure.
 
-\subsection{Support Vector Machines}
-\autocite{Chang2011}
-The Classification System thusly
-needs to be properly trained for the best performance. The Classifier has two
-possible algorithms available. Depending on the implementor's dataset, one will
-offer more accurate results.
-
-The Classifier, should provide a statically significant improvemnet over simply
-guessing the category. For instance, if the dataset contains 4 categories, then
-random chance will classify a document in the correct category 25\% of the time.
-To be useful, our classifier must do more accurate job than this. With our
-demonstration dataset, the Bayesian classifier scored 82.54\% accurate,
-and the Decision Tree classifier scored 86.87\% accurate.
-
-\section{Implementation}
-Our implementation is divided into two parts: A Direct Implementation, and
-a second implementation utilizing nltk
-	- What nltk actually does
-	- Compare initial naïve version with the high performance nltk version
-	- Walk through how the implementation works.
-    \autocite{University}
-\subsection{Direct Implementation}
-Performance Problems \autocite{Graham-Cummings2005}
-\autocite{Denoyer2004}
-\subsection{NLTK Implementation}
-
-\section{Bayesian Classifier}
-	- Bayasian
-		? How "independence" makes the equation easier
-
-\section{Decision Tree Classifier}
-A decision tree classifier is 
+\begin{algorithm}
+    \label{alg:decision_tree}
+    \caption{Example how the decision tree can be divided into a series of
+    nested if statements}
 \begin{algorithmic}
     \If{ contains(professor) == False}
         \If{ contains(course) == False}
@@ -118,24 +123,101 @@ A decision tree classifier is
             \EndIf
         \EndIf
 \end{algorithmic}
+\end{algorithm}
+
+\section{Implementation}
+The Classification System
+needs to be properly trained for the best performance \autocite{Russell2008}.
+CloudAssure has two possible algorithms available: Bayesian and Decision Tree.
+Depending on the implementor's dataset, one will offer more accurate results.
+
+The Classifier, should provide a statically significant improvement over simply
+guessing a category. For instance, if the dataset contains 4 categories, then
+random chance will classify a document in the correct category 25\% of the time.
+To be useful, our classifier must do more accurate job than this.
+Table~\ref{tab:classification_accuracy} describes the results for the example
+dataset \autocite{University}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c | c }
+        \hline
+        Classification Method & Accuracy \\
+        \hline \hline
+        Random Chance & 25\%\\
+        Bayesian & 82.54\% \\
+        Decision Tree & 86.87\% \\
+    \end{tabular}
+    \caption{Summary Accuracies of varying classification methods.}
+    \label{tab:classification_accuracy}
+\end{table}
+
+Our implementation is divided into two phases: A Direct Implementation, and
+a second implementation utilizing \gls{nltk}. The initial implementation was
+a direct application of Bayes theorem in Python. This implementation resulted in
+several faults however. Performance was poor, and classifying a large number of
+documents resulted in floating point underflows, and other implementation
+specific faults \autocite{Graham-Cummings2005}. There exists techniques to repair these problems such as
+rewriting a products  of terms as a sum of \(log(terms) \). \gls{nltk} however
+already implements these techniques is a fast and correct way. Thus are results
+are based on phase two, which uses \gls{nltk} as a math backend.\autocite{Denoyer2004}
 
 \section{Training the Classifiers}
-\subsection{Choosing a DataSet}
+Implementing the Classifier component of CloudAssure in one's facility is broken
+into 4 steps:
+\begin{enumerate}
+    \item Choose a Dataset
+    \item Transforming the Training Data into features.
+    \item Training the 2 provided classifiers to determine which method best
+        fits your configuration
+    \item Saving the plk file for future classifications
+\end{enumerate}
 
-\subsection{Implementor Workflow}
-	- Describe the IT implementor workflow
-		? Obtain sufficiently classified data
-		? Build the database
-			§ Document selection needs to be done carefully. Adding poor data will decrease the precision of the qualifier
-		? Build the model (Choose an algorithm) 
-			§ Tree model for 3695 documents took 75 minutes (0.868741542625 accurate)
-			§ Bayes model for 3695 documents took 3 minutes (0.8254 accurate)
-		? Use the classifier and the model to classify new documents
+\subsection{Choosing a DataSet}
+The dataset must be categorized into the classifications ones company needs to
+classify. It seems pedantic, but the classifiers chooses for CloudAssure cull
+new classifications from the data. The classifiers can only categorize data into
+given categories. It is critically important that the dataset is evenly distributed across the
+categories, and that the definition of each category is not ambigious. 
+Once a dataset is choosen one may begin feature selection.
+
+\subsection{Choosing features}
+Feature selection is iportant to disambiguate the categories. The stock feature
+selection in CloudAssure uses an industry standard list of stop words to remove
+overly common or overly rare words from the features extracted from documents.
+Once it does does it chooses the top 5000 features. These parameters are tunable
+ to get the best results.
+
+\subsection{Creating a Database}
+Once features have been selected, one may use the python examples to create
+a training database. This is done with te following command: 
+\texttt{python main.py --learn categoryFolders --name CategoryName}. Python
+will recursively search the catteoryFolder and extract all features and load
+them into a database. Run this step multiple times for as many folders of
+training data exist. This step creates a database file used for training the
+classifiers.
+
+\subsection{Creating a plk file}
+Once the database has been build, one may build the persistent classifier. Once
+the classifier is trainined it is stored in a binary format which allows it to
+be reloaded one demand. The following command will load all features from the
+database and create a Baysian model and save it as bayasian-model.plk: 
+\texttt{python main.py --type Bayes --model bayasian-model.pkl}
+Do this also for the decision tree: \texttt{python main.py --type Tree --model
+decision-model.pkl}. Each training step will print out the accuracy, and the top
+most influencial features. Use this data to tune the classifiers to your needs.
+Once the classifier is sufficiently accurate one may use this mode to classify
+any document: \texttt{python main.py --classify document.html --name bayasian-model.pkl}
+
+This is by far the most time intensive step for our example dataset the tree
+model for 3695 documents took 75 minutes (86.87\% accurate) and the Bayes
+model for 3695 documents took 3 minutes (82.54\% accurate). This took several
+tuning iterations before accuracy levels were sufficient. 
 
 \subsection{Security Concerns}
 It is critically important that the .plk file be stored in a secure place, or be
-cryptographically secured and verified prior to each load. The .plk file if
-manipulated by a maleficent agent can be used to subvert the trust system and
-classify data into anyfor category of the agent's choosing.  
+cryptographically secured and verified prior to each load. The .plk file, if
+manipulated by a maleficent agent, can be used to subvert the trust system and
+classify data into any a document to the category of the agent's choosing.  
 
 
