@@ -1,2 +1,255 @@
-\Blindtext
+\section{Planning Methodology}
+Our data transfer decision framework is designed to use intelligent planning
+techniques such as MDP (Markov Decision Process), POMDP (Partially Observable
+Markov Decision Process) and NOMDP (Non Observable Markov Decision Process) to
+make real time decisions on data transfers within an organizations cloud
+network. The purpose of these techniques is to provide a mathematical framework
+to model some decision making. Consider the scenario of a user (node) in an
+organization wanting to send classified data to another user (node) in the cloud
+environment. The sender has no idea if the recipient is trustworthy enough to
+handle such critical files. The current practice of using static policies to
+guide decision making is not sufficient as it is infeasible to enumerate all
+possible policies for all possible scenarios. Moreover generating run time
+decisions through policies is slow. Thus, there exists a need for a dynamic,
+real-time decision process to address these problems. 
 
+We address these issues using intelligent planning techniques. The planning
+algorithms in our framework make decisions based on probabilistic values which
+are estimated from the trust values of users/nodes in a stochastic environment
+\autocite{JMarecki2012}, \autocite{JWu.2011}. The algorithms then take into consideration the classification level
+of the document and the trust metric of the specific user(s) who are to receive
+the classified documents and generate plans which will specify whether the
+user/node is really trustworthy enough to handle such data.  
+
+In the process of
+developing the algorithm, we have explored three kinds of models: MDP, POMDP and
+NOMDP. Initially the plan was to use a POMDP as the main decision maker in the
+framework since it is able factor uncertainty into the decision making process.
+Uncertainty arises from the fact that all the states (the model) of the cloud
+environment is not always known or observable. However, after careful research
+in this area we decided not to pursue using a POMDP because the POMDP complexity
+is very high \autocite{LeslieP.Kaelbling1998}, \autocite{Zilberman}, 20]. 
+That is, computationally it is very expensive and the
+process requires a lot of time to generate decisions, which would eventually
+slow down the system. The solution is to use MDP to make the decisions. In order
+to use an MDP however, all uncertainty needs to be removed from the system.
+Hence, we make the assumption that all the states and entirety of the model of
+the cloud environment is known and observable. This is a valid assumption
+because in an organization all nodes are known and the structure/model of nodes
+is well defined. As a real world example this would be an organization’s IT
+manager knowing all the workstations and network connections within the company.
+
+Now let us explore the structure of the Markov Decision Process (MDP). It
+has four tuples in total $< S, A, T, R >$ \autocite{QimingHe2000}:
+\begin{description}
+    \item{S (States):} Represents a finite set of states present in the cloud Environment.
+    \item{A (Actions):} Represents a finite set of actions that are possible in
+        every state $Sn$ of the cloud environment.
+    \item{T (Transition Function):} Represents the probabilistic values of the occurrence of every action from every state. This can be derived from the known model/structure of the cloud environment.
+    \item{R (Reward/ Cost function):} Represents Reward value at each state, which
+    in our case is the trust value of every node/user.  
+\end{description}
+The MDP tuples above are
+specifically modeled and/or changed to meet our requirements for our data
+transfer decision framework. In order for the MDP to operate we require the
+information specified by the above tuples, with the addition of a start
+state and goal state. Once a user/node has made the request to transfer data
+to another user/node, a Security Agent takes over. The security agent (SA)
+contacts the SA at the recipient user/node level. The recipient SA next
+gathers data on the nodes around it, and gets their trust values from the
+centralized trust server. This data is used to initiate a localized graph
+algorithm. This algorithm generates a model of the nodes neighboring the
+recipient node, and is n-levels deep, where n is a certain order of node
+distance from the recipient. Here n can be tweaked to get an optimal result.
+After this localized graph is generated, the MDP algorithm is run on it with
+the recipient as the start node and an imaginary malicious node with
+relatively high trust value as the goal node. The idea here is to evaluate
+the neighbors of the recipient, and find out if the MDP decides it is ok to
+transmit the data to the malicious node or not. This can give rise to
+a large number of situations such as:
+\begin{enumerate}
+    \item If the recipient’s trust value is low, but the trust values of all the
+        neighbors are high then the risk of data being leaked is relatively low. The
+        decision can be made to send the data.
+    \item If the recipient’s trust value is high, but the trust values of all the
+        neighbors are relatively moderate, then the risk of data being leaked is
+        relatively low. The decision can be made to send the data.
+    \item If the recipient’s trust value is low and the trust values of one of the
+        neighbors is also low, then the risk of data being leaked is relatively
+        high. The decision can be made not to send the data.
+    \item If the recipient’s trust value is high but the trust values of the neighbors
+are low, then the risk of data being leaked is relatively high. The decision
+can be made not to send the data.  
+\end{enumerate}
+For any transmission that occurs, the
+documents that are sent over the network are archived in a database of the
+Security agents. This is done for archival purposes and also to check for
+plagiarism within the organization’s network. Whenever a user/node creates
+a document a diff function is performed with all the documents that the node
+has been in contact with. This diff function scans the document and
+calculates the similarity value. The similarity value is used as a factor in
+the trust re-evaluation stage which in turn affects the decision making
+process. As an example, whether a user leaks an email by forwarding it, or
+copying the content into a new message and sending it, the system will catch
+the leak and modify trust values accordingly.
+
+\section{Results on Planning}
+We decided to implement our planning system with the
+simulated values because all the other modules namely classification and trust
+re-evaluation were being developed simultaneously, hence we were not able to
+achieve the exact workflow. We made sure that simulated values are consistent
+with the proposed outputs of the classification and the trust re-evaluation
+modules. After finalizing the framework and doing a preliminary analysis from
+\autocite{Norvig2012}, we decided to focus on the Markov decision process to generate our
+decisions.  One of the other issues we faced while practically implementing our
+system is that whether to choose a finite or an infinite horizon, which is
+whether an agent should change its policies according to the time is has or the
+policies generated by it must be stationary. By studying our problem we felt it
+was better to implement a stationary policy generation mechanism, which assumes
+that the agent has infinite time to perform its operations. This is because if
+we implement an non-stationary policy generation mechanism in our system one of
+the uses might be that according to factors such as day of time, month, levels,
+etc. the decision generated may change which inserts lot of inconsistencies.
+Policies generation inconsistencies are very difficult to handle and needs more
+effort and time to introduce more parameters to control the inconsistency and
+make it consistent.  There are many techniques to generate the decision using
+MDP \autocite{Wikipedia2013}, namely policy iteration, modified policy iteration, priority sweeping
+and value iteration. To address our problem statement we have used policy and
+value iterations because they are more efficient, more accurate and relevant to
+the solution we expect to achieve. This is because for modified policy iteration
+and priority sweeping to work effectively they need more accurate and stable
+heuristics, which is very difficult to achieve given the dynamic nature of our
+domain where the trust values are constantly re-evaluated and updated. 
+
+\section{Value Iteration}
+The value iteration mainly works by using a technique called dynamic
+programming. The algorithm constantly does a backward induction using a bellman
+equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. In the case of the
+value iteration the initial policy is not assumed and is policy is constantly
+updated when the values are updated, here the values are nothing but the trust
+values of each node.  The equation that is used in value iteration for infinite
+horizon is,  
+
+
+We used the above equation to calculate the intermediate results, that is the
+reward value based on which the decision will be made. In the above equation the
+V represents the value function and T represents the reward metric,    is the
+discount factor mainly used as a control parameter. The M in the equation
+represents the model (in our case it can be the structure of the network), that
+is model specifies what an agent can do in each state/node and what the outcome
+is likely to be, s represents the current state/node, a represents the actions,
+represents the next state/node and k represents the number of states/nodes in
+network. Then the function is iteratively called to constantly update the reward
+metrics (intermediate result, not used/stored after decision is made).
+
+We had implemented the algorithm using Matlab Script in the Matlab, and the
+initial parameters that were set are that there is a goal state with a high
+reward value this is done to see if any attack vectors can be possible because
+all agents will try to reach it, a null state through which an agent may not be
+able to pass through and this is done to simulate a impassable node, rest of the
+states have a relatively equal value of -0.04 and this is done so that the agent
+has no incentive to stay indefinitely in the state/node and accumulate the
+reward metrics.
+ 
+
+
+
+ 
+ 
+As we can see the values keep on changing on every iteration, updated by the
+backward induction of the bellman equation continuously. Every reward metric in
+each iteration is unique. So when does it reach termination, that depends on the
+maximum allowed error for state values that we set in our model. 
+
+When the program reaches the maximum allowed error value it terminates. This
+does not mean that the policy changes, policy will stabilize after a few
+iterations based on the discount values we set, but the values in the value
+iteration function will keep on changing until it reaches the maximum allowed
+error. We call this the epsilon factor. And value iteration may terminate early
+if set the maximum allowed error value accordingly.  We can see that in figures
+represented, the values keep changing continuously and corresponding action also
+changes in accordance to the reward metrics. Since we do not start with the
+initial set of policies the value function will keep on generating different
+action sets that constitutes the policy. After few runs the action set will
+stabilize and we might call it a policy. But it is important to let the
+algorithm to continue to run even though the policy has stabilized, the reason
+being that the algorithm may be stuck at a local minimum and may need some time
+to get out of it.  That is why it is very important to carefully select the
+discount factor.
+
+ 
+ 
+
+Here from the above figure we can see that the action set has stabilized and we
+have a policy to reach the goal state. In reference to our problem statement if
+an agent reaches a goal state, that is  an simulated node/user who has an
+artificially high trust values surrounded by nodes with very low trust value
+then there is an attack possibility and the decision is made not to transfer the
+documents.
+
+\section{Policy Iteration}
+
+The policy iteration works almost similar to value iteration but the difference
+mainly being that in policy iteration we start the algorithm with some random
+policy (set of actions) and then use the backward induction to improve the
+policy. The algorithm constantly does a backward induction using a bellman
+equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. In the case of the
+policy iteration the initial policy is assumed and is policy is constantly
+evaluated and updated when the values are updated, here the values are nothing
+but the trust values of each node.  The equation that is used in value iteration
+for infinite horizon is,  
+
+
+
+
+The different parameters used in the above equation are the same as the ones in
+the value iteration, the difference being that   represents a policy. The brief
+description on working of the algorithm is as follows, 
+\begin{enumerate}
+    \item Choose a random policy $\pi$
+    \item Loop: 
+        \begin{enumerate}
+            \item Evaluate $V\pi$ 
+            \item For each $s$ in $S$, set improved policy
+            \item Replace $\pi$ with $\pi\prime$ 
+        \end{enumerate}
+        \item Until no improving action possible at any state
+\end{enumerate}
+
+The policy improvement is made using the below formula,
+
+
+
+In the below figure we can see the several runs of the policy iteration
+algorithms, here we start with the random policy and use the equations to update
+the reward metrics of the every state and there updating the policy if any
+better policy is found than one we started with or one that we have. We can see
+the action sets stabilize at the end and hence arriving upon a policy that will
+help us make the correct decision.
+ 
+ 
+\section{Running time}
+
+\begin{itemize}
+    \item Clearly from the above example we can see that the Value Iteration takes
+more resources and running time compared to others. This is because of the fact
+that there is no policy in the beginning. So the value iteration frames policies
+as it proceeds. And of course the running time of the value iterations largely
+depend on the maximum error value that we set.
+    \item The policy iteration takes much less running time when we compare it to the
+value iteration in this case. This is because of the fact that we start with an
+arbitrary random policy. This will be a huge improvement because its like giving
+a model to the function even though it may be wrong. The value will be computed
+according to the initial policy setting. If it is correct it is unchanged, if
+not then we change the policy and re-compute the value again.
+\end{itemize}
+By running both the policy and value iteration we conclude the following thing,
+\begin{itemize}
+    \item We were able to make the informed decisions on data transfer decisions by
+using good heuristics, which are nothing but simulated values for the data
+classification and the trust values for the nodes/users
+    \item The running time for
+the algorithms is reasonable, we achieved convergence for a 12 state problem in
+about (will give you the values, trying to improve it), which is reasonable. But
+more modification needs to be done if we are to scale the system.
+\end{itemize}
