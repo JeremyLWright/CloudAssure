@@ -1,7 +1,9 @@
 \section{Planning Methodology}
+\newacronym{mdp}{MDP}{Markov Decision Process}
+\newacronym{pomdp}{POMDP}{Partially Observable Markov Decision Process}
+\newacronym{nomdp}{NOMDP}{Non-Observable Markov Decision Process}
 Our data transfer decision framework is designed to use intelligent planning
-techniques such as MDP (Markov Decision Process), POMDP (Partially Observable
-Markov Decision Process) and NOMDP (Non Observable Markov Decision Process) to
+techniques such as \gls{mdp}, \gls{pomdp}, and \gls{nomdp} to
 make real time decisions on data transfers within an organizations cloud
 network. The purpose of these techniques is to provide a mathematical framework
 to model some decision making. Consider the scenario of a user (node) in an
@@ -22,36 +24,39 @@ the classified documents and generate plans which will specify whether the
 user/node is really trustworthy enough to handle such data.  
 
 In the process of
-developing the algorithm, we have explored three kinds of models: MDP, POMDP and
-NOMDP. Initially the plan was to use a POMDP as the main decision maker in the
+developing the algorithm, we have explored three kinds of models:\gls{mdp},
+\gls{pomdp}, and \gls{nomdp}. Initially the plan was to use a PO\gls{mdp} as the 
+main decision maker in the
 framework since it is able factor uncertainty into the decision making process.
 Uncertainty arises from the fact that all the states (the model) of the cloud
 environment is not always known or observable. However, after careful research
-in this area we decided not to pursue using a POMDP because the POMDP complexity
-is very high \autocite{LeslieP.Kaelbling1998}, \autocite{Zilberman}, 20]. 
+in this area we decided not to pursue using a \gls{pomdp} because the
+\gls{pomdp} complexity
+is very high \autocite{LeslieP.Kaelbling1998}, \autocite{Zilberman},
+\autocite{DongNguyen2009}. 
 That is, computationally it is very expensive and the
 process requires a lot of time to generate decisions, which would eventually
-slow down the system. The solution is to use MDP to make the decisions. In order
-to use an MDP however, all uncertainty needs to be removed from the system.
+slow down the system. The solution is to use \gls{mdp} to make the decisions. In order
+to use an \gls{mdp} however, all uncertainty needs to be removed from the system.
 Hence, we make the assumption that all the states and entirety of the model of
 the cloud environment is known and observable. This is a valid assumption
 because in an organization all nodes are known and the structure/model of nodes
 is well defined. As a real world example this would be an organization’s IT
 manager knowing all the workstations and network connections within the company.
 
-Now let us explore the structure of the Markov Decision Process (MDP). It
+Now let us explore the structure of the \gls{mdp}. It
 has four tuples in total $< S, A, T, R >$ \autocite{QimingHe2000}:
 \begin{description}
-    \item{S (States):} Represents a finite set of states present in the cloud Environment.
-    \item{A (Actions):} Represents a finite set of actions that are possible in
-        every state $Sn$ of the cloud environment.
-    \item{T (Transition Function):} Represents the probabilistic values of the occurrence of every action from every state. This can be derived from the known model/structure of the cloud environment.
-    \item{R (Reward/ Cost function):} Represents Reward value at each state, which
+    \item{\textbf{S (States):}} Represents a finite set of states present in the cloud Environment.
+    \item{\textbf{A (Actions):}} Represents a finite set of actions that are possible in
+        every state $S_n$ of the cloud environment.
+    \item{\textbf{T (Transition Function):}} Represents the probabilistic values of the occurrence of every action from every state. This can be derived from the known model/structure of the cloud environment.
+    \item{\textbf{R (Reward/ Cost function):}} Represents Reward value at each state, which
     in our case is the trust value of every node/user.  
 \end{description}
-The MDP tuples above are
+The \gls{mdp} tuples above are
 specifically modeled and/or changed to meet our requirements for our data
-transfer decision framework. In order for the MDP to operate we require the
+transfer decision framework. In order for the \gls{mdp} to operate we require the
 information specified by the above tuples, with the addition of a start
 state and goal state. Once a user/node has made the request to transfer data
 to another user/node, a Security Agent takes over. The security agent (SA)
@@ -61,10 +66,10 @@ centralized trust server. This data is used to initiate a localized graph
 algorithm. This algorithm generates a model of the nodes neighboring the
 recipient node, and is n-levels deep, where n is a certain order of node
 distance from the recipient. Here n can be tweaked to get an optimal result.
-After this localized graph is generated, the MDP algorithm is run on it with
+After this localized graph is generated, the \gls{mdp} algorithm is run on it with
 the recipient as the start node and an imaginary malicious node with
 relatively high trust value as the goal node. The idea here is to evaluate
-the neighbors of the recipient, and find out if the MDP decides it is ok to
+the neighbors of the recipient, and find out if the \gls{mdp} decides it is ok to
 transmit the data to the malicious node or not. This can give rise to
 a large number of situations such as:
 \begin{enumerate}
@@ -113,7 +118,7 @@ etc. the decision generated may change which inserts lot of inconsistencies.
 Policies generation inconsistencies are very difficult to handle and needs more
 effort and time to introduce more parameters to control the inconsistency and
 make it consistent.  There are many techniques to generate the decision using
-MDP \autocite{Wikipedia2013}, namely policy iteration, modified policy iteration, priority sweeping
+\gls{mdp} \autocite{Wikipedia2013}, namely policy iteration, modified policy iteration, priority sweeping
 and value iteration. To address our problem statement we have used policy and
 value iterations because they are more efficient, more accurate and relevant to
 the solution we expect to achieve. This is because for modified policy iteration
@@ -127,13 +132,21 @@ programming. The algorithm constantly does a backward induction using a bellman
 equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. In the case of the
 value iteration the initial policy is not assumed and is policy is constantly
 updated when the values are updated, here the values are nothing but the trust
-values of each node.  The equation that is used in value iteration for infinite
-horizon is,  
+values of each node.  Equation \ref{eq:infinite_horizon} is used in value iteration for infinite
+horizon.
+
+\begin{equation} 
+    \label{eq:infinite_horizon}
+    \begin{aligned}
+    V^0(s) = 0 \\
+    V^k(s) = T(s) + \beta \max_a \sum_S M(s,a,s') \cdot V^{k-1}(s')
+    \end{aligned}
+\end{equation}
 
 
 We used the above equation to calculate the intermediate results, that is the
 reward value based on which the decision will be made. In the above equation the
-V represents the value function and T represents the reward metric,    is the
+V represents the value function and T represents the reward metric, $\beta$ is the
 discount factor mainly used as a control parameter. The M in the equation
 represents the model (in our case it can be the structure of the network), that
 is model specifies what an agent can do in each state/node and what the outcome
@@ -151,11 +164,14 @@ states have a relatively equal value of -0.04 and this is done so that the agent
 has no incentive to stay indefinitely in the state/node and accumulate the
 reward metrics.
  
+\begin{figure}[hb]
+    \label{fig:ValueIterationResults}
+    \begin{center}
+        \includegraphics[width=0.90\textwidth]{Figures/Planning_Figure_2.png}
+        \caption{Value Iteration Results}
+    \end{center}
+\end{figure}
 
-
-
- 
- 
 As we can see the values keep on changing on every iteration, updated by the
 backward induction of the bellman equation continuously. Every reward metric in
 each iteration is unique. So when does it reach termination, that depends on the
@@ -177,6 +193,14 @@ being that the algorithm may be stuck at a local minimum and may need some time
 to get out of it.  That is why it is very important to carefully select the
 discount factor.
 
+\begin{figure}[hb]
+    \label{fig:ValueIterationResults2}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{Figures/Planning_Figure_3.png}
+        \caption{Value Iteration Results}
+    \end{center}
+\end{figure}
+
 Here from the above figure we can see that the action set has stabilized and we
 have a policy to reach the goal state. In reference to our problem statement if
 an agent reaches a goal state, that is  an simulated node/user who has an
@@ -193,19 +217,17 @@ policy. The algorithm constantly does a backward induction using a bellman
 equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. In the case of the
 policy iteration the initial policy is assumed and is policy is constantly
 evaluated and updated when the values are updated, here the values are nothing
-but the trust values of each node.  The equation that is used in value iteration
-for infinite horizon is \ref{eq:infinite_horizon}.
+but the trust values of each node.  Equation \ref{eq:infinite_horizon2} is used in value iteration
+or infinite horizon.
 
 \begin{equation} 
-    \label{eq:infinite_horizon}
-    \begin{aligned}
-    V^0(s) = 0 \\
-    V^k(s) = T(s) + M(s,a,s') * V^(k-1)(s')
-    \end{aligned}
+    \label{eq:infinite_horizon2}
+    V_\pi(s) = T(s) + \beta \sum_{S'} M(s,\pi(s),s') \cdot V_\pi(s')
 \end{equation}
 
+
 The different parameters used in the above equation are the same as the ones in
-the value iteration, the difference being that   represents a policy. The brief
+the value iteration, the difference being that $\pi(s)$ represents a policy. The brief
 description on working of the algorithm is as follows, 
 \begin{enumerate}
     \item Choose a random policy $\pi$
@@ -218,7 +240,12 @@ description on working of the algorithm is as follows,
         \item Until no improving action possible at any state
 \end{enumerate}
 
-The policy improvement is made using the below formula,
+The policy improvement is made using equation \ref{eq:policy_improvement}
+
+\begin{equation} 
+    \label{eq:policy_improvement}
+    \pi'(s) = \operatorname*{argmax}_a \sum_{S'} T(s,a,s') \cdot V_\pi(s')
+\end{equation}
 
 
 
@@ -228,11 +255,26 @@ the reward metrics of the every state and there updating the policy if any
 better policy is found than one we started with or one that we have. We can see
 the action sets stabilize at the end and hence arriving upon a policy that will
 help us make the correct decision.
- 
- 
+\begin{figure}[hb]
+    \label{fig:SystemBlockDiagram}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{Figures/Planning_Figure_1.png}
+        \caption{System Block Diagram}
+    \end{center}
+\end{figure}
+
+\begin{figure}[hb]
+    \label{fig:ValueIterationResults3}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{Figures/Planning_Figure_4.png}
+        \caption{Value Iteration Results}
+    \end{center}
+\end{figure}
+
+
 \section{Running time}
 
-\begin{itemize}
+\begin{enumerate}
     \item Clearly from the above example we can see that the Value Iteration takes
 more resources and running time compared to others. This is because of the fact
 that there is no policy in the beginning. So the value iteration frames policies
@@ -244,9 +286,9 @@ arbitrary random policy. This will be a huge improvement because its like giving
 a model to the function even though it may be wrong. The value will be computed
 according to the initial policy setting. If it is correct it is unchanged, if
 not then we change the policy and re-compute the value again.
-\end{itemize}
+\end{enumerate}
 By running both the policy and value iteration we conclude the following thing,
-\begin{itemize}
+\begin{enumerate}
     \item We were able to make the informed decisions on data transfer decisions by
 using good heuristics, which are nothing but simulated values for the data
 classification and the trust values for the nodes/users
@@ -254,4 +296,4 @@ classification and the trust values for the nodes/users
 the algorithms is reasonable, we achieved convergence for a 12 state problem in
 about (will give you the values, trying to improve it), which is reasonable. But
 more modification needs to be done if we are to scale the system.
-\end{itemize}
+\end{enumerate}
