@@ -108,17 +108,22 @@ classification of the data along with similarity between the documents. The \(
 \Delta_{list} \) can be calculated by doing a weighted summation of their respective \( \Delta_{value} \). The \( \Delta_{value} \) can be found out by passing the inputs of number of documents classification type and  similarity metric of the respective documents.
 
 \section{Reward for Trusted Node}
-When there is transmission of data to trusted employees, and the calculated decrease in the trust value is not below the threshold value, and the node is in an “Active” status (Active meaning the node is involved in transmissions over a set period of time), then the security agent will assign a “Trust Reward Value (Tr (val) )” to the node. The equation is 
+When there is transmission of data to trusted employees, and the calculated
+decrease in the trust value is not below the threshold value, and the node is in
+an “Active” status (Active meaning the node is involved in transmissions over
+a set period of time), then the security agent will assign a “Trust Reward Value
+( \( Tr_{val} \) )” to the node is described by equation \ref{eq:trusted_node_reward}. 
 
 \begin{equation}
     \label{eq:trusted_node_reward}
-    Tr_{new} = Tr_{old} + Tr_{val}
+    \begin{aligned}
+    Tr_{new} &= Tr_{old} + Tr_{val} \\
+    \text{Where}~Tr_{new} &:= \text{New Trusted value after adding the trust reward value.} \\
+    Tr_{old} &:= \text{Old trust value.} \\
+    Tr_{val} &:= \text{The Reward value assigned by the security agent after}\\
+                 &\text{monitoring the node's participation.}
+\end{aligned}
 \end{equation}
-
-Where \( Tr_{new} \) - New Trusted value after adding the trust reward value
- \( Tr_{old} \) - Old trust value
- \( Tr_{val} \) – The Reward value assigned by the security agent after monitoring the node’s participation.
-
  \section{Trust value Calculation of the Node}
 The Figure 3 below is a flowchart representation of the calculation of the trust value of the node. The detailed explanation is given below:
 \begin{itemize}
@@ -134,7 +139,7 @@ The Figure 3 below is a flowchart representation of the calculation of the trust
     transmission is calculated by \( \Delta_{list} = \sum \Delta_{value} \).  
     \item New Trust Value is calculated based on the old trust value and the Δ (list)
         which is given by \( Tr_{new} = Tr_{old} - \Delta_{list} \).
-    \item The Old trust value (Tr(old)) is updated and continue this process to
+    \item The Old trust value ( \(Tr_{old} \)) is updated and continue this process to
     calculate the trust value for all different sent of documents over a period
     of time.  
     \item Update the status of the node accordingly after calculation of the
