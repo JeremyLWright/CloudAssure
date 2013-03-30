@@ -128,7 +128,8 @@ Where, \(Tr_{new}\) – The new Trust value of the employee
 \(Tr_{old}\) – The existing trust value
 \(\Delta_{list}\) – The value obtained by using a function, which takes in input from the diff function and classified document transmissions detected with the nodes.
 The subtraction operator in the equation is to calculate the decrease in trust value.
-The Δ (list) can be calculated from the attributes Table1. This table contains a test sample for easy calculation of the trust value.
+The Δ (list) can be calculated from the attributes
+\ref{tab:trust_value_calculation}. This table contains a test sample for easy calculation of the trust value.
 
 \begin{table}[h!]
     \centering
@@ -144,7 +145,7 @@ The Δ (list) can be calculated from the attributes Table1. This table contains 
     \label{tab:trust_value_calculation}
 \end{table}
 
-The \(\Delta(value)_1\) can be calculated from Table 2 having the list of
+The \(\Delta(value)_1\) can be calculated from \ref{tab:trust_value_calculation} having the list of
 documents and the summation of the \(\Delta_{values} \to \Delta_{list} \) value of the particular node. 
 
 \begin{table}[h!]
@@ -163,11 +164,15 @@ documents and the summation of the \(\Delta_{values} \to \Delta_{list} \) value 
 
 The \(\Delta_{value}\) from the above table can be calculated from the below equation.
 \begin{equation}
-    \Delta_{value}(val) = \delta(C \cdot \%Doc)
+    \begin{aligned}
+    \Delta_{value}(val) &= \delta(C \cdot \%Doc) \\
+    \text{Where}~C &:= \text{the classification of the document} \\
+    \Delta_{value} &:= \text{the summation of all the} \\
+    &\text{documents for the particular employee.}\\ 
+    \%Doc &:= \text{similarity in the documents.}
+\end{aligned}
 \end{equation}
-Where C – the classification of the document
-\( \Delta_{value} \)– the summation of all the documents for the particular employee.
-%doc – similarity in the documents.
+
 The Multiplication operator in the equation is to find out the \( \Delta_{value} \).
 The Trust value will be calculated based on the factors like the number of
 documents sent to neighboring nodes against security agents decisions, the
