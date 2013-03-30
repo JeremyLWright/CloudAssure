@@ -151,3 +151,53 @@ The Figure 3 below is a flowchart representation of the calculation of the trust
     \item The new trust value is calculated with the reward points assigned by
         equation \ref{eq:trusted_node_reward}.
 \end{itemize}
+
+\begin{tabular}{c c c c c c}
+    Node ID	& DOCUMENT ID	& \( \Delta_{ID} \) 	 & C	& \%doc	& \( \Delta_{value} \) \\
+1        & 1	&  Doc - 1      & 0.04       & 0.5	& 0.02 \\
+1        & 2	&  Doc - 2      & 0.05       & 0.3	& 0.015 \\
+1        & 3	&  Doc - 3      & 0.06       & 0.45	& 0.027 \\
+         &		&	 	        &            & Sum	& 0.062
+\end{tabular}
+
+\begin{tabular}{c c c c c c}
+Node ID &	DOCUMENT ID	&  \( \Delta_{ID} \)         & C	& \%doc& \( \Delta_{value} \) \\
+2        &1	  & Doc - 1         & 0.05       & 0.6	& 0.03 \\
+2        &2	  & Doc - 2         & 0.08       & 0.8	& 0.064 \\
+2        &3	  & Doc - 3         & 0.075      & 0.9	& 0.0675 \\
+	     &	  &    	            &            &Sum	& 0.1615
+ \end{tabular}
+
+\begin{tabular}{c c c c c c}
+Node ID &	DOCUMENT ID	&  \( \Delta_{ID} \)         & C	& \%doc	& \( \Delta_{value} \)
+\\
+3        &1	  & Doc - 1         & 0.058      & 0.66	& 0.03828 \\
+3        &2	  & Doc - 2         & 0.03       & 0.9	& 0.027 \\
+3        &3	  & Doc - 3         & 0.095      & 0.2	& 0.019 \\
+      	 & 	  &                 &            & Sum	& 0.08428
+\end{tabular}
+
+\begin{tabular}{c c c c c c}
+Node ID &	DOCUMENT ID	&  \( \Delta_{ID} \)         & C	& \%doc	 & \( \Delta_{value} \)
+\\
+4        &1	  & Doc - 1         & 0.09       & 0.6	& 0.054 \\
+4        &2	  & Doc - 2         & 0.045      & 0.44	& 0.0198 \\
+4        &3	  & Doc - 3         & 0.095      & 0.77	& 0.07315 \\
+	     &    &                 &            &	Sum	& 0.14695
+\end{tabular}
+
+\begin{align*}
+    \text{Where}& \\
+    C &:= 0 \to 0.1 \\
+    D &:= 0 \to 1 \\
+    \Delta_{value} &:= C \cdot \%doc
+\end{align*}
+
+\begin{tabular}{c c c c}
+    Node ID	& Current Trust Value &	\( \Delta_{List} \) &	\( Tr_{new} \)  \\
+1       & 0.45                & 0.062    &    0.388 \\
+2       & 0.35                & 0.162    &    0.188 \\
+3       & 0.65                & 0.084    &    0.566 \\
+4       & 0.5                 & 0.147    &    0.353 \\
+\end{tabular}
+
