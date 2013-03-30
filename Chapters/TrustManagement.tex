@@ -17,7 +17,7 @@ the trust values of the nodes and communicate with the other security agent
 within the network. Once the other security agent receives the trust value, he
 approves based on certain criteria and gives permission to the node. Thus the
 data transmission is done between nodes. The representation of transmission of
-a single document from Node ‘A’ to Node ‘B’ is shown in the below Figure 1.
+a single document from Node ‘A' to Node ‘B' is shown in the below Figure 1.
 
 
 Initially the Node “A” gives the document classification type along with its
@@ -25,9 +25,9 @@ trust value to the Security Agent at that level which is level –I in this case
 The classification of the document is evaluated from the classification process
 described above and it is divided into various categories. The Security agent at
 level –I communicate with the Security agent at level –II and enquire for the
-trust value of Node ‘B’. The Security agent at level –II monitors and gets the
-trust value of Node ‘B’. The Security agent at level –I verify on certain
-assumptions and gives approval to Node ‘A’ and document is sent to Node ‘B’.
+trust value of Node ‘B'. The Security agent at level –II monitors and gets the
+trust value of Node ‘B'. The Security agent at level –I verify on certain
+assumptions and gives approval to Node ‘A' and document is sent to Node ‘B'.
 Now, in an organization there are number of employees and are working at various
 levels like Chief Manager, Manager, Senior Associate, Associate, Junior etc.
 Based on this hierarchy we have divided the group of nodes to be at each level
@@ -37,24 +37,24 @@ together are linked to a single “Trust Server”. Now the communication betwee
 the security agents is done through Trust server which will have the access to
 get the trust values at each level. Each node will be involved in transmission
 of data to its neighboring nodes as well as the nodes at various levels. The
-Figure 2. explains the steps of transmission of data from Node ‘A’ at level –I
-to Node ‘B’ at level –II and also to Node ‘C’ at level –III. The Node ‘A’ at
-level –I decides to send data to Node ‘B’ at level –II and also to Node ‘C’ at
-level –III. Node ‘A’ gives the classification type of the data to the security
+Figure 2. explains the steps of transmission of data from Node ‘A' at level –I
+to Node ‘B' at level –II and also to Node ‘C' at level –III. The Node ‘A' at
+level –I decides to send data to Node ‘B' at level –II and also to Node ‘C' at
+level –III. Node ‘A' gives the classification type of the data to the security
 agent at level –I along with its trust value. The security agent at level –I in
 turn communicate with the Trust server and requests for the trust values of Node
-‘B’ and Node ‘C’. Node ‘B’ in the below scenario sends five documents to B1, B2,
+‘B' and Node ‘C'. Node ‘B' in the below scenario sends five documents to B1, B2,
 B3, B4 and B5 respectively. Each time B sends the document and the trust value
 is calculated. The trust value of the respective node should be updated every
 time because anytime a request can come from any node of another level for data
-transmission. Similarly Node ‘C’ sends five documents to its neighbors C1, C2,
+transmission. Similarly Node ‘C' sends five documents to its neighbors C1, C2,
 C3, C4 and C5 in this scenario and updates its trust value each time. The
-security agent at level – II and level –II monitor the respective Node ‘B’ and
-Node ‘C’s interaction with its neighboring nodes and gets the updated trust
+security agent at level – II and level –II monitor the respective Node ‘B' and
+Node ‘C's interaction with its neighboring nodes and gets the updated trust
 values. These trust values are sent to the Trust server and communicated with
-the security level – I. Based on the trust values, the Node ‘A’ decides whether
-to send the particular classified data to the Nodes ‘B’ and ‘C’. Once the
-transmission of the data is done, the Node ‘A’s trust value is updated.
+the security level – I. Based on the trust values, the Node ‘A' decides whether
+to send the particular classified data to the Nodes ‘B' and ‘C'. Once the
+transmission of the data is done, the Node ‘A's trust value is updated.
 
 \begin{figure}[h!]
     \label{fig:TrustTransmission}
@@ -83,7 +83,7 @@ Based on the above factors, CloudAssure uses a trust value equation to support d
 \subsection{Initial Trust Equation}
 The decision to transmit packets of data between various nodes (users) is done
 based on the trust value. The trust value is calculated based on the factors of
-Classification of the data type, Node level \& Similarity of the data being transmitted. The Node level is an arbitrary level representing the node’s position in the organization. The Similarity value is how similar the content of a document is to another previously transmitted.
+Classification of the data type, Node level \& Similarity of the data being transmitted. The Node level is an arbitrary level representing the node's position in the organization. The Similarity value is how similar the content of a document is to another previously transmitted.
 Initially, our equation assumed that the above three factors come from some Feedback along with the current trust value of the node generates the new trust value [21, 22]. This feedback would come from after the Security Agent had made a decision. The trust equation for finding out the trust value is given by
 \begin{equation}
     Tr_{ij}=\frac{\frac{C}{C_{max}} + \frac{NL}{NL_{max}} + \frac{Doc\%}{100}}{3}

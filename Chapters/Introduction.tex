@@ -1,10 +1,12 @@
+\newacronym{DLP}{DLP}{Data Leak Protection}
+\section{Current State of the Art}
 The three-factor approach that CloudAssure uses to prevent unauthorized data
 transmission relies on its three elements (Classification, Trust Evaluation, and
 Modeling) to all integrate seamlessly and function as a united service providing
 a defense in depth strategy. As mentioned in the introduction, the problem that
 CloudAssure hopes to solve is that modern solutions are often privatized,
 expensive, niche, or domain specific. CloudAssure takes a general approach,
-which once trained on a specific organization’s data, can be integrated into any
+which once trained on a specific organization's data, can be integrated into any
 organizational system.  
 
 There is no doubt that the current state-of-the-art
@@ -19,17 +21,18 @@ defense-in-depth data security solution. This approach has benefits and
 drawbacks however.  
 
 The biggest benefit of current enterprise solutions is of
-course the comprehensiveness they bring to the table. Symantec’s DLP suite of
-products includes: DLP for Mobile, DLP for Network, DLP for endpoint (client and
-server), DLP for storage, and a DLP Enforcement server. These solutions are all
+course the comprehensiveness they bring to the table. Symantec's \gls{DLP} suite of
+products includes: \gls{DLP} for Mobile, \gls{DLP} for Network, \gls{DLP} for endpoint (client and
+server), \gls{DLP} for storage, and a \gls{DLP} Enforcement server. These solutions are all
 proprietary, utilize dedicated hardware and software, and only provide niche
-security unless the entire suite of products is purchased, along with Symantec’s
+security unless the entire suite of products is purchased, along with Symantec's
 specialists to set up the system, monitor, train, and provide support \autocite{Symantec2013}.
 
 Both McAfee and Cisco provide solutions very similar to that of Symantec. McAfee
-’s DLP product suite includes a DLP Manager, DLP Discover, DLP Monitor, DLP
-Prevent all as integrated hardware/software, and DLP Endpoint and Device Control
-software \autocite{McAfee2013}. Cisco’s product list includes IronPort Email Security Appliance,
+'s \gls{DLP} product suite includes a \gls{DLP} Manager, \gls{DLP} Discover,
+\gls{DLP} Monitor, \gls{DLP}
+Prevent all as integrated hardware/software, and \gls{DLP} Endpoint and Device Control
+software \autocite{McAfee2013}. Cisco's product list includes IronPort Email Security Appliance,
 IronPort Web Security Appliance, Loss Prevention Services, Security Agent, and
 IronPort Data Loss Prevention which again are either integrated proprietary
 hardware/software solutions, or a direct software product \autocite{Cisco2008}. Both companies
@@ -42,26 +45,27 @@ have built-in costs of specialized hardware, system configuration and
 maintenance considerations, and possible modifications to organizational
 infrastructure, not to mention additional personnel costs.  
 
+\section{Open-Source Offerings}
 On the other end of
 the spectrum are open-source software and tools. Snort \autocite{Parker2013} and
 Suricata \autocite{Jonkman2013}
 are open source traffic monitoring solutions that can be used as an intrusion
 detection system, and to classify network traffic. OpenDLP \autocite{Gavin2012} is an open
 source tool designed to classify data. Academic software such as Cornell
-University’s Spider \autocite{Cornell2013} could also be used to identify confidential data in
+University's Spider \autocite{Cornell2013} could also be used to identify confidential data in
 files. Because this software is free and/or open source however, it brings with
 it inherent risks.  
 
 A research report done by Christopher Hoke for the SANS
 institute attempted to build a comprehensive Defense-in-depth solution for
-managing DLP \autocite{Hoke2012}.  Hoke’s approach was to build and configure a virtual
-machine that could essentially run on-top of an organization’s network and
+managing \gls{DLP} \autocite{Hoke2012}.  Hoke's approach was to build and configure a virtual
+machine that could essentially run on-top of an organization's network and
 utilize a combined suite of open-source or free tools to emulate the defense
 strategies used by the enterprise solutions. The results, while promising, still
 leave much to be desired.  
 
 Hoke notes himself however, that while his solution
-works and is feasible, there are drawbacks. Hoke’s solution was unable to handle
+works and is feasible, there are drawbacks. Hoke's solution was unable to handle
 any form of encrypted data traffic. Also, his system was unable to monitor
 application to host communication. Due to the nature of the system, this type of
 solution also requires a non-insignificant time and knowledge investiture for

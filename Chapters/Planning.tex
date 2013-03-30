@@ -41,7 +41,7 @@ to use an \gls{mdp} however, all uncertainty needs to be removed from the system
 Hence, we make the assumption that all the states and entirety of the model of
 the cloud environment is known and observable. This is a valid assumption
 because in an organization all nodes are known and the structure/model of nodes
-is well defined. As a real world example this would be an organization’s IT
+is well defined. As a real world example this would be an organization's IT
 manager knowing all the workstations and network connections within the company.
 
 Now let us explore the structure of the \gls{mdp}. It
@@ -73,23 +73,23 @@ the neighbors of the recipient, and find out if the \gls{mdp} decides it is ok t
 transmit the data to the malicious node or not. This can give rise to
 a large number of situations such as:
 \begin{enumerate}
-    \item If the recipient’s trust value is low, but the trust values of all the
+    \item If the recipient's trust value is low, but the trust values of all the
         neighbors are high then the risk of data being leaked is relatively low. The
         decision can be made to send the data.
-    \item If the recipient’s trust value is high, but the trust values of all the
+    \item If the recipient's trust value is high, but the trust values of all the
         neighbors are relatively moderate, then the risk of data being leaked is
         relatively low. The decision can be made to send the data.
-    \item If the recipient’s trust value is low and the trust values of one of the
+    \item If the recipient's trust value is low and the trust values of one of the
         neighbors is also low, then the risk of data being leaked is relatively
         high. The decision can be made not to send the data.
-    \item If the recipient’s trust value is high but the trust values of the neighbors
+    \item If the recipient's trust value is high but the trust values of the neighbors
 are low, then the risk of data being leaked is relatively high. The decision
 can be made not to send the data.  
 \end{enumerate}
 For any transmission that occurs, the
 documents that are sent over the network are archived in a database of the
 Security agents. This is done for archival purposes and also to check for
-plagiarism within the organization’s network. Whenever a user/node creates
+plagiarism within the organization's network. Whenever a user/node creates
 a document a diff function is performed with all the documents that the node
 has been in contact with. This diff function scans the document and
 calculates the similarity value. The similarity value is used as a factor in

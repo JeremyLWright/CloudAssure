@@ -6,7 +6,8 @@ CloudAssure.pdf: CloudAssure.tex CloudAssure.bib Makefile Chapters/TrustManageme
 	pdflatex CloudAssure.tex
 
 clean:
-	rm -rf *.bbl *.aux *.blg *.log *.xml *blx.bib *.bcf *.toc
+	rm -rf *.bbl *.aux *.blg *.log *.xml *blx.bib *.bcf *.toc *.acn *.acr *.alg *.bib.bak *.glg *.glo *.gls *.ist *.out
+	
 
 distclean: clean
 	rm -rf *.pdf
