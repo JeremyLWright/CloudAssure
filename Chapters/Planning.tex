@@ -177,9 +177,6 @@ being that the algorithm may be stuck at a local minimum and may need some time
 to get out of it.  That is why it is very important to carefully select the
 discount factor.
 
- 
- 
-
 Here from the above figure we can see that the action set has stabilized and we
 have a policy to reach the goal state. In reference to our problem statement if
 an agent reaches a goal state, that is  an simulated node/user who has an
@@ -197,10 +194,15 @@ equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. I
 policy iteration the initial policy is assumed and is policy is constantly
 evaluated and updated when the values are updated, here the values are nothing
 but the trust values of each node.  The equation that is used in value iteration
-for infinite horizon is,  
+for infinite horizon is \ref{eq:infinite_horizon}.
 
-
-
+\begin{equation} 
+    \label{eq:infinite_horizon}
+    \begin{aligned}
+    V^0(s) = 0 \\
+    V^k(s) = T(s) + M(s,a,s') * V^(k-1)(s')
+    \end{aligned}
+\end{equation}
 
 The different parameters used in the above equation are the same as the ones in
 the value iteration, the difference being that   represents a policy. The brief
@@ -209,9 +211,9 @@ description on working of the algorithm is as follows,
     \item Choose a random policy $\pi$
     \item Loop: 
         \begin{enumerate}
-            \item Evaluate $V\pi$ 
+            \item Evaluate $V_\pi$ 
             \item For each $s$ in $S$, set improved policy
-            \item Replace $\pi$ with $\pi\prime$ 
+            \item Replace $\pi$ with $\pi^\prime$ 
         \end{enumerate}
         \item Until no improving action possible at any state
 \end{enumerate}
