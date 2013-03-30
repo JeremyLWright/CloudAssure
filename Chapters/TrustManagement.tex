@@ -84,14 +84,27 @@ Based on the above factors, CloudAssure uses a trust value equation to support d
 The decision to transmit packets of data between various nodes (users) is done
 based on the trust value. The trust value is calculated based on the factors of
 Classification of the data type, Node level \& Similarity of the data being transmitted. The Node level is an arbitrary level representing the node's position in the organization. The Similarity value is how similar the content of a document is to another previously transmitted.
-Initially, our equation assumed that the above three factors come from some Feedback along with the current trust value of the node generates the new trust value [21, 22]. This feedback would come from after the Security Agent had made a decision. The trust equation for finding out the trust value is given by
+Initially, our equation assumed that the above three factors come from some
+Feedback along with the current trust value of the node generates the new trust
+value \autocite{L.Xiong2004}, \autocite{YanWang2007}. This feedback would come from after the Security Agent had made
+a decision. The trust equation for finding out the trust value is given by
 \begin{equation}
-    Tr_{ij}=\frac{\frac{C}{C_{max}} + \frac{NL}{NL_{max}} + \frac{Doc\%}{100}}{3}
+    \label{eq:init_trust}
+    \begin{aligned}
+         Tr_{ij}&=\frac{\frac{C}{C_{max}} + \frac{NL}{NL_{max}}
+         + \frac{Doc\%}{100}}{3} \\
+    \text{Where}~C &:= \text{Classification type of data [0 - 10]} \\
+C_{max} &:= \text{Maximum level of the data} \\
+NL &:= \text{Node level [1 - 5]} \\
+NL_{max} &:= \text{maximum node level [5]} \\
+Doc\% &:= \text{amount of data transferred} \\
+Tr_{ij} &:= \text{The trust value between the nodes i and j}
+\end{aligned}
 \end{equation}
-Where – C – Classification type of data (0 - 10) , Cmax – maximum level of the data
-NL – Node level   (1 - 5), NLmax –maximum node level [5], Doc % - amount of data transferred
-Tr(ij)  - The trust value between the nodes i and j
 
+
+
+Where 
 Once the trust value is calculated then depending on the feedback, the trust
 value of the nodes can be increased or reduced. The following are the different
 scenarios: 
