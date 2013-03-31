@@ -3,29 +3,29 @@
 \section{Overview}
 While classification is only a single part of the CloudAssure system, all
 operations hinge off its categorization decision. Classification is currently an
-very active area of research \autocite{Zhang2000}, expecially with respect to
+very active area of research \autocite{Zhang2000}, especially with respect to
 internet documents. Classification is a branch of machine learning which
 attempts to predict the underlying topic, or classification of a given document.
 As a discipline under machine learning it's helpful to describe machine learning
-at a high level, before describing the classification techniqus evaluated and
+at a high level, before describing the classification techniques evaluated and
 finally implemented in CloudAssure
 
 \section{Machine Learning with Respect to Classification}
 Machine Learning can be described as a mathematical model which reverses a human
-processes \autocite{Bishop2009}. In the area of classification this is
-a straightforward description. A given document is composed of words which
-intend to presuade or inform the reader. Thus, the documents words are related
+process \autocite{Bishop2009}. In the area of classification this is
+a straightforward description. For example, a given document is composed of words which
+intend to persuade or inform the reader. Thus, the documents words are related
 by some list of topics \autocite{Blei2009}. \gls{LDA} supposes that documents are
 written in the following fashion:
 \begin{enumerate}
     \item The author has a finite set of lists. Each list contains a vocabulary
         for a given topic.
     \item The author chooses to start writing a document.
-    \item The author rolls a die which chooses a topic list.
-    \item The author rolls the die again which chooses a word from the selected
+    \item The author rolls a die to choose a topic list.
+    \item The author rolls the die again to choose a word from the selected
         topic list.
     \item The author writes down the word.
-    \item The author continues roll the die until the document is of sufficient
+    \item The author continues rolling the die until the document is of sufficient
         length.
     \item Once the document is complete, the author destroys the topic lists.
 \end{enumerate}
@@ -67,7 +67,7 @@ needs to be spend to tune the classifier. For these two reasons, we choose not
 to implements the Neural Net technique for CloudAssure. 
 
 \subsection{Bayesian Inference}
-Bayesian Inference is a classical technique leveraging Bayes Theorum of
+Bayesian Inference is a classical technique leveraging Bayes Theorem of
 conditional probabilities as stated in equation \ref{eq:BayesTheorum}.
 \begin{equation}
     P(A|B) = \frac{P(B | A) P(A)}{P(B)}
@@ -178,11 +178,11 @@ The dataset must be categorized into the classifications ones company needs to
 classify. It seems pedantic, but the classifiers chooses for CloudAssure cull
 new classifications from the data. The classifiers can only categorize data into
 given categories. It is critically important that the dataset is evenly distributed across the
-categories, and that the definition of each category is not ambigious. 
-Once a dataset is choosen one may begin feature selection.
+categories, and that the definition of each category is not ambiguous. 
+Once a dataset is chosen one may begin feature selection.
 
 \subsection{Choosing features}
-Feature selection is iportant to disambiguate the categories. The stock feature
+Feature selection is important to disambiguate the categories. The stock feature
 selection in CloudAssure uses an industry standard list of stop words to remove
 overly common or overly rare words from the features extracted from documents.
 Once it does does it chooses the top 5000 features. These parameters are tunable
@@ -190,24 +190,24 @@ Once it does does it chooses the top 5000 features. These parameters are tunable
 
 \subsection{Creating a Database}
 Once features have been selected, one may use the python examples to create
-a training database. This is done with te following command: 
+a training database. This is done with the following command: 
 \texttt{python main.py --learn categoryFolders --name CategoryName}. Python
-will recursively search the catteoryFolder and extract all features and load
+will recursively search the categoryFolders and extract all features and load
 them into a database. Run this step multiple times for as many folders of
 training data exist. This step creates a database file used for training the
 classifiers.
 
 \subsection{Creating a plk file}
 Once the database has been build, one may build the persistent classifier. Once
-the classifier is trainined it is stored in a binary format which allows it to
+the classifier is trained it is stored in a binary format which allows it to
 be reloaded one demand. The following command will load all features from the
-database and create a Baysian model and save it as bayasian-model.plk: 
-\texttt{python main.py --type Bayes --model bayasian-model.pkl}
+database and create a Bayesian model and save it as Bayesian-model.plk: 
+\texttt{python main.py --type Bayes --model Bayesian-model.pkl}
 Do this also for the decision tree: \texttt{python main.py --type Tree --model
 decision-model.pkl}. Each training step will print out the accuracy, and the top
-most influencial features. Use this data to tune the classifiers to your needs.
+most influential features. Use this data to tune the classifiers to your needs.
 Once the classifier is sufficiently accurate one may use this mode to classify
-any document: \texttt{python main.py --classify document.html --name bayasian-model.pkl}
+any document: \texttt{python main.py --classify document.html --name Bayesian-model.pkl}
 
 This is by far the most time intensive step for our example dataset the tree
 model for 3695 documents took 75 minutes (86.87\% accurate) and the Bayes

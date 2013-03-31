@@ -10,28 +10,29 @@ which once trained on a specific organization's data, can be integrated into any
 organizational system.  
 
 There is no doubt that the current state-of-the-art
-solutions in managing unauthorized data transmission and data loss prevention
+solutions in managing unauthorized data transmission and preventing data loss
 are in the private commercial sector. Heavy hitters such as Cisco systems \autocite{Cisco2008},
 Symantec \autocite{Symantec2013}, and McAfee \autocite{McAfee2013} all provide a wide range of
 software/hardware/consulting tools and services to provide the required security
 to their customers. To an organization that can afford the cost, which is
 relatively prohibitive to smaller businesses (especially since data security is
-an often overlooked aspect), an enterprise solution provides a strong
-defense-in-depth data security solution. This approach has benefits and
-drawbacks however.  
+an often undervalued aspect), an enterprise solution provides a strong
+defense-in-depth data security solution. However, this approach has benefits and
+drawbacks.  
 
 The biggest benefit of current enterprise solutions is of
-course the comprehensiveness they bring to the table. Symantec's \gls{DLP} suite of
+course their comprehensiveness. Symantec's \gls{DLP} suite of
 products includes: \gls{DLP} for Mobile, \gls{DLP} for Network, \gls{DLP} for endpoint (client and
 server), \gls{DLP} for storage, and a \gls{DLP} Enforcement server. These solutions are all
-proprietary, utilize dedicated hardware and software, and only provide niche
-security unless the entire suite of products is purchased, along with Symantec's
-specialists to set up the system, monitor, train, and provide support \autocite{Symantec2013}.
+proprietary, utilize dedicated hardware and software. Additionally, this
+solutions only provides niche
+security unless the entire product suite is purchased, including Symantec's
+specialists to configure, monitor, train, and provide support \autocite{Symantec2013}.
 
-Both McAfee and Cisco provide solutions very similar to that of Symantec. McAfee
-'s \gls{DLP} product suite includes a \gls{DLP} Manager, \gls{DLP} Discover,
+Both McAfee and Cisco provide solutions very similar to that of Symantec. McAfee's
+\gls{DLP} product suite includes a \gls{DLP} Manager, \gls{DLP} Discover,
 \gls{DLP} Monitor, \gls{DLP}
-Prevent all as integrated hardware/software, and \gls{DLP} Endpoint and Device Control
+Prevent all as an integrated hardware/software, and \gls{DLP} Endpoint and Device Control
 software \autocite{McAfee2013}. Cisco's product list includes IronPort Email Security Appliance,
 IronPort Web Security Appliance, Loss Prevention Services, Security Agent, and
 IronPort Data Loss Prevention which again are either integrated proprietary
@@ -42,8 +43,8 @@ to requiring their specialists be involved in the process.
 Obviously the cost
 of an enterprise solution must be taken into consideration. Enterprise solutions
 have built-in costs of specialized hardware, system configuration and
-maintenance considerations, and possible modifications to organizational
-infrastructure, not to mention additional personnel costs.  
+maintenance considerations. Lastly, do to the integrated nature of these systems possible modifications to 
+\emph{organizational infrastructure}, not to mention additional personnel costs.
 
 \section{Open-Source Offerings}
 On the other end of
@@ -57,7 +58,7 @@ files. Because this software is free and/or open source however, it brings with
 it inherent risks.  
 
 A research report done by Christopher Hoke for the SANS
-institute attempted to build a comprehensive Defense-in-depth solution for
+institute attempted to build a comprehensive defense-in-depth solution for
 managing \gls{DLP} \autocite{Hoke2012}.  Hoke's approach was to build and configure a virtual
 machine that could essentially run on-top of an organization's network and
 utilize a combined suite of open-source or free tools to emulate the defense
@@ -83,7 +84,7 @@ make their own modifications.
 The CloudAssure framework sits in between these
 two approaches. It does not require proprietary hardware such as the enterprise
 approaches, and the hardware services it does use and/or require can be easily
-configured to run on existing tech. Likewise, the setup of the three stages of
+configured to run on existing infrastructure. Likewise, the setup of the three stages of
 classification, trust evaluation, and modeling are accessible enough to be able
 to be done in house by IT personnel and System Administrators. If the
 CloudAssure framework is made open-sourced, then this provides the extensibility
