@@ -1,6 +1,7 @@
 \newacronym{LDA}{LDA}{Latent Dirichlet Allocation}
 \newacronym{nltk}{NLTK}{Natural Language Toolkit}
-\section{Overview}
+\section{Classification}
+\subsection{Overview}
 While classification is only a single part of the CloudAssure system, all
 operations hinge off its categorization decision. Classification is currently an
 very active area of research \autocite{Zhang2000}, especially with respect to
@@ -11,7 +12,7 @@ at a high level, before describing the classification techniques evaluated and
 finally implemented in CloudAssure
 %TODO Add the classifiction overview diagram to this section
 
-\section{Machine Learning with Respect to Classification}
+\subsection{Machine Learning with Respect to Classification}
 Machine Learning can be described as a mathematical model which reverses a human
 process \autocite{Bishop2009}. In the area of classification this is
 a straightforward description. For example, a given document is composed of words which
@@ -41,7 +42,7 @@ property. During the course of CloudAssure, we looked at a number of techniques
 including \gls{LDA}, Neural Nets, Bayesian Inference, Decision Trees, and finally,
 Support Vector Machines.
 
-\subsection{Latent Dirichlet Allocation}
+\subsubsection{Latent Dirichlet Allocation}
 In ``Probabilistic Topic Models'', Blei describes the Latent Dirichlet
 Allocation and its probabilistic approach to topic prediction
 \autocite{Blei2012}. \gls{LDA} is different among the classical classifiers we
@@ -52,7 +53,7 @@ topics from a document, but for our usecase, there is a second step of
 translating those topics to classifications. Due to this secondary step, we
 choose not to use the LDA algorithm \autocite{RadimRehurek2010}.
 
-\subsection{Neural Nets}
+\subsubsection{Neural Nets}
 Neural Nets are another powerful classification technique. An artificial neural
 net's power
 extends from its non-linearity \autocite{Zhang2000}. A neural net is composed on
@@ -67,7 +68,7 @@ to their input data, more so that other techniques, thus a great deal of time
 needs to be spend to tune the classifier. For these two reasons, we choose not
 to implements the Neural Net technique for CloudAssure. 
 
-\subsection{Bayesian Inference}
+\subsubsection{Bayesian Inference}
 Bayesian Inference is a classical technique leveraging Bayes Theorem of
 conditional probabilities as stated in equation \ref{eq:BayesTheorum}.
 \begin{equation}
@@ -77,7 +78,7 @@ conditional probabilities as stated in equation \ref{eq:BayesTheorum}.
 In Equation \ref{eq:BayesTheorum} we see how to reverse the condition on a conditional probability.
 This reversal is precisely the goal of classification in general \autocite{Bishop2009}.
 
-\subsection{Decision Trees}
+\subsubsection{Decision Trees}
 The final technique we surveyed for a classification technique is the Decision
 Tree. The Decision Tree divides the search space into a tree. This tree can be
 described as a series of nested if statements as in
@@ -126,7 +127,7 @@ CloudAssure.
 \end{algorithmic}
 \end{algorithm}
 
-\section{Implementation}
+\subsection{Implementation}
 The Classification System
 needs to be properly trained for the best performance \autocite{Russell2008}.
 CloudAssure has two possible algorithms available: Bayesian and Decision Tree.
@@ -163,7 +164,7 @@ rewriting a products  of terms as a sum of \(log(terms) \). \gls{nltk} however
 already implements these techniques is a fast and correct way. Thus are results
 are based on phase two, which uses \gls{nltk} as a math backend.\autocite{Denoyer2004}
 
-\section{Training the Classifiers}
+\subsection{Training the Classifiers}
 Implementing the Classifier component of CloudAssure in one's facility is broken
 into 4 steps:
 \begin{enumerate}
@@ -174,7 +175,7 @@ into 4 steps:
     \item Saving the plk file for future classifications
 \end{enumerate}
 
-\subsection{Choosing a DataSet}
+\subsubsection{Choosing a DataSet}
 The dataset must be categorized into the classifications ones company needs to
 classify. It seems pedantic, but the classifiers chooses for CloudAssure cull
 new classifications from the data. The classifiers can only categorize data into
@@ -182,14 +183,14 @@ given categories. It is critically important that the dataset is evenly distribu
 categories, and that the definition of each category is not ambiguous. 
 Once a dataset is chosen one may begin feature selection.
 
-\subsection{Choosing features}
+\subsubsection{Choosing features}
 Feature selection is important to disambiguate the categories. The stock feature
 selection in CloudAssure uses an industry standard list of stop words to remove
 overly common or overly rare words from the features extracted from documents.
 Once it does does it chooses the top 5000 features. These parameters are tunable
  to get the best results.
 
-\subsection{Creating a Database}
+\subsubsection{Creating a Database}
 Once features have been selected, one may use the python examples to create
 a training database. This is done with the following command: 
 \texttt{python main.py --learn categoryFolders --name CategoryName}. Python
@@ -198,7 +199,7 @@ them into a database. Run this step multiple times for as many folders of
 training data exist. This step creates a database file used for training the
 classifiers.
 
-\subsection{Creating a plk file}
+\subsubsection{Creating a plk file}
 Once the database has been build, one may build the persistent classifier. Once
 the classifier is trained it is stored in a binary format which allows it to
 be reloaded one demand. The following command will load all features from the
@@ -215,7 +216,7 @@ model for 3695 documents took 75 minutes (86.87\% accurate) and the Bayes
 model for 3695 documents took 3 minutes (82.54\% accurate). This took several
 tuning iterations before accuracy levels were sufficient. 
 
-\subsection{Security Concerns}
+\subsubsection{Security Concerns}
 It is critically important that the .plk file be stored in a secure place, or be
 cryptographically secured and verified prior to each load. The .plk file, if
 manipulated by a maleficent agent, can be used to subvert the trust system and

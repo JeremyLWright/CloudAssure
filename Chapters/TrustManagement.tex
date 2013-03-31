@@ -1,3 +1,4 @@
+\section{Trust Management}
 \label{sec:trust-management}
 A Trust is being able to depend on something or someone completely knowing that
 what you believe to be true is true. Trust has been interpreted as reputation,
@@ -9,7 +10,7 @@ and the trusts between the employees are minimal.  If there is no trust, then
 the organization is not up to its standard. Hence a trust has to be developed
 between the employees for the organization to be successful. 
 
-\section{Data Transmission based on Trust}
+\subsection{Data Transmission based on Trust}
 In this model we develop the trust between the nodes and the transmission of the
 data across various nodes is done by evaluation of a new value called “Trust
 value”. A “Security Agent” is an agent who has an access to view the trust
@@ -77,7 +78,7 @@ To compute the trust value, we took various factors in consideration. Few of the
 	The old trust value, every time the node interacts with its neighbors, its old trust value is updated.
 	The total number of documents shared by a particular node at a particular instance.
 
-    \section{Trust Value Equation}
+    \subsection{Trust Value Equation}
 Based on the above factors, CloudAssure uses a trust value equation to support decisions in the other phases of the framework. 
 
 
@@ -309,7 +310,7 @@ updated.}
         X &= Tr_{new} + \frac{\ln \frac{l}{L}}{10} \\
     \text{Where}~l &:= \text{Node's level} \\
     L &:= \text{Maximum Level}
-\end{aligned}
+    \end{aligned}
 \end{equation}
 The returned value is between 0 and 1 and is sent as an input to the planning phase.
 Table 1 where Maximum level = 10 which belongs to the top most employee or node.
@@ -317,7 +318,7 @@ Table 1 where Maximum level = 10 which belongs to the top most employee or node.
     \centering
     \begin{tabular}{c | c | c | c}
         \hline
-        Node ID	 & \( Tr{new} \) &	Level &	X
+        Node ID	 & \( Tr{new} \) &	Level &	X \\
 \hline \hline
 1 &	0.388 &	3	 & 0.26760272 \\
 2 &	0.188 &	10	 & 0.188 \\
@@ -338,7 +339,7 @@ From Table~\ref{tab:trust_planning}, it is clear that the returned value for
 two nodes, then the node, which is superior in level, has a slightly larger
 value for \( X \).
 
-\section{General References}
+\subsection{General References}
 The following references provided overall general information to this chapter:
 \autocite{JiminLi2010}, \autocite{Varadharajan2004},
 \autocite{Varadharajan2005}.

@@ -1,5 +1,5 @@
-\section{Planning Methodology}
-\newacronym{mdp}{MDP}{Markov Decision Process}
+\section{Planning}
+\subsection{Planning Methodology}
 \newacronym{pomdp}{POMDP}{Partially Observable Markov Decision Process}
 \newacronym{nomdp}{NOMDP}{Non-Observable Markov Decision Process}
 Our data transfer decision framework is designed to use intelligent planning
@@ -101,7 +101,7 @@ process. As an example, whether a user leaks an email by forwarding it, or
 copying the content into a new message and sending it, the system will catch
 the leak and modify trust values accordingly.
 
-\section{Results on Planning}
+\subsection{Results on Planning}
 We decided to implement our planning system with the
 simulated values because all the other modules namely classification and trust
 re-evaluation were being developed simultaneously, hence we were not able to
@@ -132,7 +132,7 @@ and priority sweeping to work effectively they need more accurate and stable
 heuristics, which is very difficult to achieve given the dynamic nature of our
 domain where the trust values are constantly re-evaluated and updated. 
 
-\section{Value Iteration}
+\subsection{Value Iteration}
 The value iteration mainly works by using a technique called dynamic
 programming. The algorithm constantly does a backward induction using a bellman
 equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. In the case of the
@@ -215,7 +215,7 @@ artificially high trust values surrounded by nodes with very low trust value
 then there is an attack possibility and the decision is made not to transfer the
 documents.
 
-\section{Policy Iteration}
+\subsection{Policy Iteration}
 
 The policy iteration works almost similar to value iteration but the difference
 mainly being that in policy iteration we start the algorithm with some random
@@ -279,7 +279,7 @@ help us make the correct decision.
 \end{figure}
 
 
-\section{Running time}
+\subsection{Running time}
 
 \begin{enumerate}
     \item Clearly from the example we can see that the Value Iteration takes
