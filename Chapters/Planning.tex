@@ -144,8 +144,8 @@ horizon.
 \begin{equation} 
     \label{eq:infinite_horizon}
     \begin{aligned}
-    V^0(s) = 0 \\
-    V^k(s) = T(s) + \beta \max_a \sum_S M(s,a,s') \cdot V^{k-1}(s')
+    V^0(s) &= 0 \\
+    V^k(s) &= T(s) + \beta \max_a \sum_S M(s,a,s') \cdot V^{k-1}(s')
     \end{aligned}
 \end{equation}
 
@@ -282,7 +282,7 @@ help us make the correct decision.
 \section{Running time}
 
 \begin{enumerate}
-    \item Clearly from the above example we can see that the Value Iteration takes
+    \item Clearly from the example we can see that the Value Iteration takes
 more resources and running time compared to others. This is because of the fact
 that there is no policy in the beginning. So the value iteration frames policies
 as it proceeds. And of course the running time of the value iterations largely

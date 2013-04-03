@@ -1,1 +1,152 @@
+\section{Current State of the Art}
+The three-factor approach that CloudAssure uses to prevent unauthorized data
+transmission relies on its three elements (Classification, Trust Evaluation, and
+Modeling) to all integrate seamlessly and function as a united service providing
+a defense in depth strategy. As mentioned in the introduction, the problem that
+CloudAssure hopes to solve is that modern solutions are often privatized,
+expensive, niche, or domain specific. CloudAssure takes a general approach,
+which once trained on a specific organization's data, can be integrated into any
+organizational system.  
+
+There is no doubt that the current state-of-the-art
+solutions in managing unauthorized data transmission and preventing data loss
+are in the private commercial sector. Heavy hitters such as Cisco systems \autocite{Cisco2008},
+Symantec \autocite{Symantec2013}, and McAfee \autocite{McAfee2013} all provide a wide range of
+software/hardware/consulting tools and services to provide the required security
+to their customers. To an organization that can afford the cost, which is
+relatively prohibitive to smaller businesses (especially since data security is
+an often undervalued aspect), an enterprise solution provides a strong
+defense-in-depth data security solution. However, this approach has benefits and
+drawbacks.  
+
+The biggest benefit of current enterprise solutions is of
+course their comprehensiveness. Symantec's \gls{DLP} suite of
+products includes: \gls{DLP} for Mobile, \gls{DLP} for Network, \gls{DLP} for endpoint (client and
+server), \gls{DLP} for storage, and a \gls{DLP} Enforcement server. These solutions are all
+proprietary, utilize dedicated hardware and software. Additionally, this
+solutions only provides niche
+security unless the entire product suite is purchased, including Symantec's
+specialists to configure, monitor, train, and provide support \autocite{Symantec2013}.
+
+Both McAfee and Cisco provide solutions very similar to that of Symantec. McAfee's
+\gls{DLP} product suite includes a \gls{DLP} Manager, \gls{DLP} Discover,
+\gls{DLP} Monitor, \gls{DLP}
+Prevent all as an integrated hardware/software, and \gls{DLP} Endpoint and Device Control
+software \autocite{McAfee2013}. Cisco's product list includes IronPort Email Security Appliance,
+IronPort Web Security Appliance, Loss Prevention Services, Security Agent, and
+IronPort Data Loss Prevention which again are either integrated proprietary
+hardware/software solutions, or a direct software product \autocite{Cisco2008}. Both companies
+encourage potential customers to purchase the full suite of products in addition
+to requiring their specialists be involved in the process.  
+
+Obviously the cost
+of an enterprise solution must be taken into consideration. Enterprise solutions
+have built-in costs of specialized hardware, system configuration and
+maintenance considerations. Lastly, do to the integrated nature of these systems possible modifications to 
+\emph{organizational infrastructure}, not to mention additional personnel costs.
+
+\section{Open-Source Offerings}
+On the other end of
+the spectrum are open-source software and tools. Snort \autocite{Parker2013} and
+Suricata \autocite{Jonkman2013}
+are open source traffic monitoring solutions that can be used as an intrusion
+detection system, and to classify network traffic. OpenDLP \autocite{Gavin2012} is an open
+source tool designed to classify data. Academic software such as Cornell
+University's Spider \autocite{Cornell2013} could also be used to identify confidential data in
+files. Because this software is free and/or open source however, it brings with
+it inherent risks.  
+
+A research report done by Christopher Hoke for the SANS
+institute attempted to build a comprehensive defense-in-depth solution for
+managing \gls{DLP} \autocite{Hoke2012}.  Hoke's approach was to build and configure a virtual
+machine that could essentially run on-top of an organization's network and
+utilize a combined suite of open-source or free tools to emulate the defense
+strategies used by the enterprise solutions. The results, while promising, still
+leave much to be desired.  
+
+Hoke notes himself however, that while his solution
+works and is feasible, there are drawbacks. Hoke's solution was unable to handle
+any form of encrypted data traffic. Also, his system was unable to monitor
+application to host communication. Due to the nature of the system, this type of
+solution also requires a non-insignificant time and knowledge investiture for
+proper setup, utilization, and effectiveness.  
+
+In between Enterprise and
+Open-Source lie products such as MyDLP \autocite{MyDLP2013}. MyDLP is provided as an open
+source, licensed all-in-one product. MyDLP is designed to run on a single
+server, and provide modular security. Some included modules include MyDLP
+Network for network monitoring, MyDLP Endpoint for inspecting user operations,
+and MyDLP Web UI for managing the system. The obvious benefit of solutions such
+as MyDLP is their extensibility to specific domains if the IT Personnel wish to
+make their own modifications.  
+
+It follows that there is a need for such a data management framework. 
+The CloudAssure framework attempts to leverage the benefits of these approaches
+while minimizing vendor lock-in. It does not require proprietary hardware such as the enterprise
+approaches, and the hardware services it does use and/or require can be easily
+configured to run on existing infrastructure. Likewise, the setup of the three stages of
+classification, trust evaluation, and modeling are accessible enough to be able
+to be done in house by IT personnel and System Administrators. If the
+CloudAssure framework is made open-sourced, then this provides the extensibility
+and benefits (and risks) inherent in that model. 
+
+\subsection{Comparison}
+\begin{enumerate}
+    \item Advantages (Claims)
+        \begin{enumerate}
+            \item Makes informed decisions based on well derived heuristics          	
+            \item Not depend on static policies to make decisions
+            \item Heuristics are derived dynamically through trust reevaluation and classification
+            \item Easy enforcement
+            \item Easy adaptation to any organizational environment
+            \item Doesn’t require proprietary or predator vendor lockin.
+            \item 
+        \end{enumerate}
+    \item Disadvantages
+        \begin{enumerate}
+            \item Might be computationally expensive
+            \item Might be difficult to scale up beyond certain limit
+            \item Might not work if organization does not have a hierarchical set up
+            \item System needs to be trained by expert before it becomes efficient
+            \item Might not work if we assume system compromise or ``trusted
+                employee'' attack.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{Recommendations}
+\begin{enumerate}
+    \item Classification
+        \begin{enumerate}
+            \item 	Weakness – requires an expert and a great deal of time to train the system.
+            \item 	Weakness – requires a large repository of classified data to implement the system.
+            \item 	Weakness – Provided algorithms may not be sufficient to classify the needs of a specific organization.
+        \end{enumerate}
+    \item 	Trust Evaluation
+        \begin{enumerate}
+            \item 	Strength – Deterministic Trust value
+            \item 	Weakness – Trust evaluation is tailored to our specific system
+            \item 	Frequent trust evaluation is computationally expensive
+            \item 	Recommendation – Reduce the cost of reevaluating the trust metric
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{Future Work}
+\begin{enumerate}
+\item Trust Evaluation
+    \begin{enumerate}
+        \item Document Similarity. The \( \%Doc \) parameter in the trust equation comes from a yet implemented module.
+        \item Informed Randomized Scheduling of Trust Reevaluation to reduce the computation cost.
+        \item Example: Reevaluating at a low server load period
+        \item Split algorithm into a computationally inexpensive value for real-time calculations, and a heavy duty computation computed at a scheduled point. 
+    \end{enumerate}
+\item Planning
+    \begin{enumerate}
+        \item Use POMDP because current planning algorithm is not tolerant of uncertainty. 
+        \item Try to convert stochastic actions to deterministic actions and do FF-Replan, which can improve performance in decision making.
+    \end{enumerate}
+    \item Classification
+        \begin{enumerate}
+            \item Deeper analysis of Neural Nets for classification as it provides a non-linear solution.
+        \end{enumerate}
+\end{enumerate}
 

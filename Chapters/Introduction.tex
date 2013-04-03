@@ -1,110 +1,116 @@
 \newacronym{DLP}{DLP}{Data Leak Protection}
-%TODO Add the High Level System overview to this section.
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c | c | c}
+        \hline 
+        Node ID & Trust Value & \(\Delta_{list}\) \\
+        \hline \hline
+        1 & 0.45 & \(\Delta_{value_1}\) \\
+        2 & 0.55 & \(\Delta_{value_2}\) \\
+        3 & 0.65 & \(\Delta_{value_3}\) \\
+    \end{tabular}
+    \caption{Test Sample for Trust Value Calculation}
+    \label{tab:trust_value_calculation}
+\end{table}
+\begin{table}[h!]
+    \centering
+    \begin{tabluar}{c | c | c | c}
+        \hline
+        Milestone	   &     Date	   &  Description   & Person \\
+        \hline \hline
+                       &     2/6/2013  &    Project Proposal Approved   &   \\
+        Task 1 Complete&     2/14/2013 &	System Goals Decided   &   \\
+                       &     2/18/2013 &	High-Level System Structure Initial Design Complete   &   \\
+        Task 2 Complete&     2/21/2013 &	High-Level System Structure decided   &   \\
+        Task 4 Complete&     2/26/2013 &	Planning Stage finalized   &   \\
+        Task 3 Complete&     2/28/2013 &	Classification Stage finalized   &   \\
+        Task 2 Complete&     2/28/2013 &	Trust Evaluation Stage finalized   &   \\
+                       &     3/5/2013  &	Interim Progress Report Submitted   &   \\
+                       &     4/1/2013  &    System refinement and finalization phase   &   \\
+                       &     4/4/2013  &	Final Group Report Submitted   &   \\
+                       &     4/9/2013  &	Class Presentation Slides Submitted   &   \\
+                       &     4/9/2013  &	In Class Presentation   &   \\
+    \end{tabular}
+\end{table}
+
+
+
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=0.90\textwidth]{Figures/HighLevelOverview.PNG}
+        \caption{System Overview}
+        \label{fig:SystemOverview}
+    \end{center}
+\end{figure}
+
 \section{Background and Motivation}
-A 2008 study commissioned by Cisco Systems of more than 2000 IT professionals in 10 countries revealed some startling statistics [1]. Of these professionals, 39% were more concerned about threats from their own employees, than from malicious attackers outside of the company. The reason for this concern? Almost half of the professionals questioned reported that in addition to employees dealing with more information than ever before, and at a quicker pace, they are also not receiving the proper education in data security awareness. What this all adds up to is a shocking statistic: 11% of the professionals reported that either they or an employee they knew of, accessed unauthorized information and sold it for profit. That is 1 out of every 10 employees. In a world where a source code file, design document, or other digital file worth millions can be leaked via email, USB drive, internet, etc., this creates a huge problem.
-According to a May 2009 US federal government report, between 2008 and 2009 American business losses due to cyber-attacks have grown to more than $1 trillion worth of intellectual property[1]. The impact of unauthorized data transmission can also go beyond monetary damages. For example, the HBGary scandal resulted in the imprisonment of several formerly successfully security professionals [2]. Thus a comprehensive data transfer mechanism is required to mitigate the impact of unauthorized data transmission in cloud-based systems.
-The problem of data leakage has yet to find a catch-all solution. Everyday millions of bits of data are transferred between users and computers in organizations both large and small [4]. Who is monitoring these transmissions? Obviously, from large sums of money, to intellectual property, to even jail time, the consequences of unauthorized data transmission are massive. Software such as firewalls, policy checkers, virus scanners and others attempt to help prevent this unauthorized transmission, but the software is often niche, focused on one specific task, and proprietary. What if there was a system that could be integrated into an organization, trained specifically to deal with a company’s data, and provide security over the entire network. This is where our framework: ‘CloudAssure’ comes into the picture. 
+A 2008 study commissioned by Cisco Systems of more than 2000 IT professionals in
+10 countries revealed some startling statistics \autocite{Cisco2008}. Of these professionals,
+39\% were more concerned about threats from their own employees, than from
+malicious attackers outside of the company. The reason for this concern?
+Almost half of the professionals questioned reported that in addition to
+employees dealing with more information than ever before, and at a quicker
+pace, they are also not receiving the proper education in data security
+awareness. What this all adds up to is a shocking statistic: 11\% of the
+professionals reported that either they or an employee they knew of, accessed
+unauthorized information and sold it for profit. That is 1 out of every 10
+employees. In a world where a source code file, design document, or other
+digital file worth millions can be leaked via email, USB drive, internet,
+etc., this creates a huge problem.  According to a May 2009 US federal
+government report, between 2008 and 2009 American business losses due to
+cyber-attacks have grown to more than \$1 trillion worth of intellectual
+property \autocite{Cisco2008}. The impact of unauthorized data transmission can also go beyond
+monetary damages. For example, the HBGary scandal resulted in the
+imprisonment of several formerly successfully security professionals
+\autocite{JiminLi2010}.
+Thus a comprehensive data transfer mechanism is required to mitigate the
+impact of unauthorized data transmission in cloud-based systems.
 
-Goals and scope of study of this project
-The objective of this project is to develop a data transfer decision framework that makes informed decisions on data transmission among nodes (users) in a cloud-based system, a two part process is used; dynamic trust evaluation of nodes, and classification of data sensitivity. The goals that we plan to meet in our project in order to work toward achieving the aforementioned objective are as follows:
-•	Development of an effective framework to address unauthorized data transmission through security agents which enact and enforce data transmission decisions in order to prevent and/or mitigate unauthorized data transmission in cloud-based systems.
-•	Development of a planning model using a Markov Decision Process (MDP) to make a decision on whether to transmit data or not.
-•	Development of a standardized classification algorithm to aid security agents running the MDP’s in making data transmission decisions among nodes by assessing the sensitivity of the data to be transferred in cloud environments. 
-•	Development of a Trust Evaluation Equation to aid the planning methodology in making a transmission decision.
-The scope of this project is the generation of a theoretical model to make decisions based on dynamic trust values obtained from continuous node evaluation and the sensitivity of data obtained from the data classification stage. If possible, we would like to develop a practical implementation of our proposed classification algorithm. The following are the assumptions we make:
-•	We assume that the system periphery is adequately protected (no outsider attacks)
-•	There is an organizational structure (hierarchy) within the workforce.
-•	One time critical data leak prevention is not within our threat model.
-•	We assume the user identity/system is not compromised by a malicious actor.
+The problem of data leakage has yet to find a catch-all solution. Everyday
+millions of bits of data are transferred between users and computers in
+organizations both large and small \autocite{Bright2012}. Who is monitoring these transmissions?
+Obviously, from large sums of money, to intellectual property, to even jail
+time, the consequences of unauthorized data transmission are massive. Software
+such as firewalls, policy checkers, virus scanners and others attempt to help
+prevent this unauthorized transmission, but the software is often niche, focused
+on one specific task, and proprietary. What if there was a system that could be
+integrated into an organization, trained specifically to deal with a company’s
+data, and provide security over the entire network. This is where our framework:
+``CloudAssure'' comes into the picture. 
 
-\section{Current State of the Art}
-The three-factor approach that CloudAssure uses to prevent unauthorized data
-transmission relies on its three elements (Classification, Trust Evaluation, and
-Modeling) to all integrate seamlessly and function as a united service providing
-a defense in depth strategy. As mentioned in the introduction, the problem that
-CloudAssure hopes to solve is that modern solutions are often privatized,
-expensive, niche, or domain specific. CloudAssure takes a general approach,
-which once trained on a specific organization's data, can be integrated into any
-organizational system.  
-
-There is no doubt that the current state-of-the-art
-solutions in managing unauthorized data transmission and preventing data loss
-are in the private commercial sector. Heavy hitters such as Cisco systems \autocite{Cisco2008},
-Symantec \autocite{Symantec2013}, and McAfee \autocite{McAfee2013} all provide a wide range of
-software/hardware/consulting tools and services to provide the required security
-to their customers. To an organization that can afford the cost, which is
-relatively prohibitive to smaller businesses (especially since data security is
-an often undervalued aspect), an enterprise solution provides a strong
-defense-in-depth data security solution. However, this approach has benefits and
-drawbacks.  
-
-The biggest benefit of current enterprise solutions is of
-course their comprehensiveness. Symantec's \gls{DLP} suite of
-products includes: \gls{DLP} for Mobile, \gls{DLP} for Network, \gls{DLP} for endpoint (client and
-server), \gls{DLP} for storage, and a \gls{DLP} Enforcement server. These solutions are all
-proprietary, utilize dedicated hardware and software. Additionally, this
-solutions only provides niche
-security unless the entire product suite is purchased, including Symantec's
-specialists to configure, monitor, train, and provide support \autocite{Symantec2013}.
-
-Both McAfee and Cisco provide solutions very similar to that of Symantec. McAfee's
-\gls{DLP} product suite includes a \gls{DLP} Manager, \gls{DLP} Discover,
-\gls{DLP} Monitor, \gls{DLP}
-Prevent all as an integrated hardware/software, and \gls{DLP} Endpoint and Device Control
-software \autocite{McAfee2013}. Cisco's product list includes IronPort Email Security Appliance,
-IronPort Web Security Appliance, Loss Prevention Services, Security Agent, and
-IronPort Data Loss Prevention which again are either integrated proprietary
-hardware/software solutions, or a direct software product \autocite{Cisco2008}. Both companies
-encourage potential customers to purchase the full suite of products in addition
-to requiring their specialists be involved in the process.  
-
-Obviously the cost
-of an enterprise solution must be taken into consideration. Enterprise solutions
-have built-in costs of specialized hardware, system configuration and
-maintenance considerations. Lastly, do to the integrated nature of these systems possible modifications to 
-\emph{organizational infrastructure}, not to mention additional personnel costs.
-
-\section{Open-Source Offerings}
-On the other end of
-the spectrum are open-source software and tools. Snort \autocite{Parker2013} and
-Suricata \autocite{Jonkman2013}
-are open source traffic monitoring solutions that can be used as an intrusion
-detection system, and to classify network traffic. OpenDLP \autocite{Gavin2012} is an open
-source tool designed to classify data. Academic software such as Cornell
-University's Spider \autocite{Cornell2013} could also be used to identify confidential data in
-files. Because this software is free and/or open source however, it brings with
-it inherent risks.  
-
-A research report done by Christopher Hoke for the SANS
-institute attempted to build a comprehensive defense-in-depth solution for
-managing \gls{DLP} \autocite{Hoke2012}.  Hoke's approach was to build and configure a virtual
-machine that could essentially run on-top of an organization's network and
-utilize a combined suite of open-source or free tools to emulate the defense
-strategies used by the enterprise solutions. The results, while promising, still
-leave much to be desired.  
-
-Hoke notes himself however, that while his solution
-works and is feasible, there are drawbacks. Hoke's solution was unable to handle
-any form of encrypted data traffic. Also, his system was unable to monitor
-application to host communication. Due to the nature of the system, this type of
-solution also requires a non-insignificant time and knowledge investiture for
-proper setup, utilization, and effectiveness.  
-
-In between Enterprise and
-Open-Source lie products such as MyDLP \autocite{MyDLP2013}. MyDLP is provided as an open
-source, licensed all-in-one product. MyDLP is designed to run on a single
-server, and provide modular security. Some included modules include MyDLP
-Network for network monitoring, MyDLP Endpoint for inspecting user operations,
-and MyDLP Web UI for managing the system. The obvious benefit of solutions such
-as MyDLP is their extensibility to specific domains if the IT Personnel wish to
-make their own modifications.  
-
-The CloudAssure framework sits in between these
-two approaches. It does not require proprietary hardware such as the enterprise
-approaches, and the hardware services it does use and/or require can be easily
-configured to run on existing infrastructure. Likewise, the setup of the three stages of
-classification, trust evaluation, and modeling are accessible enough to be able
-to be done in house by IT personnel and System Administrators. If the
-CloudAssure framework is made open-sourced, then this provides the extensibility
-and benefits (and risks) inherent in that model. 
+\subsection{Goals and Scope of Study of CloudAssure}
+The objective of this project is to develop a data transfer decision framework
+that makes informed decisions on data transmission among nodes (users) in
+a cloud-based system, a two part process is used; dynamic trust evaluation of
+nodes, and classification of data sensitivity. The goals that we plan to meet in
+our project in order to work toward achieving the aforementioned objective are
+as follows: 
+\begin{enumerate}
+    \item Development of an effective framework to address unauthorized
+        data transmission through security agents which enact and enforce data
+        transmission decisions in order to prevent and/or mitigate unauthorized data
+        transmission in cloud-based systems.
+    \item Development of a planning model using a \gls{mdp} to make a decision on whether to transmit data or not.
+    \item Development of a standardized classification algorithm to aid security
+        agents running the \gls{mdp} in making data transmission decisions among nodes
+        by assessing the sensitivity of the data to be transferred in cloud
+        environments.  
+    \item Development of a Trust Evaluation Equation to aid the
+    planning
+        methodology in making a transmission decision.  The scope of this
+        project is the generation of a theoretical model to make decisions based
+        on dynamic trust values obtained from continuous node evaluation and the
+        sensitivity of data obtained from the data classification stage. If
+        possible, we would like to develop a practical implementation of our
+        proposed classification algorithm. We assume the following:
+        \begin{enumerate}
+            \item We assume that the system periphery is adequately protected (no outsider attacks)
+            \item There is an organizational structure (hierarchy) within the workforce.
+            \item One time critical data leak prevention is not within our threat model.
+            \item We assume the user identity/system is not compromised by a malicious actor.
+        \end{enumerate}
+\end{enumerate}
 

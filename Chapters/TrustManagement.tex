@@ -302,7 +302,42 @@ updated.}
 \label{tab:trust_evaulation}
 \end{table}
 \section{Trust Interface to Planning}
-%TODO Add trust2plan.docx here, removed the diagram.
+\( X \) is a value calculated using the level obtained through classification and the evaluated trust value of a node.
+\begin{equation}
+    \label{eq:trust_planning_interface}
+    \begin{aligned}
+        X &= Tr_{new} + \frac{\ln \frac{l}{L}}{10} \\
+    \text{Where}~l &:= \text{Node's level} \\
+    L &:= \text{Maximum Level}
+\end{aligned}
+\end{equation}
+The returned value is between 0 and 1 and is sent as an input to the planning phase.
+Table 1 where Maximum level = 10 which belongs to the top most employee or node.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c | c | c | c}
+        \hline
+        Node ID	 & \( Tr{new} \) &	Level &	X
+\hline \hline
+1 &	0.388 &	3	 & 0.26760272 \\
+2 &	0.188 &	10	 & 0.188 \\
+3 &	0.566 &	2	 & 0.405056209 \\
+4 &	0.353 &	2	 & 0.192056209 \\
+5 &	0.99  &   1	 & 0.759741491 \\
+6 &	0.99  &   10 & 	0.99 \\
+7 &	0.01  &   10 & 	0.01 \\
+8 &	0.5	  &   1	 & 0.269741491 \\
+9 &	0.3	  &   2	 & 0.139056209 \\
+\end{tabular}
+\caption{Test values for Equation~\ref{eq:trust_planning_interface}}
+\label{tab:trust_planning}
+\end{table}
+
+From Table~\ref{tab:trust_planning}, it is clear that the returned value for
+\( X \) is higher for the more trustworthy nodes. Also, if the trust value is same for
+two nodes, then the node, which is superior in level, has a slightly larger
+value for \( X \).
+
 \section{General References}
 The following references provided overall general information to this chapter:
 \autocite{JiminLi2010}, \autocite{Varadharajan2004},
