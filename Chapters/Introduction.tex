@@ -1,4 +1,22 @@
 \newacronym{DLP}{DLP}{Data Leak Protection}
+%TODO Add the High Level System overview to this section.
+\section{Background and Motivation}
+A 2008 study commissioned by Cisco Systems of more than 2000 IT professionals in 10 countries revealed some startling statistics [1]. Of these professionals, 39% were more concerned about threats from their own employees, than from malicious attackers outside of the company. The reason for this concern? Almost half of the professionals questioned reported that in addition to employees dealing with more information than ever before, and at a quicker pace, they are also not receiving the proper education in data security awareness. What this all adds up to is a shocking statistic: 11% of the professionals reported that either they or an employee they knew of, accessed unauthorized information and sold it for profit. That is 1 out of every 10 employees. In a world where a source code file, design document, or other digital file worth millions can be leaked via email, USB drive, internet, etc., this creates a huge problem.
+According to a May 2009 US federal government report, between 2008 and 2009 American business losses due to cyber-attacks have grown to more than $1 trillion worth of intellectual property[1]. The impact of unauthorized data transmission can also go beyond monetary damages. For example, the HBGary scandal resulted in the imprisonment of several formerly successfully security professionals [2]. Thus a comprehensive data transfer mechanism is required to mitigate the impact of unauthorized data transmission in cloud-based systems.
+The problem of data leakage has yet to find a catch-all solution. Everyday millions of bits of data are transferred between users and computers in organizations both large and small [4]. Who is monitoring these transmissions? Obviously, from large sums of money, to intellectual property, to even jail time, the consequences of unauthorized data transmission are massive. Software such as firewalls, policy checkers, virus scanners and others attempt to help prevent this unauthorized transmission, but the software is often niche, focused on one specific task, and proprietary. What if there was a system that could be integrated into an organization, trained specifically to deal with a company’s data, and provide security over the entire network. This is where our framework: ‘CloudAssure’ comes into the picture. 
+
+Goals and scope of study of this project
+The objective of this project is to develop a data transfer decision framework that makes informed decisions on data transmission among nodes (users) in a cloud-based system, a two part process is used; dynamic trust evaluation of nodes, and classification of data sensitivity. The goals that we plan to meet in our project in order to work toward achieving the aforementioned objective are as follows:
+•	Development of an effective framework to address unauthorized data transmission through security agents which enact and enforce data transmission decisions in order to prevent and/or mitigate unauthorized data transmission in cloud-based systems.
+•	Development of a planning model using a Markov Decision Process (MDP) to make a decision on whether to transmit data or not.
+•	Development of a standardized classification algorithm to aid security agents running the MDP’s in making data transmission decisions among nodes by assessing the sensitivity of the data to be transferred in cloud environments. 
+•	Development of a Trust Evaluation Equation to aid the planning methodology in making a transmission decision.
+The scope of this project is the generation of a theoretical model to make decisions based on dynamic trust values obtained from continuous node evaluation and the sensitivity of data obtained from the data classification stage. If possible, we would like to develop a practical implementation of our proposed classification algorithm. The following are the assumptions we make:
+•	We assume that the system periphery is adequately protected (no outsider attacks)
+•	There is an organizational structure (hierarchy) within the workforce.
+•	One time critical data leak prevention is not within our threat model.
+•	We assume the user identity/system is not compromised by a malicious actor.
+
 \section{Current State of the Art}
 The three-factor approach that CloudAssure uses to prevent unauthorized data
 transmission relies on its three elements (Classification, Trust Evaluation, and
