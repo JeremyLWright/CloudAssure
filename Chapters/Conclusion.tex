@@ -114,39 +114,161 @@ and benefits (and risks) inherent in that model.
 \end{enumerate}
 
 \section{Recommendations}
-\begin{enumerate}
-    \item Classification
-        \begin{enumerate}
-            \item 	Weakness – requires an expert and a great deal of time to train the system.
-            \item 	Weakness – requires a large repository of classified data to implement the system.
-            \item 	Weakness – Provided algorithms may not be sufficient to classify the needs of a specific organization.
-        \end{enumerate}
-    \item 	Trust Evaluation
-        \begin{enumerate}
-            \item 	Strength – Deterministic Trust value
-            \item 	Weakness – Trust evaluation is tailored to our specific system
-            \item 	Frequent trust evaluation is computationally expensive
-            \item 	Recommendation – Reduce the cost of reevaluating the trust metric
-        \end{enumerate}
-\end{enumerate}
+\subsection{Classification}
+Classification techniques vary among their underlying models, predictive goals,
+but one fact remains that classification, as much of machine learning, is
+a process reversal. The topic of classifications didn't really clarify until
+I read this statement: Machine Learning, at its core reverses a human process.
+The reasons to why one would need to do this vary according to application, but
+this elegant definition really solidified my footing within the subject. 
+
+With respect to CloudAssure our goal is clear, ``protect important
+information''. As terse a thesis as this, the process is difficult. What is
+important? How important? Is important a binary property or are there varying
+levels? Does all data need to be protected or just some of it? There questions
+cannot all be resolved algorithmically, some are more human questions than
+pragmatic ones; However among these, there are questions we can address.
+
+CloudAssure comes with two built in classification algorithms. The Classifier is
+build against a Python class interface, thus one could extend CloudAssure with
+their own implementation, however our results are based on simply these. At
+a high-level I imagine decision trees as a graphic model and Bayesian as
+a numerical model. While both models are mathematically designed, this helps
+reason at a conceptual level. The Decision Tree, for our data set, required more
+memory, and more time to build a classification model, while the Bayesian was
+must cheaper, computationally. However, while both classify a document
+quickly, the decision tree is 4\% more accurate. Within our specific
+implementation the Decision Tree is the classifier to use.
+
+There exist very powerful tools such as Orange which permit ``exploratory'' data
+analysis. As one explores a dataset with the intent of classifying, or extracting some
+other underlying pattern the dataset needs to be transformed, and visualizing is
+key interface between our strong human skills, and the computer's strong
+numerical skills. Exploratory data analysis tools allow one to display data as
+a graph of connected nodes. One can group and ungroup data according to some
+property. The computer complies with each of the numerical requests, while we
+the data designer watches the data transform. Furthermore, there is a great deal
+of researching in how to visualize data to maximize our ability to cull
+information from it. This is the purpose of machine learning and by extension
+classification: to advance the human intellect through data. Data which
+increases in quality by the minute. As a race we generate more data today than
+we ever have before. The data is useless unless we can extract and learn from
+it. Much like how history is the best teacher, we have cataloged, indexed and
+searchable history. More accurate, and more available than ever before, yet with
+the sheer volume comes its own challenges, and data analysis researchers are
+leading the charge to this lofty challenge. The greatest recommendation within
+Classification is to study your data, and evaluate a number of feature
+techniques to determine the greatest value for your implementations. 
+
+With respect to implementation, Python has been a very strong tool. Its
+performance is further enhanced with high performance libraries, such and NumPy
+and SciPy. Furthermore, many open-source packages such as NLTK provide intuitive
+interfaces to these extremely high performance, FORTRAN optimized libraries.
+Python is a strong candidate for implementation of CloudAssure Modules. After
+the initial test phases, if an organization finds Python's performance lacking,
+python permits a low cost (computational cost), interface to C. Critical modules
+can be ported to C to increase performance several fold. 
+
+These recommendations however demonstrate CloudAssures weaknesses within the
+classification modules. Exploratory data analysis is required to extract the
+best features from the data, but this analysis requires a machine learning
+expert to do well. This hurdle must be overcome before CloudAssure can achieve
+mass adoption. Lastly, to begin, an organization must already have a large
+repository of classified data. If an organization is new, it may not have this
+yet, or if the training data is insufficiently small, CloudAssure will offer
+little protection. 
+
+\subsection{Trust Evaluation}
+Trust is a powerful technique to ensure that the transmission of data among
+organizations¿ employees is safe and secure. In this project, the transmission
+of the data among the nodes is monitored by security agents. The input of trust
+model are based on \emph{classification} of the data, the \emph{Similarity} (\(
+\%Doc \))of the data meaning how much percentage of the data has been copied or
+used in another document, the \emph{old trust value} (\(Tr_{old}\)). Every time the node interacts
+with its neighbors, its old trust value is updated and the total number of
+documents shared by a particular node at a particular instance. CloudAssure has
+introduced and analyzed a simple, yet robust \emph{trust value equation} that support
+decisions in the other phases of the framework. The output is a value between
+0 and 1. We also reported a set of initial experimental results, demonstrating
+the feasibility, effectiveness, and benefits of our trust equation .The output
+result we be sent to the planning phase.
+
+\subsubsection{Advantages (Claims)}
+The Trust value equation in the Trust Management system is very useful and
+ensures the transmission of data among the nodes. The High secured data is
+maintained and avoids data leakage to the node which has a very low trust value
+or a node which is not trusted. The Security agents play a vital role by
+monitoring the data flow between the nodes of same level. Becoming aware of the
+trust value, the node will be very cautious before sending the data to the other
+node. All the document details are maintained separately for the trust value
+calculation thus preserving the data for future use.
+
+\subsubsection{Disadvantages}
+Though the trust value equation is very helpful in making decisions, the
+computation of trust value is expensive. This is confined to a specific model
+having the similar setup as above. If the organization has different setup then
+this equation will not work. This might not work if we assume system compromise
+or ``trusted employee'' attack happens.
+
+\subsubsection{Recommendations}
+We need to strengthen the trust value for the system to be efficient. As our
+trust evaluation is confined to our specific system, a general trust equation
+has to be developed so that all the organizations can use and prevent the data
+leakage. Also, in our process we calculate the trust values very frequently
+which will lead to costly process. We need to come up with a new computation
+process to minimize the cost of reevaluating the trust metric.
+
+%\begin{enumerate}
+%    \item Classification
+%        \begin{enumerate}
+%            \item 	Weakness – requires an expert and a great deal of time to train the system.
+%            \item 	Weakness – requires a large repository of classified data to implement the system.
+%            \item 	Weakness – Provided algorithms may not be sufficient to classify the needs of a specific organization.
+%        \end{enumerate}
+%    \item 	Trust Evaluation
+%        \begin{enumerate}
+%            \item 	Strength – Deterministic Trust value
+%            \item 	Weakness – Trust evaluation is tailored to our specific system
+%            \item 	Frequent trust evaluation is computationally expensive
+%            \item 	Recommendation – Reduce the cost of reevaluating the trust metric
+%        \end{enumerate}
+%\end{enumerate}
 
 \section{Future Work}
+\subsection{Classification}
+Within the classification modules of CloudAssure, we only implemented linear
+techniques. This is a marked gap in our survey. Non-linear techniques such as
+Neural nets, offer an extremely advanced classification properties dues directly
+to their non-linearity. We choose to skip these in order to tune the linear
+techniques, but the linear techniques reviewed are insufficient to my strong
+claims about the generality of CloudAssure's classification effectively. 
+
+\subsection{Trust Evaluation}
+In the future, the Document similarity i.e. the \( \%Doc \) parameter in the
+trust equation has to be implemented separately. The module will determine the
+amount of data of a document that has been used in another document. For
+reducing the computation cost of trust value calculation, an Informed randomized
+scheduling process needs to be done. The scheduling shall include the
+re-evaluating the trust values at a low server load period. Also, A Split
+algorithm into a computationally inexpensive value for real-time calculations
+and a heavy duty computation computed at a scheduled point.  
+
 \begin{enumerate}
-\item Trust Evaluation
-    \begin{enumerate}
-        \item Document Similarity. The \( \%Doc \) parameter in the trust equation comes from a yet implemented module.
-        \item Informed Randomized Scheduling of Trust Reevaluation to reduce the computation cost.
-        \item Example: Reevaluating at a low server load period
-        \item Split algorithm into a computationally inexpensive value for real-time calculations, and a heavy duty computation computed at a scheduled point. 
-    \end{enumerate}
+%\item Trust Evaluation
+%    \begin{enumerate}
+%        \item Document Similarity. The \( \%Doc \) parameter in the trust equation comes from a yet implemented module.
+%        \item Informed Randomized Scheduling of Trust Reevaluation to reduce the computation cost.
+%        \item Example: Reevaluating at a low server load period
+%        \item Split algorithm into a computationally inexpensive value for real-time calculations, and a heavy duty computation computed at a scheduled point. 
+%    \end{enumerate}
 \item Planning
     \begin{enumerate}
         \item Use POMDP because current planning algorithm is not tolerant of uncertainty. 
         \item Try to convert stochastic actions to deterministic actions and do FF-Replan, which can improve performance in decision making.
     \end{enumerate}
-    \item Classification
-        \begin{enumerate}
-            \item Deeper analysis of Neural Nets for classification as it provides a non-linear solution.
-        \end{enumerate}
+    %\item Classification
+    %    \begin{enumerate}
+    %        \item Deeper analysis of Neural Nets for classification as it provides a non-linear solution.
+    %    \end{enumerate}
 \end{enumerate}
 

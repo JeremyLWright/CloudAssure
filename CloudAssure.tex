@@ -8,6 +8,7 @@
 \usepackage{algorithm}
 \usepackage{csquotes}
 \usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage{placeins}
 \usepackage{blindtext}
 \usepackage{algpseudocode}
 \usepackage{setspace}
@@ -51,14 +52,22 @@ Metrics}
 
 \newacronym{mdp}{MDP}{Markov Decision Process}
 \chapter{Introduction}
+\FloatBarrier
 \input{Chapters/Introduction}
+\FloatBarrier
 
 \chapter{Results}
+\FloatBarrier
 \input{Chapters/Planning}
+\FloatBarrier
 \input{Chapters/Classification}
+\FloatBarrier
 \input{Chapters/TrustManagement}
+\FloatBarrier
 \chapter{Conclusion}
+\FloatBarrier
 \input{Chapters/Conclusion}
+\FloatBarrier
 
 \clearpage
 \addcontentsline{toc}{chapter}{Bibliography}

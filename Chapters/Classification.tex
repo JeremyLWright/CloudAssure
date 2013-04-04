@@ -16,7 +16,8 @@ finally implemented in CloudAssure
 Machine Learning can be described as a mathematical model which reverses a human
 process \autocite{Bishop2009}. In the area of classification this is
 a straightforward description. For example, a given document is composed of words which
-intend to persuade or inform the reader. Thus, the documents words are related
+intend to persuade or inform the reader (See
+Figure~\ref{fig:LDA_Generative_Model}) Thus, the documents words are related
 by some list of topics \autocite{Blei2009}. \gls{LDA} supposes that documents are
 written in the following fashion:
 \begin{enumerate}
@@ -31,6 +32,14 @@ written in the following fashion:
         length.
     \item Once the document is complete, the author destroys the topic lists.
 \end{enumerate}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=0.90\textwidth]{Figures/LDA_Generation.png}
+        \caption{Example of the LDA Generative Document Model}
+        \label{fig:LDA_Generative_Model}
+    \end{center}
+\end{figure}
 %TODO Insert the pretty colored document picture here.
 Now given any document, what are the topics contained in it? The original topic
 lists were destroyed, so \gls{LDA} proposes a method to recreate them. Thus reversing

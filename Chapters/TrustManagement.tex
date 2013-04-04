@@ -19,7 +19,15 @@ the trust values of the nodes and communicate with the other security agent
 within the network. Once the other security agent receives the trust value, he
 approves based on certain criteria and gives permission to the node. Thus the
 data transmission is done between nodes. The representation of transmission of
-a single document from Node ‘A' to Node ‘B' is shown in the below Figure 1.
+a single document from Node ‘A' to Node ‘B' is shown in the
+Figure~\ref{fig:DataTransmission}.
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=0.90\textwidth]{Figures/figure1.png}
+        \caption{Data Propagation}
+        \label{fig:DataTransmission}
+    \end{center}
+\end{figure}
 
 
 Initially the Node “A” gives the document classification type along with its
@@ -39,7 +47,7 @@ together are linked to a single “Trust Server”. Now the communication betwee
 the security agents is done through Trust server which will have the access to
 get the trust values at each level. Each node will be involved in transmission
 of data to its neighboring nodes as well as the nodes at various levels. The
-Figure 2. explains the steps of transmission of data from Node ‘A' at level –I
+Figure~\ref{fig:TrustTransmission}. explains the steps of transmission of data from Node ‘A' at level –I
 to Node ‘B' at level –II and also to Node ‘C' at level –III. The Node ‘A' at
 level –I decides to send data to Node ‘B' at level –II and also to Node ‘C' at
 level –III. Node ‘A' gives the classification type of the data to the security
@@ -59,10 +67,10 @@ to send the particular classified data to the Nodes ‘B' and ‘C'. Once the
 transmission of the data is done, the Node ‘A's trust value is updated.
 
 \begin{figure}[h!]
-    \label{fig:TrustTransmission}
     \begin{center}
         \includegraphics[width=0.90\textwidth]{Figures/Trust_Propagation_Diagram.PNG}
         \caption{Trust Value Propagation}
+        \label{fig:TrustTransmission}
     \end{center}
 \end{figure}
 
@@ -229,7 +237,7 @@ The Figure 3 below is a flowchart representation of the calculation of the trust
 \begin{figure}[h!]
     \label{fig:TrustAlgorithm}
     \begin{center}
-        \includegraphics[width=0.90\textwidth]{Figures/Trust_Algorithm.PNG}
+        \includegraphics[width=0.90\textwidth]{Figures/Trust_Algorithm.jpg}
         \caption{Trust Evaluation Algorithm}
     \end{center}
 \end{figure}
