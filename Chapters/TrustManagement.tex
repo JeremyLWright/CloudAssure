@@ -19,7 +19,7 @@ nodes. The representation of transmission of a single document from Node A to No
 shown in the Figure ~\ref{fig:DataTransmission}.
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=0.90\textwidth]{Figures/figure1.png}
+        \includegraphics[width=0.90\textwidth]{Figures/DataPropagation.eps}
         \caption{Data Propagation}
         \label{fig:DataTransmission}
     \end{center}
@@ -48,7 +48,7 @@ make the most informed decision possible.
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[width=0.90\textwidth]{Figures/Trust_Propagation_Diagram.PNG}
+        \includegraphics[width=0.90\textwidth]{Figures/TrustValuePropagation.eps}
         \caption{Trust Value Propagation}
         \label{fig:TrustTransmission}
     \end{center}
@@ -252,7 +252,7 @@ participants from having an artificially high trust value.
     \end{center}
 \end{figure}
   
-\section{Trust Value Testing Results on Various Scenarios}
+\subsection{Trust Value Testing Results on Various Scenarios}
 Table \ref{tab:trust_testing} demonstrates the intermediate steps of calculating
 trust. Finally, trust values are updated in Table \ref{tab:trust_evaulation}.
 \begin{table}[h!]
@@ -320,7 +320,7 @@ Node ID &	DOCUMENT ID	&  \( \Delta_{ID} \)         & C	& \%doc	 & \(
 updated.}
 \label{tab:trust_evaulation}
 \end{table}
-\section{Trust Interface to Planning}
+\subsection{Trust Interface to Planning}
 \( X \) is a value calculated using the level obtained through classification and the evaluated trust value of a node.
 \begin{equation}
     \label{eq:trust_planning_interface}
