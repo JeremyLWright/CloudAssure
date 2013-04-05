@@ -1,6 +1,5 @@
 \section{Planning}
 \subsection{Planning Methodology}
-\newacronym{mdp}{MDP}{Markov Decision Process}
 \newacronym{pomdp}{POMDP}{Partially Observable Markov Decision Process}
 \newacronym{nomdp}{NOMDP}{Non-Observable Markov Decision Process}
 Our data transfer decision framework is designed to use intelligent planning
@@ -136,7 +135,7 @@ horizon.
     \begin{aligned}
     V^0(s) &= 0 \\
     V^k(s) &= T(s) + \beta \max_a \sum_S M(s,a,s') \cdot V^{k-1}(s') \\
-    Where V &:= \text{Represents the Value Equation} \\
+    \text{Where } V &:= \text{Represents the Value Equation} \\
     T &:= \text{Represents the Reward Equation} \\
     \beta &:= \text{Represents the Discount Factor} \\
     M &:= \text{Represents the Model (in our case the structure of the network)} \\
