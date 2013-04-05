@@ -1,22 +1,21 @@
 \section{Trust Management}
 \label{sec:trust-management}
-Trust means the ability to depend on something or someone completely knowing that what you
-believe to be true is true. Trust can be subcategorized as reputation, trusting option, probability
-etc.\autocite{Liu2006} and it plays a vital role in an organization. In every organization, employee trust plays
-a pivotal role and the trust issues can make or break the culture of organization. There is a
-lot stress involved in working in an environment where data is highly secured and the trust
-between the employees is minimal. Without trust, an organization is not up to its standard.
-Hence, employees must trust each other for the organization to be successful.
-
+Trust ts the reliance on the integrity or strength of a person or thing
+\autocite{Dictionary2013} Trust can be sub-categorized as reputation
+, and it plays a vital role in an organization \autocite{Liu2006}. In every organization, employee trust plays
+a pivotal role and trust issues can make or break the culture of organization. There is a
+lot stress involved in working in an environment where data is highly classified and trust
+between the employees is minimal. Without trust, an organization is not meet its
+quality standard standard. Hence, trust must exist for the organization to be successful.
 
 \subsection{Data Transmission based on Trust}
-In this model, we develop the trust among the nodes. The transmission of data across various
-nodes is done by evaluation of a new value called Trust value. A Security Agent has access
-to view the trust values of the nodes at a particular hierarchical level. The security agent will
-monitor the trust values of the nodes and communicate with the other security agent within
-the network. Once the other security agent receives the trust value, it approves based on
-certain factors and gives permission to the node. Thus the data transmission is done between
-nodes. The representation of transmission of a single document from Node A' to Node B' is
+Within CloudAssure, this module evaluates the trust metric \( Tr_{new} \) used
+as an input to planning as described in Section \ref{sec:planning}. The transmission of data across various
+nodes is done by evaluation of a metric called Trust Value. A \gls{sa} 
+uses the trust values of the nodes as part of the planning phase (Section
+\ref{sec:planning}). A Trust server publishes the trust value of each node to
+the \gls{sa}. In this way, the document is transmitted between
+nodes. The representation of transmission of a single document from Node A to Node B is
 shown in the Figure ~\ref{fig:DataTransmission}.
 \begin{figure}[h!]
     \begin{center}
@@ -27,38 +26,24 @@ shown in the Figure ~\ref{fig:DataTransmission}.
 \end{figure}
 
 
-In the Figure~\ref{fig:TrustTransmission}, Node A gives the document classification type along with its trust value
-to the Security Agent which is located at level I in this case. The classification of the document
-is evaluated from the classification process described above and it is divided into various
-categories. The Security agent at level I, communicates with the Security agent at level II and
-enquires for the trust value of Node B'. The Security agent at level II monitors and gets the trust
-value of Node B'. The Security agent at level I verifies certain assumptions and gives approval to
-Node A'. The document is then sent to Node B'.
+In Figure~\ref{fig:DataTransmission}, the classification of the document
+is evaluated by \gls{sa} I as described in Section~\ref{sec:classification}. 
+The \gls{sa} at level I, communicate the trust metric of the sender, as well as
+the document classification with the \gls{sa} at level II. The Planning
+component then takes over to build a localized graph of Node B. The planning
+component will then recommend to the sender if the document should be sent to
+Node B. The user is free to ignore this suggestion
 
 Now, in an organization there are a number of employees working at various levels like
 Chief Manager, Manager, Senior Associate, Associate, Junior etc. Based on this hierarchy we
 have divided the group of nodes to be at each level and these groups of nodes are maintained
-by a Security Agent. Now each security agent is connected to a number of nodes and all
-the security agents are linked together to a single Trust Server. The trust server can get the
-trust values of each node through the linked security agent at that level. The communication
-between the security agents is done through that trust server which will have access to the
-trust values of nodes at each level. Each node will be involved in transmission of data to its
-neighboring nodes as well as the nodes at various levels. The Figure 2.7 explains the steps of
-transmission of data from Node A' at level I to Node B' at level II and also to Node C' at level
-III. The Node A' at level I decides to send data to Node B' at level II and also to Node C' at level
-III. Node A' gives the classification type of the data to the security agent at level I along with
-its trust value. The security agent at level I in turn communicate with the Trust server and
-requests for the trust values of Node B' and Node C'. Node B' in the below scenario sends five
-documents to B1, B2, B3, B4 and B5 respectively. Each time B sends the document and the trust
-value is re-calculated. The trust value of the respective node should be updated frequently
-because anytime a request can come from any node of another level for data transmission.
-Similarly, Node C' sends five documents to its neighbors C1, C2, C3, C4 and C5 in this scenario
-and updates its trust value each time. The security agent at level II and level II monitor the
-respective Node B' and Node C's interaction with its neighboring nodes and gets the updated
-trust values. These trust values are sent to the Trust server and communicated with the security
-level I. Based on the trust values, the Node A' decides whether to send the particular classified
-data to the Nodes B' and C'. Once the transmission of the data is done, the Node A's trust value
-is updated.
+by a \gls{sa} (Figure~\ref{fig:TrustTransmission}. Now each \gls{sa} is connected to a number of nodes and all
+the \Gls{sa} are linked together to a single trust server. The trust server
+maintains trust values of every node, at every level. Because document transfer
+requests occur asynchronously, the trust value of the respective node is updated
+continuously. This allows the planning algorithm to
+make the most informed decision possible. 
+
 
 
 \begin{figure}[h!]

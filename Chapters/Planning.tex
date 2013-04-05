@@ -1,12 +1,13 @@
 \section{Planning}
 \subsection{Planning Methodology}
+\glsreset{mdp}
 \newacronym{pomdp}{POMDP}{Partially Observable Markov Decision Process}
 \newacronym{nomdp}{NOMDP}{Non-Observable Markov Decision Process}
 Our data transfer decision framework is designed to use intelligent planning
 techniques to make real time decisions on data transfers within an organizations cloud
 network. Examples of these techniques are \gls{mdp}, \gls{pomdp}, and \gls{nomdp}.
 The purpose of these techniques is to provide a mathematical framework
-to model some decision making. Consider the scenario of a user (node) in an
+to model decision making. Consider the scenario of a user (node) in an
 organization wanting to send classified data to another user (node) in the cloud
 environment. The sender has no idea if the recipient is trustworthy enough to
 handle such critical files. The current common practice of using static policies to
@@ -112,6 +113,7 @@ process. For example, whether a user leaks an email by forwarding it, or
 copying the content into a new message and sending it, the system will catch
 the leak and modify trust values accordingly.
 \subsection{Planning Algorithms}
+\label{sec:planning}
 There are several \gls{mdp} algorithms that can make the decision, some of them are
 namely policy iteration, modified policy iteration, priority sweeping and value
 iteration.  In our framework we can use any one of these, but we recommend value
@@ -139,14 +141,16 @@ horizon.
     T &:= \text{Represents the Reward Equation} \\
     \beta &:= \text{Represents the Discount Factor} \\
     M &:= \text{Represents the Model (in our case the structure of the network)} \\
-    s' &:= \text{Represents the current state/node} \\
+    s &:= \text{Represents the current state/node} \\
+    s' &:= \text{Represents the next state/node} \\
     k &:= \text{Represents the number of states/nodes in the network}
     \end{aligned}
 \end{equation}
 
 
-We used Equation~\ref{eq:infinite_horizon} to calculate the intermediate results, that is the
-reward value based on which the decision will be made. Finally, the function is iteratively called to constantly update the reward
+We used Equation~\ref{eq:infinite_horizon} to calculate the intermediate
+results. That is the
+reward value on which the decision will be made. Finally, the function is iteratively called to constantly update the reward
 metrics (an intermediate result, not used or stored after decision is made).
 
 We implemented the algorithm using Matlab Script in Matlab. The
@@ -246,11 +250,11 @@ The policy improvement is made using Equation~\ref{eq:policy_improvement}
     \begin{center}
         \includegraphics[width=0.95\textwidth]{Figures/Planning_Figure_4.png}
         \caption{Policy Iteration Results}
-        \label{fig:ValueIterationResults3}
+        \label{fig:PolicyIterationResults}
     \end{center}
 \end{figure}
 
-In Figure~\ref{fig:ValueIterationResults3} we can see the several runs of the policy iteration
+In Figure~\ref{fig:PolicyIterationResults} we can see the several runs of the policy iteration
 algorithms. Here we start with the random policy and use the equations to update
 the reward metrics of the every state and there updating the policy if any
 better policy is found than one we started with or one that we have. We can see
@@ -259,16 +263,16 @@ help us make the correct decision.
 
 \FloatBarrier
 
-\subsection{Running time}
+\subsection{Running Time}
 
 \begin{enumerate}
-    \item Clearly from the example we can see that the Value Iteration takes
+    \item From Figure Figures~\ref{fig:ValueIterationResults} we can see that the Value Iteration takes
 more resources and running time compared to others. This is because of the fact
 that there is no policy in the beginning. So the value iteration frames policies
 as it proceeds. And of course the running time of the value iterations largely
 depend on the maximum error value that we set.
     \item The policy iteration takes much less running time when we compare it to the
-value iteration in this case. This is because of the fact that we start with an
+value iteration in this case. This is due to the fact that we start with an
 arbitrary random policy. This will be a huge improvement because its like giving
 a model to the function even though it may be wrong. The value will be computed
 according to the initial policy setting. If it is correct it is unchanged, if
