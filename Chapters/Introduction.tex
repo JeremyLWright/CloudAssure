@@ -36,12 +36,13 @@ imprisonment of several formerly successfully security professionals
 Thus a comprehensive data transfer mechanism is required to mitigate the
 impact of unauthorized data transmission in cloud-based systems.
 
-The problem of data leakage has yet to find a catch-all solution. Everyday
+The problem of data leakage has yet to find a catch-all solution. Every day
 millions of bits of data are transferred between users and computers in
-organizations both large and small \autocite{Bright2012}. Who is monitoring these transmissions?
-Obviously, from large sums of money, to intellectual property, to even jail
-time, the consequences of unauthorized data transmission are massive. Software
-such as firewalls, policy checkers, virus scanners and others attempt to help
+organizations both large and small \autocite{Bright2012}. From losses that
+include large sums of money, intellectual property, and even jail
+sentences, the consequences of unauthorized data transmission can be massive.
+Who is monitoring these data transmissions to protect against these? Obviously,
+Software such as firewalls, policy checkers, virus scanners and others attempt to help
 prevent this unauthorized transmission, but the software is often niche, focused
 on one specific task, and proprietary. What if there was a system that could be
 integrated into an organization, trained specifically to deal with a company’s
@@ -51,13 +52,14 @@ data, and provide security over the entire network. This is where our framework:
 \section{Goals and Scope of Study of CloudAssure}
 The objective of this project is to develop a data transfer decision framework
 that makes informed decisions on data transmission among nodes (users) in
-a cloud-based system, a two part process is used; dynamic trust evaluation of
-nodes, and classification of data sensitivity. The goals that we plan to meet in
-our project in order to work toward achieving the aforementioned objective are
+a cloud-based system. Here we refer to the concept of a cloud system as an interconnected network.
+For the CloudAssure framework, a three part process is used; classification of data sensitivity,
+dynamic trust evaluation, and real-time decision modeling. The goals that met with
+our project in order to work achieving the aforementioned objective were
 as follows: 
 \begin{enumerate}
     \item Development of an effective framework to address unauthorized
-        data transmission through security agents which enact and enforce data
+        data transmission monitored by security agents which enact and enforce data
         transmission decisions in order to prevent and/or mitigate unauthorized data
         transmission in cloud-based systems.
     \item Development of a planning model using a \gls{mdp} to make a decision on whether to transmit data or not.

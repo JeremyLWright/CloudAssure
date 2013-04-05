@@ -45,9 +45,9 @@ Now given any document, what are the topics contained in it? The original topic
 lists were destroyed, so \gls{LDA} proposes a method to recreate them. Thus reversing
 the process of writing a document.
 
-All classification methods use some algorithm which assumes a specific
+LDA is only one example, but all classification methods use some algorithm which assumes a specific
 distribution to the document with the intent of extracting some unobservable
-property. During the course of CloudAssure, we looked at a number of techniques
+property. During the course of designing CloudAssure's classification module, we looked at a number of techniques
 including \gls{LDA}, Neural Nets, Bayesian Inference, Decision Trees, and finally,
 Support Vector Machines.
 
@@ -55,9 +55,9 @@ Support Vector Machines.
 In ``Probabilistic Topic Models'', Blei describes the Latent Dirichlet
 Allocation and its probabilistic approach to topic prediction
 \autocite{Blei2012}. \gls{LDA} is different among the classical classifiers we
-surveyed for CloudAssure. \gls{LDA} supposed documents are generated in
+surveyed for CloudAssure. \gls{LDA} supposes documents are generated in
 a mathematical way. Blei then uses this generative model to show how the original topic lists can be
-recomposed from the document. This technique is very powerful for extracting for
+recomposed from the document. This technique is very powerful for extracting
 topics from a document, but for our usecase, there is a second step of
 translating those topics to classifications. Due to this secondary step, we
 choose not to use the LDA algorithm \autocite{RadimRehurek2010}.
@@ -69,13 +69,13 @@ extends from its non-linearity \autocite{Zhang2000}. A neural net is composed on
 a number of nodes connected by a ``hidden'' layer. The input and output nodes
 then filter features through this hidden layer which triggers specific outputs
 thus classifying a document \autocite{Merkl}. The neural net is very good at
-doing this however since the ``hidden layer'' is, by definition, unobservable
-the results are not traceable i.e. given a result one cannot easily trace to
-find the series of decision which lead to that decision. This increases the
+doing this however since the ``hidden layer'' is, by definition, unobservable, and
+the results are not traceable (i.e. given a result one cannot easily trace to
+find the series of decision which lead to that decision). This increases the
 complexity of implementation and debugging. Secondly, neural nets are sensitive
 to their input data, more so that other techniques, thus a great deal of time
 needs to be spend to tune the classifier. For these two reasons, we choose not
-to implements the Neural Net technique for CloudAssure. 
+to implements the Neural Net technique for CloudAssure's classification model.
 
 \subsubsection{Bayesian Inference}
 Bayesian Inference is a classical technique leveraging Bayes Theorem of
@@ -85,7 +85,7 @@ conditional probabilities as stated in equation \ref{eq:BayesTheorum}.
     \label{eq:BayesTheorum}
 \end{equation}
 In Equation \ref{eq:BayesTheorum} we see how to reverse the condition on a conditional probability.
-This reversal is precisely the goal of classification in general \autocite{Bishop2009}.
+This reversal is precisely the goal of classification in general \autocite{Bishop2009}. Bayesian Inference seemed suitable for CloudAssure, but we continued looking for a methodology that could give better accuracy.
 
 \subsubsection{Decision Trees}
 The final technique we surveyed for a classification technique is the Decision
@@ -95,9 +95,9 @@ Algorithm \ref{alg:decision_tree}. Each branch of the
 tree prunes a set of features from the search space reducing the features to
 check at each decision \autocite{Segaran2008}. This tree structure is
 proportional to the size of the training set, and our experiments show it to be
-only 15\% smaller than the training set, which the frequency distribution table
+only 15\% smaller than the training set, where the frequency distribution table
 for the Bayesian implementation is 84\% smaller than the training set. Despite
-this increase memory load for this technique we found the classification
+the increased memory load for this technique, we found the classification
 results to be more accurate than the Bayesian method, and included it in
 CloudAssure.
 
@@ -164,13 +164,13 @@ dataset \autocite{University}.
 \end{table}
 
 Our implementation is divided into two phases: A Direct Implementation, and
-a second implementation utilizing \gls{nltk}. The initial implementation was
+a second implementation utilizing the \gls{nltk}. The initial implementation was
 a direct application of Bayes theorem in Python. This implementation resulted in
 several faults however. Performance was poor, and classifying a large number of
 documents resulted in floating point underflows, and other implementation
 specific faults \autocite{Graham-Cummings2005}. There exists techniques to repair these problems such as
 rewriting a products  of terms as a sum of \(log(terms) \). \gls{nltk} however
-already implements these techniques is a fast and correct way. Thus are results
+already implements these techniques in a fast and correct manner. Thus, our results
 are based on phase two, which uses \gls{nltk} as a math backend.\autocite{Denoyer2004}
 
 \subsection{Training the Classifiers}
@@ -178,10 +178,10 @@ Implementing the Classifier component of CloudAssure in one's facility is broken
 into 4 steps:
 \begin{enumerate}
     \item Choose a Dataset
-    \item Transforming the Training Data into features.
-    \item Training the 2 provided classifiers to determine which method best
+    \item Transform the Training Data into features.
+    \item Train the 2 provided classifiers to determine which method best
         fits your configuration
-    \item Saving the plk file for future classifications
+    \item Save the plk file for future classifications
 \end{enumerate}
 
 \subsubsection{Choosing a DataSet}
@@ -196,7 +196,7 @@ Once a dataset is chosen one may begin feature selection.
 Feature selection is important to disambiguate the categories. The stock feature
 selection in CloudAssure uses an industry standard list of stop words to remove
 overly common or overly rare words from the features extracted from documents.
-Once it does does it chooses the top 5000 features. These parameters are tunable
+Once these words are pruned, choose the top 5000 features. These parameters are tunable
  to get the best results.
 
 \subsubsection{Creating a Database}
@@ -209,18 +209,18 @@ training data exist. This step creates a database file used for training the
 classifiers.
 
 \subsubsection{Creating a plk file}
-Once the database has been build, one may build the persistent classifier. Once
+Once the database has been built, one may build the persistent classifier. Once
 the classifier is trained it is stored in a binary format which allows it to
-be reloaded one demand. The following command will load all features from the
+be reloaded on demand. The following command will load all features from the
 database and create a Bayesian model and save it as Bayesian-model.plk: 
 \texttt{python main.py --type Bayes --model Bayesian-model.pkl}
 Do this also for the decision tree: \texttt{python main.py --type Tree --model
 decision-model.pkl}. Each training step will print out the accuracy, and the top
-most influential features. Use this data to tune the classifiers to your needs.
+most influential features. This data can be used to tune the classifiers to an organization's needs.
 Once the classifier is sufficiently accurate one may use this mode to classify
 any document: \texttt{python main.py --classify document.html --name Bayesian-model.pkl}
 
-This is by far the most time intensive step for our example dataset the tree
+This is by far the most time intensive step of the process. For our example dataset the tree
 model for 3695 documents took 75 minutes (86.87\% accurate) and the Bayes
 model for 3695 documents took 3 minutes (82.54\% accurate). This took several
 tuning iterations before accuracy levels were sufficient. 

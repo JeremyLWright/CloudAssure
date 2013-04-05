@@ -1,19 +1,20 @@
 \section{Planning}
 \subsection{Planning Methodology}
+\newacronym{mdp}{MDP}{Markov Decision Process}
 \newacronym{pomdp}{POMDP}{Partially Observable Markov Decision Process}
 \newacronym{nomdp}{NOMDP}{Non-Observable Markov Decision Process}
 Our data transfer decision framework is designed to use intelligent planning
-techniques such as \gls{mdp}, \gls{pomdp}, and \gls{nomdp} to
-make real time decisions on data transfers within an organizations cloud
-network. The purpose of these techniques is to provide a mathematical framework
+techniques to make real time decisions on data transfers within an organizations cloud
+network. Examples of these techniques are \gls{mdp}, \gls{pomdp}, and \gls{nomdp}.
+The purpose of these techniques is to provide a mathematical framework
 to model some decision making. Consider the scenario of a user (node) in an
 organization wanting to send classified data to another user (node) in the cloud
 environment. The sender has no idea if the recipient is trustworthy enough to
-handle such critical files. The current practice of using static policies to
+handle such critical files. The current common practice of using static policies to
 guide decision making is not sufficient as it is infeasible to enumerate all
 possible policies for all possible scenarios. Moreover generating run time
 decisions through policies is slow. Thus, there exists a need for a dynamic,
-real-time decision process to address these problems. 
+real-time decision making process to address these problems. 
 
 We address these issues using intelligent planning techniques. The planning
 algorithms in our framework make decisions based on probabilistic values which
@@ -27,7 +28,7 @@ In the process of
 developing the algorithm, we have explored three kinds of models:\gls{mdp},
 \gls{pomdp}, and \gls{nomdp}. Initially the plan was to use a PO\gls{mdp} as the 
 main decision maker in the
-framework since it is able factor uncertainty into the decision making process.
+framework since it is able to factor uncertainty into the decision making process.
 Uncertainty arises from the fact that all the states (the model) of the cloud
 environment is not always known or observable. However, after careful research
 in this area we decided not to pursue using a \gls{pomdp} because the
@@ -36,12 +37,13 @@ is very high \autocite{LeslieP.Kaelbling1998}, \autocite{Zilberman},
 \autocite{DongNguyen2009}. 
 That is, computationally it is very expensive and the
 process requires a lot of time to generate decisions, which would eventually
-slow down the system. The solution is to use \gls{mdp} to make the decisions. In order
+slow down the system which is generally unacceptable in today's fast paced, heavily interconnected organizational networks.
+The solution is to use \gls{mdp} to make the decisions. In order
 to use an \gls{mdp} however, all uncertainty needs to be removed from the system.
-Hence, we make the assumption that all the states and entirety of the model of
+Hence, we make the assumption that all the states and the entirety of the model of
 the cloud environment is known and observable. This is a valid assumption
-because in an organization all nodes are known and the structure/model of nodes
-is well defined. As a real world example this would be an organization's IT
+because in an organization all nodes should be known and the structure/model of nodes
+is generally well defined. As a real world example this would be an organization's IT
 manager knowing all the workstations and network connections within the company.
 
 Now let us explore the structure of the \gls{mdp}. It
@@ -55,14 +57,13 @@ has four tuples in total $< S, A, T, R >$ \autocite{QimingHe2000}:
     in our case is the trust value of every node/user.  
 \end{description}
 The \gls{mdp} tuples above are
-specifically modeled and/or changed to meet our requirements for our data
-transfer decision framework. In order for the \gls{mdp} to operate we require the
+specifically modeled and/or changed to meet the requirements for the CloudAssure framework. In order for the \gls{mdp} to operate we require the
 information specified by the above tuples, with the addition of a start
 state and goal state. Once a user/node has made the request to transfer data
-to another user/node, a Security Agent takes over. 
+to another user/node, a Security Agent takes over. Security Agents are comprised of special software that runs on an existing or dedicated server to perform and aid in various processes performed by the CloudAssure framework.
 
-The security agent (SA)
-contacts the SA at the recipient user/node level. The recipient SA next
+In the CloudAssure framework, the Security Agent's police the traffic and communicate with other Security Agents. The next step in the decision making process is for the security agent related to the data sender
+to contact the SA at the recipient user/node level. The recipient SA next
 gathers data on the nodes around it, and gets their trust values from the
 centralized trust server. This data is used to initiate a localized graph
 algorithm. This algorithm generates a model of the nodes neighboring the
@@ -103,28 +104,25 @@ the leak and modify trust values accordingly.
 
 \subsection{Results on Planning}
 We decided to implement our planning system with the
-simulated values because all the other modules namely classification and trust
-re-evaluation were being developed simultaneously, hence we were not able to
-achieve the exact workflow. We made sure that simulated values are consistent
+simulated values because the other modules of CloudAssure (Classification and Trust
+Evaluation) were being developed simultaneously. Because of this we were not able to
+achieve the exact workflow of a total system implementation. We made sure that simulated values are consistent
 with the proposed outputs of the classification and the trust re-evaluation
 modules. After finalizing the framework and doing a preliminary analysis from
 \autocite{Norvig2012}, we decided to focus on the Markov decision process to generate our
 decisions.  
 
-One of the other issues we faced while implemented CloudAssure is that whether to choose a finite or an infinite horizon, which is
+One of the other issues we faced while developing CloudAssure is that of whether to choose a finite or an infinite horizon, which is
 whether an agent should change its policies according to the time is has or the
-policies generated by it must be stationary. By studying our problem we felt it
-was better to implement a stationary policy generation mechanism, which assumes
-that the agent has infinite time to perform its operations. This is because if
-we implement an non-stationary policy generation mechanism in our system one of
-the uses might be that according to factors such as day of time, month, levels,
-etc. the decision generated may change which introduces inconsistencies.
-Inconsistent policy generation are very difficult to handle and needs more
+policies generated by it must be stationary. In this sense, a policy is the rules the MDP will use to make its data transmission decisions.
+After studying our problem, we felt it was better to implement a stationary policy generation mechanism, which assumes
+that the agent has infinite time to perform its operations. This non-stationary policy generation mechanisms may need to consider factors such as time, day, month, organizational levels,
+etc. Because of these factors, the decision generated may change which could introduce inconsistencies in decisions.
+Inconsistent policy generation is very difficult to handle and requires more
 effort and time to introduce more parameters to control the inconsistency and
 make it dependable.  
 
-There are many techniques to generate the decision using
-\gls{mdp} \autocite{Wikipedia2013}, namely policy iteration, modified policy iteration, priority sweeping
+Within the \gls{mdp} itself, there are many techniques to generate decisions \autocite{Wikipedia2013}, namely policy iteration, modified policy iteration, priority sweeping
 and value iteration. To address our problem statement we have used policy and
 value iterations because they are more efficient, more accurate and relevant to
 the solution we expect to achieve. This is because for modified policy iteration
@@ -133,11 +131,11 @@ heuristics, which is very difficult to achieve given the dynamic nature of our
 domain where the trust values are constantly re-evaluated and updated. 
 
 \subsection{Value Iteration}
-The value iteration mainly works by using a technique called dynamic
+Value Iteration is a method an MDP can use to generate a decision making policy and make decisions. Value iteration mainly works by using a technique called dynamic
 programming. The algorithm constantly does a backward induction using a bellman
 equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. In the case of the
-value iteration the initial policy is not assumed and is policy is constantly
-updated when the values are updated, here the values are nothing but the trust
+value iteration the initial policy is not assumed and a policy is constantly
+updated when the values are updated, here the values are the trust
 values of each node.  Equation \ref{eq:infinite_horizon} is used in value iteration for infinite
 horizon.
 
@@ -154,15 +152,14 @@ We used the above equation to calculate the intermediate results, that is the
 reward value based on which the decision will be made. In the above equation the
 \( V \) represents the value function and \( T \) represents the reward metric, $\beta$ is the
 discount factor mainly used as a control parameter. The \(M\) in the equation
-represents the model (in our case it can be the structure of the network), that
-is model specifies what an agent can do in each state/node and what the outcome
+represents the model (in our case it can be the structure of the network), that specifies what an agent can do in each state/node and what the outcome
 is likely to be, \(s\) represents the current state/node, a represents the actions,
 represents the next state/node and \(k\) represents the number of states/nodes in
 network. Finally, the function is iteratively called to constantly update the reward
 metrics (an intermediate result, not used/stored after decision is made).
 
 We implemented the algorithm using Matlab Script in Matlab, and the
-initial parameters set is a goal state with a high
+initial parameter set is a goal state with a high
 reward value. This is done to see if any attack vectors can be possible because
 all agents will try to reach it. Also to simulate an impassable node, a null
 state through which an agent may not be able to pass through is used. The
@@ -193,7 +190,7 @@ Value iteration may terminate early.
 represented, the values keep changing continuously and corresponding action also
 changes in accordance to the reward metrics. Since we do not start with the
 initial set of policies the value function will keep on generating different
-action sets that constitutes the policy. After few runs the action set will
+action sets that constitute the policy. After a few runs the action set will
 stabilize and we might call it a policy. It is important to let the
 algorithm to continue to run even though the policy has stabilized. The reason
 being that the algorithm may be stuck at a local minimum and may need some time
@@ -223,8 +220,7 @@ policy (set of actions) and then use the backward induction to improve the
 policy. The algorithm constantly performs a backward induction using a bellman
 equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. In the case of the
 policy iteration the initial policy is assumed and is policy is constantly
-evaluated and updated when the values are updated, here the values are nothing
-but the trust values of each node.  Equation \ref{eq:infinite_horizon2} is used in value iteration
+evaluated and updated when the values are updated, here the values are the trust values of each node.  Equation \ref{eq:infinite_horizon2} is used in value iteration
 or infinite horizon.
 
 \begin{equation} 
@@ -294,13 +290,12 @@ a model to the function even though it may be wrong. The value will be computed
 according to the initial policy setting. If it is correct it is unchanged, if
 not then we change the policy and re-compute the value again.
 \end{enumerate}
-By running both the policy and value iteration we conclude the following thing,
+By running both policy iteration and value iteration within CloudAssure, we can conclude the following:
 \begin{enumerate}
-    \item We were able to make the informed decisions on data transfer decisions by
-using good heuristics, which are nothing but simulated values for the data
+    \item CloudAssure is able to make informed decisions on data transfer decisions by
+using good heuristics, which are simulated values for the data
 classification and the trust values for the nodes/users
     \item The running time for
 the algorithms is reasonable, we achieved convergence for a 12 state problem in
-about (will give you the values, trying to improve it), which is reasonable. But
-more modification needs to be done if we are to scale the system.
+about a reasonable amount of time. Modification could be done if to scale the system.
 \end{enumerate}
