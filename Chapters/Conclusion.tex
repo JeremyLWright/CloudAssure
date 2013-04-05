@@ -99,7 +99,7 @@ and benefits (and risks) inherent in that model.
             \item Heuristics are derived dynamically through trust reevaluation and classification
             \item Easy enforcement
             \item Easy adaptation to any organizational environment
-            \item Doesn’t require proprietary or predator vendor lockin.
+            \item Doesn't require proprietary or predator vendor lockin.
             \item 
         \end{enumerate}
     \item Disadvantages
@@ -178,6 +178,37 @@ repository of classified data. If an organization is new, it may not have this
 yet, or if the training data is insufficiently small, CloudAssure will offer
 little protection. 
 
+\subsection{Planning Results}
+We decided to implement our planning system with 
+simulated values because the other modules of CloudAssure (Classification and Trust
+Evaluation) were being developed simultaneously. Because of this we were not able to
+achieve the exact workflow of a total system implementation. We made sure that simulated values are consistent
+with the proposed outputs of the classification and the trust evaluation
+modules. After finalizing the framework and doing a preliminary analysis from
+\autocite{Norvig2012}, we decided to focus on the \gls{mdp} to generate our
+decisions.  
+
+Another issue, we faced while developing CloudAssure, is whether to choose
+a finite or an infinite horizon: which is
+whether an agent should change its policies according to the time is has or
+should the
+policies generated be stationary. In this sense, a policy is the rules the
+\gls{mdp} will use to make its data transmission decisions.
+After studying our problem, we felt it was better to implement a non-stationary policy generation mechanism, which assumes
+that the agent has infinite time to perform its operations. This non-stationary policy generation mechanisms may need to consider factors such as time, day, month, organizational levels,
+etc. Because of these factors, the decision generated may change which could introduce inconsistencies in decisions.
+Inconsistent policy generation is very difficult to handle and requires more
+effort and time to introduce more parameters to control the inconsistency and
+make it dependable.  
+
+Within the \gls{mdp} itself, there are many techniques to generate decisions \autocite{Wikipedia2013}, namely policy iteration, modified policy iteration, priority sweeping
+and value iteration. To address our problem statement we have used policy and
+value iterations because they are more efficient, more accurate and relevant to
+the solution we expect to achieve. Conversely, for modified policy iteration
+and priority sweeping to work effectively they need more accurate and stable
+heuristics, which is very difficult to achieve given the dynamic nature of our
+domain where the trust values are constantly evaluated and updated. 
+
 \subsection{Trust Evaluation}
 Trust is a powerful technique to ensure that the transmission of data among
 organizations¿ employees is safe and secure. In this project, the transmission
@@ -218,30 +249,23 @@ leakage. Also, in our process we calculate the trust values very frequently
 which will lead to costly process. We need to come up with a new computation
 process to minimize the cost of reevaluating the trust metric.
 
-%\begin{enumerate}
-%    \item Classification
-%        \begin{enumerate}
-%            \item 	Weakness – requires an expert and a great deal of time to train the system.
-%            \item 	Weakness – requires a large repository of classified data to implement the system.
-%            \item 	Weakness – Provided algorithms may not be sufficient to classify the needs of a specific organization.
-%        \end{enumerate}
-%    \item 	Trust Evaluation
-%        \begin{enumerate}
-%            \item 	Strength – Deterministic Trust value
-%            \item 	Weakness – Trust evaluation is tailored to our specific system
-%            \item 	Frequent trust evaluation is computationally expensive
-%            \item 	Recommendation – Reduce the cost of reevaluating the trust metric
-%        \end{enumerate}
-%\end{enumerate}
-
 \section{Future Work}
-\subsection{Classification}
-Within the classification modules of CloudAssure, we only implemented linear
-techniques. This is a marked gap in our survey. Non-linear techniques such as
-Neural nets, offer an extremely advanced classification properties dues directly
-to their non-linearity. We choose to skip these in order to tune the linear
-techniques, but the linear techniques reviewed are insufficient to my strong
-claims about the generality of CloudAssure's classification effectively. 
+\subsection{Planning}
+Our future work is to figure out how to use POMDP because current planning
+algorithm is not tolerant of uncertainty. Dealing with uncertainty allows us to
+broaden the scope of our framework and let us apply this framework for real
+world problems. Other major way we can reduce the complexity of the problem is
+to try to convert stochastic actions to deterministic actions and do FF-Replan,
+which can improve performance in decision making because deterministic decision
+making is much more cost effective.  
+
+\subsection{Classification} Within the
+classification modules of CloudAssure, we only implemented linear techniques.
+This is a marked gap in our survey. Non-linear techniques such as Neural nets,
+offer an extremely advanced classification properties dues directly to their
+non-linearity. We choose to skip these in order to tune the linear techniques,
+but the linear techniques reviewed are insufficient to my strong claims about
+the generality of CloudAssure's classification effectively. 
 
 \subsection{Trust Evaluation}
 In the future, the Document similarity i.e. the \( \%Doc \) parameter in the
@@ -252,23 +276,3 @@ scheduling process needs to be done. The scheduling shall include the
 re-evaluating the trust values at a low server load period. Also, A Split
 algorithm into a computationally inexpensive value for real-time calculations
 and a heavy duty computation computed at a scheduled point.  
-
-\begin{enumerate}
-%\item Trust Evaluation
-%    \begin{enumerate}
-%        \item Document Similarity. The \( \%Doc \) parameter in the trust equation comes from a yet implemented module.
-%        \item Informed Randomized Scheduling of Trust Reevaluation to reduce the computation cost.
-%        \item Example: Reevaluating at a low server load period
-%        \item Split algorithm into a computationally inexpensive value for real-time calculations, and a heavy duty computation computed at a scheduled point. 
-%    \end{enumerate}
-\item Planning
-    \begin{enumerate}
-        \item Use POMDP because current planning algorithm is not tolerant of uncertainty. 
-        \item Try to convert stochastic actions to deterministic actions and do FF-Replan, which can improve performance in decision making.
-    \end{enumerate}
-    %\item Classification
-    %    \begin{enumerate}
-    %        \item Deeper analysis of Neural Nets for classification as it provides a non-linear solution.
-    %    \end{enumerate}
-\end{enumerate}
-

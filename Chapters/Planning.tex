@@ -15,39 +15,48 @@ guide decision making is not sufficient as it is infeasible to enumerate all
 possible policies for all possible scenarios. Moreover generating run time
 decisions through policies is slow. Thus, there exists a need for a dynamic,
 real-time decision making process to address these problems. 
-
+\FloatBarrier
+\begin{figure}[h!]
+    \label{fig:SystemBlockDiagram}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{Figures/Planning_Figure_1.png}
+        \caption{System Block Diagram}
+    \end{center}
+\end{figure}
+\FloatBarrier
 We address these issues using intelligent planning techniques. The planning
 algorithms in our framework make decisions based on probabilistic values which
 are estimated from the trust values of users/nodes in a stochastic environment
-\autocite{JMarecki2012}, \autocite{JWu.2011}. The algorithms then take into consideration the classification level
+\autocite{JMarecki2012}, \autocite{JWu.2011}. The algorithms then consider the classification level
 of the document and the trust metric of the specific user(s) who are to receive
-the classified documents and generate plans which will specify whether the
+the classified documents. Using this the algorithm generates plans which will specify whether the
 user/node is really trustworthy enough to handle such data.  
 
 In the process of
-developing the algorithm, we have explored three kinds of models:\gls{mdp},
-\gls{pomdp}, and \gls{nomdp}. Initially the plan was to use a PO\gls{mdp} as the 
-main decision maker in the
-framework since it is able to factor uncertainty into the decision making process.
+developing the algorithm, we have explored three kinds of models: \gls{mdp},
+\gls{pomdp}, and \gls{nomdp}. Initially the plan was to use a \gls{pomdp} as the 
+primary decision maker in the
+framework, since it is able to factor uncertainty into the decision making process.
 Uncertainty arises from the fact that all the states (the model) of the cloud
 environment is not always known or observable. However, after careful research
 in this area we decided not to pursue using a \gls{pomdp} because the
 \gls{pomdp} complexity
 is very high \autocite{LeslieP.Kaelbling1998}, \autocite{Zilberman},
 \autocite{DongNguyen2009}. 
-That is, computationally it is very expensive and the
+That is, computationally, it is very expensive and the
 process requires a lot of time to generate decisions, which would eventually
-slow down the system which is generally unacceptable in today's fast paced, heavily interconnected organizational networks.
-The solution is to use \gls{mdp} to make the decisions. In order
+result in poor performance, which is generally unacceptable in today's fast paced, heavily interconnected organizational networks.
+Alternatively, the solution is to use \gls{mdp} to make the decisions. In order
 to use an \gls{mdp} however, all uncertainty needs to be removed from the system.
-Hence, we make the assumption that all the states and the entirety of the model of
-the cloud environment is known and observable. This is a valid assumption
-because in an organization all nodes should be known and the structure/model of nodes
-is generally well defined. As a real world example this would be an organization's IT
-manager knowing all the workstations and network connections within the company.
+Hence, we make the assumption that all the states and the entirety of
+the cloud environment is known and observable. Realistically, this is a valid
+assumption, because in an organization all nodes should be known and the structure of nodes
+is generally well defined. As a real world example, this translates to the organization's IT
+manager knowing all the workstations and network connections within the
+company. This is a well controlled inventory.
 
 Now let us explore the structure of the \gls{mdp}. It
-has four tuples in total $< S, A, T, R >$ \autocite{QimingHe2000}:
+is a four tuple in total $< S, A, T, R >$ \autocite{QimingHe2000}:
 \begin{description}
     \item{\textbf{S (States):}} Represents a finite set of states present in the cloud Environment.
     \item{\textbf{A (Actions):}} Represents a finite set of actions that are possible in
@@ -56,23 +65,25 @@ has four tuples in total $< S, A, T, R >$ \autocite{QimingHe2000}:
     \item{\textbf{R (Reward/ Cost function):}} Represents Reward value at each state, which
     in our case is the trust value of every node/user.  
 \end{description}
-The \gls{mdp} tuples above are
-specifically modeled and/or changed to meet the requirements for the CloudAssure framework. In order for the \gls{mdp} to operate we require the
-information specified by the above tuples, with the addition of a start
-state and goal state. Once a user/node has made the request to transfer data
-to another user/node, a Security Agent takes over. Security Agents are comprised of special software that runs on an existing or dedicated server to perform and aid in various processes performed by the CloudAssure framework.
+The \gls{mdp} tuple above is 
+specifically modeled and/or changed to meet the requirements for the CloudAssure
+framework. In addition to the above tuple, in order for the \gls{mdp} to operate we require a start
+state and a goal state. Once a user/node makes a request to transfer data
+to another user/node, a Security Agent takes over to process the request. Security Agents are comprised of special software that runs on an existing or dedicated server to perform and aid in various processes performed by the CloudAssure framework.
 
-In the CloudAssure framework, the Security Agent's police the traffic and communicate with other Security Agents. The next step in the decision making process is for the security agent related to the data sender
+In the CloudAssure framework, the Security Agent's police the traffic and communicate with other Security Agents. 
+The next step in the decision making process is for the security agent related to the data sender
 to contact the SA at the recipient user/node level. The recipient SA next
 gathers data on the nodes around it, and gets their trust values from the
 centralized trust server. This data is used to initiate a localized graph
-algorithm. This algorithm generates a model of the nodes neighboring the
-recipient node, and is n-levels deep, where n is a certain order of node
-distance from the recipient. Here n can be tuned to get an optimal result.
-After this localized graph is generated, the \gls{mdp} algorithm is run on it with
-the recipient as the start node and an imaginary malicious node with
+algorithm. This algorithm next generates a model of the nodes neighboring the
+recipient node. This model is n-levels deep, where n is a certain order of node
+distance from the recipient. Additionally, n can be tuned to get an optimal result.
+
+After this localized graph is generated, the \gls{mdp} algorithm runs with
+the recipient as the start node and an \emph{imaginary} malicious node with
 relatively high trust value as the goal node. The idea here is to evaluate
-the neighbors of the recipient, and find out if the \gls{mdp} decides it is ok to
+the neighbors of the recipient, and discover if the \gls{mdp} decides it is ok to
 transmit the data to the malicious node or not. This can give rise to
 a large number of situations such as:
 \begin{enumerate}
@@ -90,50 +101,31 @@ are low, then the risk of data being leaked is relatively high. The decision
 can be made not to send the data.  
 \end{enumerate}
 For any transmission that occurs, the
-documents that are sent over the network are archived in a database of the
-Security agents. This is done for archival purposes and also to check for
-plagiarism within the organization's network. Whenever a user/node creates
-a document a diff function is performed with all the documents that the node
-has been in contact with. This diff function scans the document and
-calculates the similarity value. This values is referred to as: \(\%Doc\). In
+documents that are sent over the network are archived in the Security Agent's 
+database. This is done for archival/audit purposes, and also to check for
+derivative documents within the organization's network. Whenever a user/node creates
+a document a difference function is performed with all the documents that the node
+has been in contact with. This difference function scans the document and
+calculates a similarity value. This values is referred to as: \(\%Doc\). In
 Chapter~\ref{sec:trust-management}, this is explained in detail. The similarity value is used as a factor in
 the trust re-evaluation stage which in turn affects the decision making
-process. As an example, whether a user leaks an email by forwarding it, or
+process. For example, whether a user leaks an email by forwarding it, or
 copying the content into a new message and sending it, the system will catch
 the leak and modify trust values accordingly.
+\subsection{Planning Algorithms}
+There are several \gls{mdp} algorithms that can make the decision, some of them are
+namely policy iteration, modified policy iteration, priority sweeping and value
+iteration.  In our framework we can use any one of these, but we recommend value
+and policy iterations because they are simple and require much less
+computational power compared to others for this type of problem. We will in the
+below section see how to implement value and policy iterations.
 
-\subsection{Results on Planning}
-We decided to implement our planning system with the
-simulated values because the other modules of CloudAssure (Classification and Trust
-Evaluation) were being developed simultaneously. Because of this we were not able to
-achieve the exact workflow of a total system implementation. We made sure that simulated values are consistent
-with the proposed outputs of the classification and the trust re-evaluation
-modules. After finalizing the framework and doing a preliminary analysis from
-\autocite{Norvig2012}, we decided to focus on the Markov decision process to generate our
-decisions.  
 
-One of the other issues we faced while developing CloudAssure is that of whether to choose a finite or an infinite horizon, which is
-whether an agent should change its policies according to the time is has or the
-policies generated by it must be stationary. In this sense, a policy is the rules the MDP will use to make its data transmission decisions.
-After studying our problem, we felt it was better to implement a stationary policy generation mechanism, which assumes
-that the agent has infinite time to perform its operations. This non-stationary policy generation mechanisms may need to consider factors such as time, day, month, organizational levels,
-etc. Because of these factors, the decision generated may change which could introduce inconsistencies in decisions.
-Inconsistent policy generation is very difficult to handle and requires more
-effort and time to introduce more parameters to control the inconsistency and
-make it dependable.  
-
-Within the \gls{mdp} itself, there are many techniques to generate decisions \autocite{Wikipedia2013}, namely policy iteration, modified policy iteration, priority sweeping
-and value iteration. To address our problem statement we have used policy and
-value iterations because they are more efficient, more accurate and relevant to
-the solution we expect to achieve. This is because for modified policy iteration
-and priority sweeping to work effectively they need more accurate and stable
-heuristics, which is very difficult to achieve given the dynamic nature of our
-domain where the trust values are constantly re-evaluated and updated. 
-
-\subsection{Value Iteration}
-Value Iteration is a method an MDP can use to generate a decision making policy and make decisions. Value iteration mainly works by using a technique called dynamic
+\subsubsection{Value Iteration}
+Value Iteration is a method an MDP can use to generate a decision making policy and make decisions. 
+Value iteration mainly works by using a technique called dynamic
 programming. The algorithm constantly does a backward induction using a bellman
-equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. In the case of the
+equation \autocite{Wikipedia2013} and this specific technique is called Bellman Backup. In the case of the
 value iteration the initial policy is not assumed and a policy is constantly
 updated when the values are updated, here the values are the trust
 values of each node.  Equation \ref{eq:infinite_horizon} is used in value iteration for infinite
@@ -143,30 +135,35 @@ horizon.
     \label{eq:infinite_horizon}
     \begin{aligned}
     V^0(s) &= 0 \\
-    V^k(s) &= T(s) + \beta \max_a \sum_S M(s,a,s') \cdot V^{k-1}(s')
+    V^k(s) &= T(s) + \beta \max_a \sum_S M(s,a,s') \cdot V^{k-1}(s') \\
+    Where V &:= \text{Represents the Value Equation} \\
+    T &:= \text{Represents the Reward Equation} \\
+    \beta &:= \text{Represents the Discount Factor} \\
+    M &:= \text{Represents the Model (in our case the structure of the network)} \\
+    s' &:= \text{Represents the current state/node} \\
+    k &:= \text{Represents the number of states/nodes in the network}
     \end{aligned}
 \end{equation}
 
 
-We used the above equation to calculate the intermediate results, that is the
-reward value based on which the decision will be made. In the above equation the
-\( V \) represents the value function and \( T \) represents the reward metric, $\beta$ is the
-discount factor mainly used as a control parameter. The \(M\) in the equation
-represents the model (in our case it can be the structure of the network), that specifies what an agent can do in each state/node and what the outcome
-is likely to be, \(s\) represents the current state/node, a represents the actions,
-represents the next state/node and \(k\) represents the number of states/nodes in
-network. Finally, the function is iteratively called to constantly update the reward
-metrics (an intermediate result, not used/stored after decision is made).
+We used Equation~\ref{eq:infinite_horizon} to calculate the intermediate results, that is the
+reward value based on which the decision will be made. Finally, the function is iteratively called to constantly update the reward
+metrics (an intermediate result, not used or stored after decision is made).
 
-We implemented the algorithm using Matlab Script in Matlab, and the
+We implemented the algorithm using Matlab Script in Matlab. The
 initial parameter set is a goal state with a high
 reward value. This is done to see if any attack vectors can be possible because
 all agents will try to reach it. Also to simulate an impassable node, a null
-state through which an agent may not be able to pass through is used. The
-remaining states have a relatively equal value of \(-0.04\) and this is done so that the agent
+state through which an agent may not pass through is used. The
+remaining states have a relatively equal value of \(-0.04\). This is so the agent
 has no incentive to stay indefinitely in the state/node and accumulate the
 reward metrics.
- 
+
+Updated by the continuous backward induction of the bellman equation,
+the values change on every iteration. Every reward metric in
+each iteration is unique. So when does it reach termination? That depends on the
+maximum allowed error for state values that we set in our model. 
+\FloatBarrier 
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=0.90\textwidth]{Figures/Planning_Figure_2.png}
@@ -175,60 +172,55 @@ reward metrics.
     \end{center}
 \end{figure}
 
-As we can see the values change on every iteration, updated by the continuous
-backward induction of the bellman equation. Every reward metric in
-each iteration is unique. So when does it reach termination? That depends on the
-maximum allowed error for state values that we set in our model. 
-
-When the program reaches the maximum allowed error value it terminates. This
-does not mean that the policy changes; policy will stabilize after a few
-iterations based on the discount values we set, but the values in the value
-iteration function will keep on changing until it reaches the maximum allowed
-error. We call this the epsilon factor. If set the maximum allowed error value,
-Value iteration may terminate early.
- We can see that in figures
-represented, the values keep changing continuously and corresponding action also
-changes in accordance to the reward metrics. Since we do not start with the
-initial set of policies the value function will keep on generating different
-action sets that constitute the policy. After a few runs the action set will
-stabilize and we might call it a policy. It is important to let the
-algorithm to continue to run even though the policy has stabilized. The reason
-being that the algorithm may be stuck at a local minimum and may need some time
-to get out of it.  Therefore, it is very important to carefully select the
-discount factor.
-
 \begin{figure}[h!]
-    \label{fig:ValueIterationResults2}
     \begin{center}
         \includegraphics[width=0.95\textwidth]{Figures/Planning_Figure_3.png}
         \caption{Value Iteration Results}
+        \label{fig:ValueIterationResults2}
     \end{center}
 \end{figure}
+\FloatBarrier
+When the program reaches the maximum allowed error value it terminates. This
+does not mean that the policy changes; policy will stabilize after a few
+iterations based on the discount values we set, but the values in the value
+iteration function will continuously change until it reaches the maximum allowed
+error. We call this the epsilon factor. If we set the maximum allowed error
+value to be large, then value iteration may terminate early.
 
-Here from the Figure~\ref{fig:ValueIterationResults2} we can see that the action set has stabilized and we
+We can see that in Figures~\ref{fig:ValueIterationResults} and
+\ref{fig:ValueIterationResults2}, the values change continuously,
+correspondingly action also
+changes in accordance to the reward metrics. Since we do not start with the
+initial set of policies, the value function will iteratively generate different
+action sets that constitute the policy. After a few runs, the action set will
+stabilize and we might call it a policy. It is important to let the
+algorithm continue to run despite the stabilized policy. The algorithm may 
+be stuck at a local minimum and may need some time
+to get out of it.  Therefore, it is very important to carefully select the
+discount factor.
+
+From Figure~\ref{fig:ValueIterationResults2} we can see that the action set has
+stabilized, and we
 have a policy to reach the goal state. In reference to our problem statement if
-an agent reaches a goal state, that is a simulated node/user who has an
-artificially high trust values surrounded by nodes with very low trust value
+an agent reaches a goal state, i.e. a simulated node/user who has an
+artificially high trust values surrounded by nodes with very low trust value,
 then there is an attack possibility and the decision is made not to transfer the
 documents.
 
-\subsection{Policy Iteration}
-
-The policy iteration works almost similar to value iteration but the difference
+\subsubsection{Policy Iteration}
+The policy iteration works similar to value iteration but the difference
 mainly being that in policy iteration we start the algorithm with some random
-policy (set of actions) and then use the backward induction to improve the
-policy. The algorithm constantly performs a backward induction using a bellman
-equation \autocite{Wikipedia2013} and this technique is called Bellman Backup. In the case of the
-policy iteration the initial policy is assumed and is policy is constantly
-evaluated and updated when the values are updated, here the values are the trust values of each node.  Equation \ref{eq:infinite_horizon2} is used in value iteration
-or infinite horizon.
+policy (set of actions) and then use backward induction to improve the
+policy. In the case of the
+policy iteration the initial policy is assumed and the policy is constantly
+evaluated and updated when the values are updated. As before, the values are the 
+trust values of each node.  Equation \ref{eq:infinite_horizon2} is used in value 
+iteration or infinite horizon.
 
 \begin{equation} 
     \label{eq:infinite_horizon2}
     V_\pi(s) = T(s) + \beta \sum_{S'} M(s,\pi(s),s') \cdot V_\pi(s')
 \end{equation}
-
-
 The different parameters used in the above equation are the same as the ones in
 the value iteration, the difference being that $\pi(s)$ represents a policy. The brief
 description of the algorithm is as follows:
@@ -243,7 +235,7 @@ description of the algorithm is as follows:
         \item Until no improving action possible at any state
 \end{enumerate}
 
-The policy improvement is made using equation \ref{eq:policy_improvement}
+The policy improvement is made using Equation~\ref{eq:policy_improvement}
 
 \begin{equation} 
     \label{eq:policy_improvement}
@@ -251,6 +243,13 @@ The policy improvement is made using equation \ref{eq:policy_improvement}
 \end{equation}
 
 
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{Figures/Planning_Figure_4.png}
+        \caption{Policy Iteration Results}
+        \label{fig:ValueIterationResults3}
+    \end{center}
+\end{figure}
 
 In Figure~\ref{fig:ValueIterationResults3} we can see the several runs of the policy iteration
 algorithms. Here we start with the random policy and use the equations to update
@@ -258,22 +257,8 @@ the reward metrics of the every state and there updating the policy if any
 better policy is found than one we started with or one that we have. We can see
 the action sets stabilize at the end and hence arriving upon a policy that will
 help us make the correct decision.
-\begin{figure}[h!]
-    \label{fig:SystemBlockDiagram}
-    \begin{center}
-        \includegraphics[width=0.95\textwidth]{Figures/Planning_Figure_1.png}
-        \caption{System Block Diagram}
-    \end{center}
-\end{figure}
 
-\begin{figure}[h!]
-    \label{fig:ValueIterationResults3}
-    \begin{center}
-        \includegraphics[width=0.95\textwidth]{Figures/Planning_Figure_4.png}
-        \caption{Policy Iteration Results}
-    \end{center}
-\end{figure}
-
+\FloatBarrier
 
 \subsection{Running time}
 
