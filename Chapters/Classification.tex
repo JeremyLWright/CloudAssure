@@ -90,24 +90,25 @@ a conditional probability.  This reversal is precisely the goal of
 classification in general \autocite{Bishop2009}. Bayesian classifiers are used
 extensively in spam filters. Equation~\ref{eq:BayesSpam} states the
 question, what is the probability a document is spam, given it contains the word
-``Nigeria''. 
+``Prescription''? 
 
 \begin{equation}
-    P(\text{spam} | \text{Nigeria}) = \frac{P(\text{Nigeria}
-    | \text{spam}) \cdot P(\text{spam})}{P(\text{Nigeria})}
+    P(\text{spam} | \text{Prescription}) = \frac{P(\text{Prescription}
+    | \text{spam}) \cdot P(\text{spam})}{P(\text{Prescription})}
     \label{eq:BayesSpam}
 \end{equation}
 
 From this, we see how we can classify a document given a single word, but
-document are actually more complex that then.
+document are actually more complex than this.
 Equation~\ref{eq:BayesSpamMedicine} asks the question more elegantly: What is
-the probability a document is spam given it contains \emph{both} Nigeria, and
+the probability a document is spam given it contains \emph{both} Prescription, and
 medicine. 
 
 \begin{equation}
-    P(\text{spam} | \text{Nigeria}, \text{medicine}) = \frac{P(\text{Nigeria}
+    P(\text{spam} | \text{Prescription}, \text{medicine})
+    = \frac{P(\text{Prescription}
     | \text{spam} \cap \text{medicine} ) \cdot P(\text{medicine}
-    | \text{spam}) \cdot P(\text{spam})}{P(\text{Nigeria})}
+    | \text{spam}) \cdot P(\text{spam})}{P(\text{Prescription})}
     \label{eq:BayesSpamMedicine}
 \end{equation}
 
