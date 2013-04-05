@@ -188,7 +188,7 @@ decisions.
 
 Another issue, we faced while developing CloudAssure, is whether to choose
 a finite or an infinite horizon: which is
-whether an agent should change its policies according to the time is has or
+whether an agent should change its policies according to the time it has or
 should the
 policies generated be stationary. In this sense, a policy is the rules the
 \gls{mdp} will use to make its data transmission decisions.
@@ -208,7 +208,22 @@ heuristics, which is very difficult to achieve given the dynamic nature of our
 domain where the trust values are constantly evaluated and updated. 
 
 \subsubsection{Planning Recommendations}
-here
+The planning component of CloudAssure uses the \gls{mdp} value and policy
+iteration algorithm. These however do not deal with uncertainty. If an
+organization for some reason does have not a trust value for a particular node/user
+then the system may function correctly. Therefore, we recommend that during the
+implementation, if
+trust value cannot be evaluated for a particular node, assign the nodes with
+some informed or estimated trust metrics. This allows the system to continue generating
+decisions. 
+
+Secondly, as we have shown, the \gls{mdp} is computationally expensive. In
+situations where the number of nodes is large, the \gls{mdp} will take
+a considerable about of time to generate a decision. If this case, we recommend
+the use of localized subgraph, where only certain nodes/users relevant for 
+decision making are considered. By this way we can reduce
+the computational complexity of the algorithm.
+
 
 \subsection{Trust Evaluation Conclusions}
 Trust is a powerful technique to ensure that the transmission of data among
@@ -225,7 +240,7 @@ decisions in the other phases of the framework. The output is a value between
 the feasibility, effectiveness, and benefits of our trust equation .The output
 result we be sent to the planning phase.
 
-\subsubsection{Advantages (Claims)}
+\subsubsection{Advantages}
 The Trust value equation in the Trust Management system is very useful and
 ensures the transmission of data among the nodes. The High secured data is
 maintained and avoids data leakage to the node which has a very low trust value
