@@ -1,11 +1,11 @@
 \section{Trust Management}
 \label{sec:trust-management}
-Trust ts the reliance on the integrity or strength of a person or thing
+Trust is the reliance on the integrity or strength of a person or thing
 \autocite{Dictionary2013} Trust can be sub-categorized as reputation
 , and it plays a vital role in an organization \autocite{Liu2006}. In every organization, employee trust plays
 a pivotal role and trust issues can make or break the culture of organization. There is a
 lot stress involved in working in an environment where data is highly classified and trust
-between the employees is minimal. Without trust, an organization is not meet its
+between the employees is minimal. Without trust, an organization will not meet its
 quality standard standard. Hence, trust must exist for the organization to be successful.
 
 \subsection{Data Transmission based on Trust}
@@ -80,8 +80,8 @@ To achieve these high-level criteria, We use the following metrics:
 Based on the above factors, CloudAssure uses a trust value equation to planning 
 decisions. Similar to classification, our initial trust evaluation equation
 turned out to be ineffective. Firstly, we will discuss the failed attempt
-(Section~\ref{sec:initial_trust_equation}, followed by our recommended equation
-(Section~\ref{sec:recommended_trust_equation}. 
+(Section~\ref{sec:initial_trust_equation}), followed by our recommended equation
+(Section~\ref{sec:recommended_trust_equation}). 
 
 \subsubsection{Initial Trust Equation}
 \label{sec:initial_trust_equation}
@@ -90,7 +90,7 @@ Section~\ref{sec:trust_value_criteria}. This first equation attempted to combine
 the localized graph concepts. This
 proved to be ineffective and was later moved into the planning component. The
 artifact of this decision is in the node notation of
-Equation~\ref{eq_initial_trust}. 
+Equation~\ref{eq:initial_trust}. 
 The Node level represents the node's
 position in the organization. The Similarity value is how similar the content of
 a document is to another previously transmitted.  Initially, our equation
@@ -113,7 +113,7 @@ Tr_{ij} &:= \text{The trust value between the nodes i and j}
 \end{equation}
 The initial intent was once the trust value is calculated, the trust
 value of the nodes can be increased or reduced according to
-Equation~\ref{eq_initial_trust_node}
+Equation~\ref{eq:initial_trust_node}
 \begin{equation}
    Tr_{Aj} =    \begin{dcases*}
                     Tr_{Aj} + Tr_{ij} & when $C < 5$\\
@@ -123,8 +123,8 @@ Equation~\ref{eq_initial_trust_node}
 \end{equation}
 As clarified earlier, Equation \ref{eq:initial_trust} proved unsuitable.
 
-\subsection{Recommended Trust Equation}
-\label{sec:recommend_trust_equation}
+\subsubsection{Recommended Trust Equation}
+\label{sec:recommended_trust_equation}
 Improving upon Equation~\ref{eq:initial_trust}, yet still striving to meet the
 criteria stated in Section~\ref{sec:trust_value_criteria}. We created a second
 trust evaluation technique in which removes the graph concepts.The trust metric
@@ -160,7 +160,9 @@ Table \ref{tab:trust_value_calculation} contains a test sample for easy calculat
     \label{tab:trust_value_calculation}
 \end{table}
 
-The \(\Delta_{value_1}\) can be calculated from \ref{tab:trust_value_calculation} having the list of
+The \(\Delta_{value_1}\) of Table
+\ref{tab:trust_value_calculation} can be calculated
+from\ref{tab:summation_value_calculation}, having the list of
 documents and the summation of the \(\Delta_{values} \to \Delta_{list} \) value of the particular node. 
 
 \begin{table}[h!]
@@ -193,8 +195,8 @@ similarity metric of the respective documents.
 
 \subsection{Reward for Trusted Node}
 Equation~\ref{eq:UpdatedEquation} only defined how trust is decreased by
-document leakage. However, to trust must also have a method to increase
-otherwise, over time, all nodes will be deemed untrustworthy. This is the core
+document leakage. However, Trust should also have a method to increase over time
+otherwise, all nodes will eventually be deemed untrustworthy. This is the core
 of the reward equation, Equation~\ref{eq:trusted_node_reward}
 
 \begin{equation}
@@ -215,7 +217,7 @@ a reward (\(Tr_{val}\)) is incremented to the node. While this allows active
 users to increase their trust through good data management, it also prevents inactive
 participants from having an artificially high trust value. 
  \subsection{Trust Value Calculation of the Node}
-The Figure 3 below is a flowchart representation of the calculation of the trust value of the node. The detailed explanation is given below:
+ The Figure~\ref{fig:TrustAlgorithm} is a flowchart representation of the calculation of the trust value of the node. The detailed explanation is given below:
 \begin{itemize}
     \item Initially store the present trust value in the variable \( Tr_{old} \).
     \item Now to calculate the new trust value (\( Tr_{new} \) ), check for the
