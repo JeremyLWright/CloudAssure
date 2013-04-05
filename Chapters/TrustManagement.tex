@@ -6,7 +6,7 @@ Trust is the reliance on the integrity or strength of a person or thing
 a pivotal role and trust issues can make or break the culture of organization. There is a
 lot stress involved in working in an environment where data is highly classified and trust
 between the employees is minimal. Without trust, an organization will not meet its
-quality standard standard. Hence, trust must exist for the organization to be successful.
+quality standard. Hence, trust must exist for the organization to be successful.
 
 \subsection{Data Transmission based on Trust}
 Within CloudAssure, this module evaluates the trust metric \( Tr_{new} \) used
@@ -67,7 +67,7 @@ criteria:
         before, the receiver's trust value is reduced by a lower value.
 \end{enumerate}
 
-To achieve these high-level criteria, We use the following metrics:
+To achieve these high-level criteria, we use the following metrics:
 \begin{enumerate}
     \item The \emph{Classification} of the document to be sent.
     \item The \emph{Similarity} of the document compared to past received
@@ -95,7 +95,7 @@ The Node level represents the node's
 position in the organization. The Similarity value is how similar the content of
 a document is to another previously transmitted.  Initially, our equation
 assumed that the above three factors come from some
-Feedback along with the current trust value of the node generates the new trust
+feedback along with the current trust value of the node generates the new trust
 value \autocite{L.Xiong2004}, \autocite{YanWang2007}. This feedback would come
 from after the Security Agent had made a decision. The trust equation for
 finding out the trust value is given by Equation~\ref{eq:initial_trust}.
@@ -111,7 +111,7 @@ Tr_{ij} &:= \text{The trust value between the nodes i and j}
     \label{eq:initial_trust}
 \end{aligned}
 \end{equation}
-The initial intent was once the trust value is calculated, the trust
+The initial intent was, once the trust value is calculated, the trust
 value of the nodes can be increased or reduced according to
 Equation~\ref{eq:initial_trust_node}
 \begin{equation}
@@ -126,8 +126,8 @@ As clarified earlier, Equation \ref{eq:initial_trust} proved unsuitable.
 \subsubsection{Recommended Trust Equation}
 \label{sec:recommended_trust_equation}
 Improving upon Equation~\ref{eq:initial_trust}, yet still striving to meet the
-criteria stated in Section~\ref{sec:trust_value_criteria}. We created a second
-trust evaluation technique in which removes the graph concepts.The trust metric
+criteria stated in Section~\ref{sec:trust_value_criteria}, we created a second
+trust evaluation technique in which removes the graph concepts. The trust metric
 of the node we are evaluating is the difference between the old trust value
 (\(Tr_{old}\)) and a delta metric (\(\Delta_{list}\)). The delta
 metric is the weighted summation of the delta values (computed from the
