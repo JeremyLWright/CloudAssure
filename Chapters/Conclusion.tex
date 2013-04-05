@@ -2,15 +2,15 @@
 The three-factor approach that CloudAssure uses to prevent unauthorized data
 transmission relies on its three components (Classification, Trust Evaluation, and
 Modeling) to integrate seamlessly and function as a united service, providing
-a defense in depth strategy. As mentioned in the Section~\ref{introduction, the problem that
-CloudAssure hopes to solve is that modern solutions are often privatized,
+a defense in depth strategy. As mentioned in the Section~\ref{sec:introduction},
+CloudAssure hopes to solve the problem that modern solutions are often privatized,
 expensive, niche, or domain specific. CloudAssure takes a general approach,
 which once trained on a specific organization's data, can be integrated into any
-organizational system.  
+organizational infrastructure.  
 
-There is no doubt that the current state-of-the-art
-solutions in managing unauthorized data transmission and preventing data loss
-are in the private commercial sector. Heavy hitters such as Cisco systems \autocite{Cisco2008},
+The private commercial sector, currently provides the current state-of-the-art
+solutions in managing unauthorized data transmission and preventing data loss. 
+Heavy hitters such as Cisco systems \autocite{Cisco2008},
 Symantec \autocite{Symantec2013}, and McAfee \autocite{McAfee2013} all provide a wide range of
 software/hardware/consulting tools and services to provide the required security
 to their customers. To an organization that can afford the cost, which is
@@ -42,8 +42,9 @@ to requiring their specialists be involved in the process.
 Obviously the cost
 of an enterprise solution must be taken into consideration. Enterprise solutions
 have built-in costs of specialized hardware, system configuration and
-maintenance considerations. Lastly, do to the integrated nature of these systems possible modifications to 
-\emph{organizational infrastructure}, not to mention additional personnel costs.
+maintenance considerations. Lastly, due to the integrated nature of these
+systems organizations are left to adjust their work-flows, rather than the tools
+responding to the organization's needs. 
 
 \section{Open-Source Offerings}
 On the other end of
@@ -53,7 +54,7 @@ are open source traffic monitoring solutions that can be used as an intrusion
 detection system, and to classify network traffic. OpenDLP \autocite{Gavin2012} is an open
 source tool designed to classify data. Academic software such as Cornell
 University's Spider \autocite{Cornell2013} could also be used to identify confidential data in
-files. Because this software is free and/or open source however, it brings with
+files. However since, this software is free and/or open source, it brings with
 it inherent risks.  
 
 A research report done by Christopher Hoke for the SANS
@@ -92,43 +93,45 @@ and benefits (and risks) inherent in that model.
 
 \section{System and Module Conclusions}
 \subsection{CloudAssure Conclusions}
-here
+CloudAssure strikes a clear distinction between the current open-source
+offerings, and their commercial counterparts. Yet, implementation aside, it is
+evident that companies with any type of critical intellectual property can
+benefit from a systematic approach to data leakage. Either through CloudAssure,
+or some other offering, data leakage is a vastly expensive risk. Furthermore,
+with the volume of data increasing exponentially, employees cannot be expect to
+properly secure all data at all times. There is an increasingly critical
+requirement within organizations to systematically control their data..
 
 \subsection{Classification Conclusions}
 Classification techniques vary among their underlying models, predictive goals,
 but one fact remains that classification, as much of machine learning, is
-a process reversal. The topic of classifications didn't really clarify until
-I read this statement: Machine Learning, at its core reverses a human process.
-The reasons to why one would need to do this vary according to application, but
-this elegant definition really solidified my footing within the subject. 
-
-With respect to CloudAssure our goal is clear, ``protect important
-information''. As terse a thesis as this, the process is difficult. What is
+a process reversal. The reasons to why one would need to do this vary according
+to application, with respect to CloudAssure our goal is clear, ``protect important
+information''. As terse a thesis as this, the implementation is difficult. What is
 important? How important? Is important a binary property or are there varying
 levels? Does all data need to be protected or just some of it? There questions
-cannot all be resolved algorithmically, some are more human questions than
+cannot all be resolved algorithmically, rather some are more human questions than
 pragmatic ones; However among these, there are questions we can address.
 
 CloudAssure comes with two built in classification algorithms. The Classifier is
 build against a Python class interface, thus one could extend CloudAssure with
-their own implementation, however our results are based on simply these. At
-a high-level I imagine decision trees as a graphic model and Bayesian as
-a numerical model. While both models are mathematically designed, this helps
-reason at a conceptual level. The Decision Tree, for our data set, required more
-memory, and more time to build a classification model, while the Bayesian was
+their own implementation, however our results are based on simply these. The
+Decision Tree, for our data set, required more memory, and more time to build
+a classification model, while the Bayesian was
 must cheaper, computationally. However, while both classify a document
 quickly, the decision tree is 4\% more accurate. Within our specific
-implementation the Decision Tree is the classifier to use.
+implementation the Decision Tree is the classifier to use. This leads to the
+point that algorithms must be ``explored'' for maximum effectiveness. 
 
-There exist very powerful tools such as Orange which permit ``exploratory'' data
+There exist very powerful tools such as Orange which permit exploratory data
 analysis. As one explores a dataset with the intent of classifying, or extracting some
-other underlying pattern the dataset needs to be transformed, and visualizing is
-key interface between our strong human skills, and the computer's strong
-numerical skills. Exploratory data analysis tools allow one to display data as
-a graph of connected nodes. One can group and ungroup data according to some
+other underlying pattern the dataset needs to be transformed, and visualization is
+the key interface between our strong human skills, and the computer's strong
+numerical skills. Exploratory data analysis tools allow one to display data in
+a multitude of formats. One can group, and ungroup data according to some
 property. The computer complies with each of the numerical requests, while we
 the data designer watches the data transform. Furthermore, there is a great deal
-of researching in how to visualize data to maximize our ability to cull
+of research in how to visualize data to maximize our ability to cull
 information from it. This is the purpose of machine learning and by extension
 classification: to advance the human intellect through data. Data which
 increases in quality by the minute. As a race we generate more data today than
@@ -136,12 +139,17 @@ we ever have before. The data is useless unless we can extract and learn from
 it. Much like how history is the best teacher, we have cataloged, indexed and
 searchable history. More accurate, and more available than ever before, yet with
 the sheer volume comes its own challenges, and data analysis researchers are
-leading the charge to this lofty challenge. The greatest recommendation within
-Classification is to study your data, and evaluate a number of feature
-techniques to determine the greatest value for your implementations. 
+leading the charge to this lofty challenge. 
 
-With respect to implementation, Python has been a very strong tool. Its
-performance is further enhanced with high performance libraries, such and NumPy
+\subsubsection{Recommendations}
+There are numerous classification techniques, algorithms, feature kernels, and
+powerful tools to help evaluate their effectiveness on a particular
+organization's data. The greatest recommendation within
+classification is to study your data, and evaluate a number of feature
+techniques to determine the greatest value for your implementation. 
+
+With respect to implementation, Python is a very strong tool. Its
+performance is enhanced with high performance libraries, such and NumPy
 and SciPy. Furthermore, many open-source packages such as NLTK provide intuitive
 interfaces to these extremely high performance, FORTRAN optimized libraries.
 Python is a strong candidate for implementation of CloudAssure Modules. After
@@ -158,8 +166,6 @@ repository of classified data. If an organization is new, it may not have this
 yet, or if the training data is insufficiently small, CloudAssure will offer
 little protection. 
 
-\subsubsection{Classification Recommendations}
-here
 
 \subsection{Planning Conclusions}
 We decided to implement our planning system with 
@@ -260,7 +266,14 @@ process to minimize the cost of reevaluating the trust metric.
 
 \section{Future Work}
 \subsection{Entire System}
-here
+Due to scheduling constraints each of the subcomponents were implemented
+simultaneously. While internal consistency was fiercely managed, each component
+currently exists, somewhat in isolation. The Classification components are
+implemented in Python, while the planning algorithms are implemented in Matlab.
+Furthermore, the classification component uses a single files database (SQLite),
+which will not meed the high concurrency needs of the trust server, or the
+request rates of a \gls{sa}. With the proof of concepts defined here, an overhaul
+with respect to performance, and future maintenance needs to be performed.
 
 \subsection{Planning}
 Our future work is to figure out how to use POMDP because current planning
@@ -271,9 +284,10 @@ to try to convert stochastic actions to deterministic actions and do FF-Replan,
 which can improve performance in decision making because deterministic decision
 making is much more cost effective.  
 
-\subsection{Classification} Within the
-classification modules of CloudAssure, we only implemented linear techniques.
-This is a marked gap in our survey. Non-linear techniques such as Neural nets,
+\subsection{Classification} 
+Within the classification modules of CloudAssure, we only implemented linear
+techniques.  This is a marked gap in our survey. Non-linear techniques such as
+Neural nets,
 offer an extremely advanced classification properties dues directly to their
 non-linearity. We choose to skip these in order to tune the linear techniques,
 but the linear techniques reviewed are insufficient to my strong claims about
