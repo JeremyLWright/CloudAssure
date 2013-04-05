@@ -53,59 +53,67 @@ make the most informed decision possible.
         \label{fig:TrustTransmission}
     \end{center}
 \end{figure}
+\FloatBarrier
 
-\subsection{Impact of Trust values}
-We have criteria that when the node interacts and data transmission is done, its trust value is
-reduced. The reduction in the trust value is based on the following points:
+\subsection{Trust Values Criteria}
+\label{sec:trust_value_criteria}
+Now we see how trust is used, how is it managed?
+Trust Value (\(Tr_{new}\)) incorporates the following high-level
+criteria:
 \begin{enumerate}
-    \item When a Node sends a high secret data to another node which is not trusted (based on
-the trust value), then the nodes trust value is reduced by a high value.
-    \item When a Node sends a high secret data to another trusted node, then the nodes trust
-value is reduced by a minimum value.
+    \item A Node sends a highly sensitive document to another node. If the document leaks from
+        the destination node, the receiver's trust value is reduced by a high value.
+    \item A Node sends a lowly sensitive document to anther node. If the document leaks, as
+        before, the receiver's trust value is reduced by a lower value.
 \end{enumerate}
 
-\subsection{Trust Computation Factors}
-To compute the trust value, we took various factors into consideration. Few of them are listed
-below
+To achieve these high-level criteria, We use the following metrics:
 \begin{enumerate}
-    \item The \emph{Classification} of the data which has to be sent to other node.
-    \item The \emph{Similarity} of the data meaning how much percentage of the data has been copied
-or used in another document.
-    \item The \emph{old trust value}, every time the node interacts with its neighbors, its old trust value
-is updated.
-    \item The \emph{total number of documents} shared by a particular node at a particular instance.
+    \item The \emph{Classification} of the document to be sent.
+    \item The \emph{Similarity} of the document compared to past received
+        documents.
+    \item The \emph{old trust value} (\(Tr_{old}\)).
+    \item The \emph{total number of documents} shared by a particular node.
 \end{enumerate}
-    \subsection{Trust Value Equation}
-Based on the above factors, CloudAssure uses a trust value equation to support
-decisions in the other phases of the framework Figure~\ref{fig:TrustTransmission}
 
-\subsection{Initial Trust Equation}
+\subsection{Trust Value Equation}
+Based on the above factors, CloudAssure uses a trust value equation to planning 
+decisions. Similar to classification, our initial trust evaluation equation
+turned out to be ineffective. Firstly, we will discuss the failed attempt
+(Section~\ref{sec:initial_trust_equation}, followed by our recommended equation
+(Section~\ref{sec:recommended_trust_equation}. 
 
-
-The decision to transmit packets of data between various nodes (users) is done
-based on the trust value. The trust value is calculated based on the factors of
-Classification of the data type, Node level \& Similarity of the data being transmitted. The Node level is an arbitrary level representing the node's position in the organization. The Similarity value is how similar the content of a document is to another previously transmitted.
-Initially, our equation assumed that the above three factors come from some
+\subsubsection{Initial Trust Equation}
+\label{sec:initial_trust_equation}
+The trust value is calculated based on the factors described in
+Section~\ref{sec:trust_value_criteria}. This first equation attempted to combine
+the localized graph concepts. This
+proved to be ineffective and was later moved into the planning component. The
+artifact of this decision is in the node notation of
+Equation~\ref{eq_initial_trust}. 
+The Node level represents the node's
+position in the organization. The Similarity value is how similar the content of
+a document is to another previously transmitted.  Initially, our equation
+assumed that the above three factors come from some
 Feedback along with the current trust value of the node generates the new trust
-value \autocite{L.Xiong2004}, \autocite{YanWang2007}. This feedback would come from after the Security Agent had made
-a decision. The trust equation for finding out the trust value is given by
+value \autocite{L.Xiong2004}, \autocite{YanWang2007}. This feedback would come
+from after the Security Agent had made a decision. The trust equation for
+finding out the trust value is given by Equation~\ref{eq:initial_trust}.
 \begin{equation}
-    \label{eq:init_trust}
     \begin{aligned}
-         Tr_{ij}&=\frac{\frac{C}{C_{max}} + \frac{NL}{NL_{max}}
-         + \frac{Doc\%}{100}}{3} \\
+         Tr_{ij}&=\frac{\frac{C}{C_{max}} + \frac{NL}{NL_{max}} + \frac{Doc\%}{100}}{3} \\
     \text{Where}~C &:= \text{Classification type of data [0 - 10]} \\
 C_{max} &:= \text{Maximum level of the data} \\
 NL &:= \text{Node level [1 - 5]} \\
 NL_{max} &:= \text{maximum node level [5]} \\
 Doc\% &:= \text{amount of data transferred} \\
 Tr_{ij} &:= \text{The trust value between the nodes i and j}
+    \label{eq:initial_trust}
 \end{aligned}
 \end{equation}
-
-Once the trust value is calculated then depending on the feedback, the trust
-value of the nodes can be increased or reduced. The following are the different
-scenarios: 
+The initial intent was once the trust value is calculated, the trust
+value of the nodes can be increased or reduced according to
+Equation~\ref{eq_initial_trust_node}
 \begin{equation}
    Tr_{Aj} =    \begin{dcases*}
                     Tr_{Aj} + Tr_{ij} & when $C < 5$\\
@@ -113,28 +121,27 @@ scenarios:
                 \end{dcases*}
                 \label{eq:initial_trust_node}
 \end{equation}
-After testing Trust Value Equation \ref{eq:initial_trust_node}, we deemed it unsuitable because the trust value should be independent of the Node level. 
+As clarified earlier, Equation \ref{eq:initial_trust} proved unsuitable.
 
-
-\subsection{New Scenario \& New Trust Equation}
-We created a new trust evaluation technique in which, for every node in the
-respective node level, the security agent will monitor the transfers of
-classified documents from the node we are evaluating, taking into consideration
-the surrounding nodes. The trust metric of the node we are evaluating is the
-difference between the old trust value and the delta function. The delta
-function is the weighted summation of the delta values (computed from the
+\subsection{Recommended Trust Equation}
+\label{sec:recommend_trust_equation}
+Improving upon Equation~\ref{eq:initial_trust}, yet still striving to meet the
+criteria stated in Section~\ref{sec:trust_value_criteria}. We created a second
+trust evaluation technique in which removes the graph concepts.The trust metric
+of the node we are evaluating is the difference between the old trust value
+(\(Tr_{old}\)) and a delta metric (\(\Delta_{list}\)). The delta
+metric is the weighted summation of the delta values (computed from the
 previous document transmissions from that node and the difference function used to
-compare the transmission to all the documents in the database).  Taking the
-above factors into consideration, we designed a new equation
-(\ref{UpdatedEquation}).
+compare the transmission to all the documents in the database).  Leading to
+Equation~\ref{eq:UpdatedEquation}.
 \begin{equation}
-    \label{UpdatedEquation}
+    \label{eq:UpdatedEquation}
     \begin{aligned}
-        Tr_{new} &= Tr_{old} - \Delta_{list}
-        Where Tr_{new} &:= \text{The new Trust value of the employee}
-        Tr_{old} &:= \text{The existing trust value}
-        \Delta_{list} &:= \text{The value obtained by combining input from the
-        difference function and classification}
+        Tr_{new} &= Tr_{old} - \Delta_{list} \\
+        \text{Where } Tr_{new} &:= \text{The new Trust value of the employee} \\
+        Tr_{old} &:= \text{The existing trust value} \\
+        \Delta_{list} &:= \text{The value obtained by combining input from the} \\
+        &\text{difference function and classification}
     \end{aligned}
 \end{equation}
 Table \ref{tab:trust_value_calculation} contains a test sample for easy calculation of the trust value.
@@ -173,26 +180,22 @@ documents and the summation of the \(\Delta_{values} \to \Delta_{list} \) value 
 The \(\Delta_{value}\) from the above table can be calculated from the below equation.
 \begin{equation}
     \begin{aligned}
-    \Delta_{value}(val) &= \delta(C \cdot \%Doc) \\
+    \Delta_{value} &= C \cdot \%Doc \\
     \text{Where}~C &:= \text{the classification of the document} \\
-    \Delta_{value} &:= \text{the summation of all the} \\
-    &\text{documents for the particular employee.}\\ 
-    \%Doc &:= \text{similarity in the documents.}
+    \%Doc &:= \text{similarity in the document.}
 \end{aligned}
 \end{equation}
 
-The Multiplication operator in the equation is to find out the \( \Delta_{value} \).
-The Trust value will be calculated based on the factors like the number of
-documents sent to neighboring nodes against security agents decisions, the
-classification of the data along with similarity between the documents. The \(
-\Delta_{list} \) can be calculated by doing a weighted summation of their respective \( \Delta_{value} \). The \( \Delta_{value} \) can be found out by passing the inputs of number of documents classification type and  similarity metric of the respective documents.
+The \( \Delta_{list} \) can be calculated by doing a weighted summation of
+their respective \( \Delta_{value} \). The \( \Delta_{value} \) can be found
+out by passing the inputs of number of documents classification type and
+similarity metric of the respective documents.
 
 \subsection{Reward for Trusted Node}
-When there is transmission of data to trusted employees, and the calculated
-decrease in the trust value is not below the threshold value, and the node is in
-an Active status (Active meaning the node is involved in transmissions over
-a set period of time), then the security agent will assign a Trust Reward Value
-( \( Tr_{val} \) ) to the node is described by equation \ref{eq:trusted_node_reward}. 
+Equation~\ref{eq:UpdatedEquation} only defined how trust is decreased by
+document leakage. However, to trust must also have a method to increase
+otherwise, over time, all nodes will be deemed untrustworthy. This is the core
+of the reward equation, Equation~\ref{eq:trusted_node_reward}
 
 \begin{equation}
     \label{eq:trusted_node_reward}
@@ -204,7 +207,14 @@ a set period of time), then the security agent will assign a Trust Reward Value
                  &\text{monitoring the node's participation.}
 \end{aligned}
 \end{equation}
- \subsection{Trust value Calculation of the Node}
+
+Essentially, as the node participates in document transfer, this activity level
+is monitored by the \gls{sa} of that level. If the node doesn't leak data for an
+implementation defined amount of time, proportional to the participation level,
+a reward (\(Tr_{val}\)) is incremented to the node. While this allows active
+users to increase their trust through good data management, it also prevents inactive
+participants from having an artificially high trust value. 
+ \subsection{Trust Value Calculation of the Node}
 The Figure 3 below is a flowchart representation of the calculation of the trust value of the node. The detailed explanation is given below:
 \begin{itemize}
     \item Initially store the present trust value in the variable \( Tr_{old} \).
