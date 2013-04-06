@@ -90,31 +90,11 @@ to be done in house by IT personnel and System Administrators. If the
 CloudAssure framework is made open-sourced, then this provides the extensibility
 and benefits (and risks) inherent in that model. 
 
-\section{Comparison}
-\begin{enumerate}
-    \item Advantages (Claims)
-        \begin{enumerate}
-            \item Makes informed decisions based on well derived heuristics          	
-            \item Not depend on static policies to make decisions
-            \item Heuristics are derived dynamically through trust reevaluation and classification
-            \item Easy enforcement
-            \item Easy adaptation to any organizational environment
-            \item Doesn't require proprietary or predator vendor lockin.
-            \item 
-        \end{enumerate}
-    \item Disadvantages
-        \begin{enumerate}
-            \item Might be computationally expensive
-            \item Might be difficult to scale up beyond certain limit
-            \item Might not work if organization does not have a hierarchical set up
-            \item System needs to be trained by expert before it becomes efficient
-            \item Might not work if we assume system compromise or ``trusted
-                employee'' attack.
-        \end{enumerate}
-\end{enumerate}
+\section{System and Module Conclusions}
+\subsection{CloudAssure Conclusions}
+here
 
-\section{Recommendations}
-\subsection{Classification}
+\subsection{Classification Conclusions}
 Classification techniques vary among their underlying models, predictive goals,
 but one fact remains that classification, as much of machine learning, is
 a process reversal. The topic of classifications didn't really clarify until
@@ -178,7 +158,10 @@ repository of classified data. If an organization is new, it may not have this
 yet, or if the training data is insufficiently small, CloudAssure will offer
 little protection. 
 
-\subsection{Planning Results}
+\subsubsection{Classification Recommendations}
+here
+
+\subsection{Planning Conclusions}
 We decided to implement our planning system with 
 simulated values because the other modules of CloudAssure (Classification and Trust
 Evaluation) were being developed simultaneously. Because of this we were not able to
@@ -209,7 +192,10 @@ and priority sweeping to work effectively they need more accurate and stable
 heuristics, which is very difficult to achieve given the dynamic nature of our
 domain where the trust values are constantly evaluated and updated. 
 
-\subsection{Trust Evaluation}
+\subsubsection{Planning Recommendations}
+here
+
+\subsection{Trust Evaluation Conclusions}
 Trust is a powerful technique to ensure that the transmission of data among
 organizations¿ employees is safe and secure. In this project, the transmission
 of the data among the nodes is monitored by security agents. The input of trust
@@ -249,7 +235,33 @@ leakage. Also, in our process we calculate the trust values very frequently
 which will lead to costly process. We need to come up with a new computation
 process to minimize the cost of reevaluating the trust metric.
 
+\section{Comparison}
+\begin{enumerate}
+    \item Advantages (Claims)
+        \begin{enumerate}
+            \item Makes informed decisions based on well derived heuristics          	
+            \item Not depend on static policies to make decisions
+            \item Heuristics are derived dynamically through trust reevaluation and classification
+            \item Easy enforcement
+            \item Easy adaptation to any organizational environment
+            \item Doesn't require proprietary or predator vendor lockin.
+            \item 
+        \end{enumerate}
+    \item Disadvantages
+        \begin{enumerate}
+            \item Might be computationally expensive
+            \item Might be difficult to scale up beyond certain limit
+            \item Might not work if organization does not have a hierarchical set up
+            \item System needs to be trained by expert before it becomes efficient
+            \item Might not work if we assume system compromise or ``trusted
+                employee'' attack.
+        \end{enumerate}
+\end{enumerate}
+
 \section{Future Work}
+\subsection{Entire System}
+here
+
 \subsection{Planning}
 Our future work is to figure out how to use POMDP because current planning
 algorithm is not tolerant of uncertainty. Dealing with uncertainty allows us to
