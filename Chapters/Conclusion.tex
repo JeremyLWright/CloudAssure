@@ -23,9 +23,9 @@ The biggest benefit of current enterprise solutions is of
 course their comprehensiveness. Symantec's \gls{DLP} suite of
 products includes: \gls{DLP} for Mobile, \gls{DLP} for Network, \gls{DLP} for endpoint (client and
 server), \gls{DLP} for storage, and a \gls{DLP} Enforcement server. These solutions are all
-proprietary, utilize dedicated hardware and software. Additionally, this
-solutions only provides niche
-security unless the entire product suite is purchased, including Symantec's
+proprietary, utilize dedicated hardware and software. Additionally, these
+solutions only provide niche or domain specific
+security unless the entire product suite is purchased, including hiring Symantec's
 specialists to configure, monitor, train, and provide support \autocite{Symantec2013}.
 
 Both McAfee and Cisco provide solutions very similar to that of Symantec. McAfee's
@@ -68,7 +68,7 @@ leave much to be desired.
 Hoke notes himself however, that while his solution
 works and is feasible, there are drawbacks. Hoke's solution was unable to handle
 any form of encrypted data traffic. Also, his system was unable to monitor
-application to host communication. Due to the nature of the system, this type of
+application to host communication \autocite{Hoke2012}. Due to the nature of the system, this type of
 solution also requires a non-insignificant time and knowledge investiture for
 proper setup, utilization, and effectiveness.  
 
@@ -98,9 +98,18 @@ offerings, and their commercial counterparts. Yet, implementation aside, it is
 evident that companies with any type of critical intellectual property can
 benefit from a systematic approach to data leakage. Either through CloudAssure,
 or some other offering, data leakage is a vastly expensive risk. Furthermore,
-with the volume of data increasing exponentially, employees cannot be expect to
+with the volume of data increasing exponentially, employees cannot be expected to
 properly secure all data at all times. There is an increasingly critical
-requirement within organizations to systematically control their data..
+requirement within organizations to systematically control their data.
+
+From designing, refining, and testing the CloudAssure framework, we have been able
+to conclude that there exists a need for this type of product. Small businesses,
+individuals, and even large organizations wishing to save some money could utilize
+CloudAssure within their networks, with minimal headache. The unique aspects of
+informed decision making and feedback learning make CloudAssure more than just a
+policy enforcement tool. An organization that tailors CloudAssure to their data,
+configures the system properly, and executes the system properly will be receiving
+protection from unauthorized data transmission both in the present, and in the future.
 
 \subsection{Classification Conclusions}
 Classification techniques vary among their underlying models, predictive goals,
@@ -241,33 +250,34 @@ leakage. Also, in our process we calculate the trust values very frequently
 which will lead to costly process. We need to come up with a new computation
 process to minimize the cost of reevaluating the trust metric.
 
-\section{Comparison}
+\section{Approach Comparison}
 \begin{enumerate}
-    \item Advantages (Claims)
+    \item Advantages of CloudAssure compared to other solutions
         \begin{enumerate}
-            \item Makes informed decisions based on well derived heuristics          	
-            \item Not depend on static policies to make decisions
-            \item Heuristics are derived dynamically through trust reevaluation and classification
-            \item Easy enforcement
-            \item Easy adaptation to any organizational environment
-            \item Doesn't require proprietary or predator vendor lockin.
-            \item 
+            \item Makes informed decisions based on well derived heuristics.
+            \item Does not depend on static policies to make decisions.
+            \item Heuristics are derived dynamically through trust reevaluation and classification.
+            \item Easy enforcement.
+            \item Easy adaptation to any organizational environment.
+            \item Doesn't require proprietary products or predatory vendor lockin.
+            \item Framework is modular, and configurable.
         \end{enumerate}
-    \item Disadvantages
+    \item Disadvantages of CloudAssure compared to other solutions
         \begin{enumerate}
-            \item Might be computationally expensive
-            \item Might be difficult to scale up beyond certain limit
-            \item Might not work if organization does not have a hierarchical set up
-            \item System needs to be trained by expert before it becomes efficient
-            \item Might not work if we assume system compromise or ``trusted
-                employee'' attack.
+            \item Some operations may be computationally expensive.
+            \item Framework may be difficult to scale up beyond certain theoretical limit.
+            \item Framework may not work if an organization is not heirarchical.
+            \item The System needs to be trained before it becomes efficient.
+            \item System compromizations and ``trusted
+                employee'' attacks were outside the scope of CloudAssure.
         \end{enumerate}
 \end{enumerate}
 
 \section{Future Work}
 \subsection{Entire System}
 Due to scheduling constraints each of the subcomponents were implemented
-simultaneously. While internal consistency was fiercely managed, each component
+simultaneously. However, only the implementation of classification was initially
+proposed. While internal consistency was fiercely managed, each component
 currently exists, somewhat in isolation. The Classification components are
 implemented in Python, while the planning algorithms are implemented in Matlab.
 Furthermore, the classification component uses a single files database (SQLite),

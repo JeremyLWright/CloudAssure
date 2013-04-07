@@ -83,9 +83,9 @@ distance from the recipient. Additionally, n can be tuned to get an optimal resu
 After this localized graph is generated, the \gls{mdp} algorithm runs with
 the recipient as the start node and an \emph{imaginary} malicious node with
 relatively high trust value as the goal node. The idea here is to evaluate
-the neighbors of the recipient, and discover if the \gls{mdp} decides it is ok to
+the neighbors of the recipient, and discover if the \gls{mdp} decides whether it is ok to
 transmit the data to the malicious node or not. This can give rise to
-a large number of situations such as:
+multiple situations such as:
 \begin{enumerate}
     \item If the recipient's trust value is low, but the trust values of all the
         neighbors are high then the risk of data being leaked is relatively low. The
