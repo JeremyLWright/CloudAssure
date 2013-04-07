@@ -1,0 +1,314 @@
+\section{Current State of the Art}
+The three-factor approach that CloudAssure uses to prevent unauthorized data
+transmission relies on its three components (Classification, Trust Evaluation, and
+Modeling) to integrate seamlessly and function as a united service, providing
+a defense in depth strategy. As mentioned in the Section~\ref{sec:introduction},
+CloudAssure hopes to solve the problem that modern solutions are often privatized,
+expensive, niche, or domain specific. CloudAssure takes a general approach,
+which once trained on a specific organization's data, can be integrated into any
+organizational infrastructure.  
+
+The private commercial sector, currently provides the current state-of-the-art
+solutions in managing unauthorized data transmission and preventing data loss. 
+Heavy hitters such as Cisco systems \autocite{Cisco2008},
+Symantec \autocite{Symantec2013}, and McAfee \autocite{McAfee2013} all provide a wide range of
+software/hardware/consulting tools and services to provide the required security
+to their customers. To an organization that can afford the cost, which is
+relatively prohibitive to smaller businesses (especially since data security is
+an often undervalued aspect), an enterprise solution provides a strong
+defense-in-depth data security solution. However, this approach has benefits and
+drawbacks.  
+
+The biggest benefit of current enterprise solutions is of
+course their comprehensiveness. Symantec's \gls{DLP} suite of
+products includes: \gls{DLP} for Mobile, \gls{DLP} for Network, \gls{DLP} for endpoint (client and
+server), \gls{DLP} for storage, and a \gls{DLP} Enforcement server. These solutions are all
+proprietary, utilize dedicated hardware and software. Additionally, these
+solutions only provide niche or domain specific
+security unless the entire product suite is purchased, including hiring Symantec's
+specialists to configure, monitor, train, and provide support \autocite{Symantec2013}.
+
+Both McAfee and Cisco provide solutions very similar to that of Symantec. McAfee's
+\gls{DLP} product suite includes a \gls{DLP} Manager, \gls{DLP} Discover,
+\gls{DLP} Monitor, \gls{DLP}
+Prevent all as an integrated hardware/software, and \gls{DLP} Endpoint and Device Control
+software \autocite{McAfee2013}. Cisco's product list includes IronPort Email Security Appliance,
+IronPort Web Security Appliance, Loss Prevention Services, Security Agent, and
+IronPort Data Loss Prevention which again are either integrated proprietary
+hardware/software solutions, or a direct software product \autocite{Cisco2008}. Both companies
+encourage potential customers to purchase the full suite of products in addition
+to requiring their specialists be involved in the process.  
+
+Obviously the cost
+of an enterprise solution must be taken into consideration. Enterprise solutions
+have built-in costs of specialized hardware, system configuration and
+maintenance considerations. Lastly, due to the integrated nature of these
+systems organizations are left to adjust their work-flows, rather than the tools
+responding to the organization's needs. 
+
+\section{Open-Source Offerings}
+On the other end of
+the spectrum are open-source software and tools. Snort \autocite{Parker2013} and
+Suricata \autocite{Jonkman2013}
+are open source traffic monitoring solutions that can be used as an intrusion
+detection system, and to classify network traffic. OpenDLP \autocite{Gavin2012} is an open
+source tool designed to classify data. Academic software such as Cornell
+University's Spider \autocite{Cornell2013} could also be used to identify confidential data in
+files. However since, this software is free and/or open source, it brings with
+it inherent risks.  
+
+A research report done by Christopher Hoke for the SANS
+institute attempted to build a comprehensive defense-in-depth solution for
+managing \gls{DLP} \autocite{Hoke2012}.  Hoke's approach was to build and configure a virtual
+machine that could essentially run on-top of an organization's network and
+utilize a combined suite of open-source or free tools to emulate the defense
+strategies used by the enterprise solutions. The results, while promising, still
+leave much to be desired.  
+
+Hoke notes himself however, that while his solution
+works and is feasible, there are drawbacks. Hoke's solution was unable to handle
+any form of encrypted data traffic. Also, his system was unable to monitor
+application to host communication \autocite{Hoke2012}. Due to the nature of the system, this type of
+solution also requires a non-insignificant time and knowledge investiture for
+proper setup, utilization, and effectiveness.  
+
+In between Enterprise and
+Open-Source lie products such as MyDLP \autocite{MyDLP2013}. MyDLP is provided as an open
+source, licensed all-in-one product. MyDLP is designed to run on a single
+server, and provide modular security. Some included modules include MyDLP
+Network for network monitoring, MyDLP Endpoint for inspecting user operations,
+and MyDLP Web UI for managing the system. The obvious benefit of solutions such
+as MyDLP is their extensibility to specific domains if the IT Personnel wish to
+make their own modifications.  
+
+It follows that there is a need for such a data management framework. 
+The CloudAssure framework attempts to leverage the benefits of these approaches
+while minimizing vendor lock-in. It does not require proprietary hardware such as the enterprise
+approaches, and the hardware services it does use and/or require can be easily
+configured to run on existing infrastructure. Likewise, the setup of the three stages of
+classification, trust evaluation, and modeling are accessible enough to be able
+to be done in house by IT personnel and System Administrators. If the
+CloudAssure framework is made open-sourced, then this provides the extensibility
+and benefits (and risks) inherent in that model. 
+
+\section{System and Module Conclusions}
+\subsection{CloudAssure Conclusions}
+CloudAssure strikes a clear distinction between the current open-source
+offerings, and their commercial counterparts. Yet, implementation aside, it is
+evident that companies with any type of critical intellectual property can
+benefit from a systematic approach to data leakage. Either through CloudAssure,
+or some other offering, data leakage is a vastly expensive risk. Furthermore,
+with the volume of data increasing exponentially, employees cannot be expected to
+properly secure all data at all times. There is an increasingly critical
+requirement within organizations to systematically control their data.
+
+From designing, refining, and testing the CloudAssure framework, we have been able
+to conclude that there exists a need for this type of product. Small businesses,
+individuals, and even large organizations wishing to save some money could utilize
+CloudAssure within their networks, with minimal headache. The unique aspects of
+informed decision making and feedback learning make CloudAssure more than just a
+policy enforcement tool. An organization that tailors CloudAssure to their data,
+configures the system properly, and executes the system properly will be receiving
+protection from unauthorized data transmission both in the present, and in the future.
+
+\subsection{Classification Conclusions}
+Classification techniques vary among their underlying models, predictive goals,
+but one fact remains that classification, as much of machine learning, is
+a process reversal. The reasons to why one would need to do this vary according
+to application, with respect to CloudAssure our goal is clear, ``protect important
+information''. As terse a thesis as this, the implementation is difficult. What is
+important? How important? Is important a binary property or are there varying
+levels? Does all data need to be protected or just some of it? There questions
+cannot all be resolved algorithmically, rather some are more human questions than
+pragmatic ones; However among these, there are questions we can address.
+
+CloudAssure comes with two built in classification algorithms. The Classifier is
+build against a Python class interface, thus one could extend CloudAssure with
+their own implementation, however our results are based on simply these. The
+Decision Tree, for our data set, required more memory, and more time to build
+a classification model, while the Bayesian was
+must cheaper, computationally. However, while both classify a document
+quickly, the decision tree is 4\% more accurate. Within our specific
+implementation the Decision Tree is the classifier to use. This leads to the
+point that algorithms must be ``explored'' for maximum effectiveness. 
+
+There exist very powerful tools such as Orange which permit exploratory data
+analysis. As one explores a dataset with the intent of classifying, or extracting some
+other underlying pattern the dataset needs to be transformed, and visualization is
+the key interface between our strong human skills, and the computer's strong
+numerical skills. Exploratory data analysis tools allow one to display data in
+a multitude of formats. One can group, and ungroup data according to some
+property. The computer complies with each of the numerical requests, while we
+the data designer watches the data transform. Furthermore, there is a great deal
+of research in how to visualize data to maximize our ability to cull
+information from it. This is the purpose of machine learning and by extension
+classification: to advance the human intellect through data. Data which
+increases in quality by the minute. As a race we generate more data today than
+we ever have before. The data is useless unless we can extract and learn from
+it. Much like how history is the best teacher, we have cataloged, indexed and
+searchable history. More accurate, and more available than ever before, yet with
+the sheer volume comes its own challenges, and data analysis researchers are
+leading the charge to this lofty challenge. 
+
+\subsubsection{Recommendations}
+There are numerous classification techniques, algorithms, feature kernels, and
+powerful tools to help evaluate their effectiveness on a particular
+organization's data. The greatest recommendation within
+classification is to study your data, and evaluate a number of feature
+techniques to determine the greatest value for your implementation. 
+
+With respect to implementation, Python is a very strong tool. Its
+performance is enhanced with high performance libraries, such and NumPy
+and SciPy. Furthermore, many open-source packages such as NLTK provide intuitive
+interfaces to these extremely high performance, FORTRAN optimized libraries.
+Python is a strong candidate for implementation of CloudAssure Modules. After
+the initial test phases, if an organization finds Python's performance lacking,
+python permits a low cost (computational cost), interface to C. Critical modules
+can be ported to C to increase performance several fold. 
+
+These recommendations however demonstrate CloudAssures weaknesses within the
+classification modules. Exploratory data analysis is required to extract the
+best features from the data, but this analysis requires a machine learning
+expert to do well. This hurdle must be overcome before CloudAssure can achieve
+mass adoption. Lastly, to begin, an organization must already have a large
+repository of classified data. If an organization is new, it may not have this
+yet, or if the training data is insufficiently small, CloudAssure will offer
+little protection. 
+
+
+\subsection{Planning Conclusions}
+We decided to implement our planning system with 
+simulated values because the other modules of CloudAssure (Classification and Trust
+Evaluation) were being developed simultaneously. Because of this we were not able to
+achieve the exact workflow of a total system implementation. We made sure that simulated values are consistent
+with the proposed outputs of the classification and the trust evaluation
+modules. After finalizing the framework and doing a preliminary analysis from
+\autocite{Norvig2012}, we decided to focus on the \gls{mdp} to generate our
+decisions.  
+
+Another issue, we faced while developing CloudAssure, is whether to choose
+a finite or an infinite horizon: which is
+whether an agent should change its policies according to the time is has or
+should the
+policies generated be stationary. In this sense, a policy is the rules the
+\gls{mdp} will use to make its data transmission decisions.
+After studying our problem, we felt it was better to implement a non-stationary policy generation mechanism, which assumes
+that the agent has infinite time to perform its operations. This non-stationary policy generation mechanisms may need to consider factors such as time, day, month, organizational levels,
+etc. Because of these factors, the decision generated may change which could introduce inconsistencies in decisions.
+Inconsistent policy generation is very difficult to handle and requires more
+effort and time to introduce more parameters to control the inconsistency and
+make it dependable.  
+
+Within the \gls{mdp} itself, there are many techniques to generate decisions \autocite{Wikipedia2013}, namely policy iteration, modified policy iteration, priority sweeping
+and value iteration. To address our problem statement we have used policy and
+value iterations because they are more efficient, more accurate and relevant to
+the solution we expect to achieve. Conversely, for modified policy iteration
+and priority sweeping to work effectively they need more accurate and stable
+heuristics, which is very difficult to achieve given the dynamic nature of our
+domain where the trust values are constantly evaluated and updated. 
+
+\subsubsection{Planning Recommendations}
+here
+
+\subsection{Trust Evaluation Conclusions}
+Trust is a powerful technique to ensure that the transmission of data among
+organizations¿ employees is safe and secure. In this project, the transmission
+of the data among the nodes is monitored by security agents. The input of trust
+model are based on \emph{classification} of the data, the \emph{Similarity} (\(
+\%Doc \))of the data meaning how much percentage of the data has been copied or
+used in another document, the \emph{old trust value} (\(Tr_{old}\)). Every time the node interacts
+with its neighbors, its old trust value is updated and the total number of
+documents shared by a particular node at a particular instance. CloudAssure has
+introduced and analyzed a simple, yet robust \emph{trust value equation} that support
+decisions in the other phases of the framework. The output is a value between
+0 and 1. We also reported a set of initial experimental results, demonstrating
+the feasibility, effectiveness, and benefits of our trust equation .The output
+result we be sent to the planning phase.
+
+\subsubsection{Advantages (Claims)}
+The Trust value equation in the Trust Management system is very useful and
+ensures the transmission of data among the nodes. The High secured data is
+maintained and avoids data leakage to the node which has a very low trust value
+or a node which is not trusted. The Security agents play a vital role by
+monitoring the data flow between the nodes of same level. Becoming aware of the
+trust value, the node will be very cautious before sending the data to the other
+node. All the document details are maintained separately for the trust value
+calculation thus preserving the data for future use.
+
+\subsubsection{Disadvantages}
+Though the trust value equation is very helpful in making decisions, the
+computation of trust value is expensive. This is confined to a specific model
+having the similar setup as above. If the organization has different setup then
+this equation will not work. This might not work if we assume system compromise
+or ``trusted employee'' attack happens.
+
+\subsubsection{Recommendations}
+We need to strengthen the trust value for the system to be efficient. As our
+trust evaluation is confined to our specific system, a general trust equation
+has to be developed so that all the organizations can use and prevent the data
+leakage. Also, in our process we calculate the trust values very frequently
+which will lead to costly process. We need to come up with a new computation
+process to minimize the cost of reevaluating the trust metric.
+
+\section{Approach Comparison}
+\begin{enumerate}
+    \item Advantages of CloudAssure compared to other solutions
+        \begin{enumerate}
+            \item Makes informed decisions based on well derived heuristics.
+            \item Does not depend on static policies to make decisions.
+            \item Heuristics are derived dynamically through trust reevaluation and classification.
+            \item Easy enforcement.
+            \item Easy adaptation to any organizational environment.
+            \item Doesn't require proprietary products or predatory vendor lockin.
+            \item Framework is modular, and configurable.
+        \end{enumerate}
+    \item Disadvantages of CloudAssure compared to other solutions
+        \begin{enumerate}
+            \item Some operations may be computationally expensive.
+            \item Framework may be difficult to scale up beyond certain theoretical limit.
+            \item Framework may not work if an organization is not heirarchical.
+            \item The System needs to be trained before it becomes efficient.
+            \item System compromizations and ``trusted
+                employee'' attacks were outside the scope of CloudAssure.
+        \end{enumerate}
+\end{enumerate}
+
+\section{Future Work}
+\subsection{Entire System}
+Due to scheduling constraints each of the subcomponents were implemented
+simultaneously. However, only the implementation of classification was initially
+proposed. While internal consistency was fiercely managed, each component
+currently exists, somewhat in isolation. The Classification components are
+implemented in Python, while the planning algorithms are implemented in Matlab.
+Furthermore, the classification component uses a single files database (SQLite),
+which will not meed the high concurrency needs of the trust server, or the
+request rates of a \gls{sa}. With the proof of concepts defined here, an overhaul
+with respect to performance, and future maintenance needs to be performed.
+
+\subsection{Planning}
+Our future work is to figure out how to use POMDP because current planning
+algorithm is not tolerant of uncertainty. Dealing with uncertainty allows us to
+broaden the scope of our framework and let us apply this framework for real
+world problems. Other major way we can reduce the complexity of the problem is
+to try to convert stochastic actions to deterministic actions and do FF-Replan,
+which can improve performance in decision making because deterministic decision
+making is much more cost effective.  
+
+\subsection{Classification} 
+Within the classification modules of CloudAssure, we only implemented linear
+techniques.  This is a marked gap in our survey. Non-linear techniques such as
+Neural nets,
+offer an extremely advanced classification properties dues directly to their
+non-linearity. We choose to skip these in order to tune the linear techniques,
+but the linear techniques reviewed are insufficient to my strong claims about
+the generality of CloudAssure's classification effectively. 
+
+\subsection{Trust Evaluation}
+In the future, the Document similarity i.e. the \( \%Doc \) parameter in the
+trust equation has to be implemented separately. The module will determine the
+amount of data of a document that has been used in another document. For
+reducing the computation cost of trust value calculation, an Informed randomized
+scheduling process needs to be done. The scheduling shall include the
+re-evaluating the trust values at a low server load period. Also, A Split
+algorithm into a computationally inexpensive value for real-time calculations
+and a heavy duty computation computed at a scheduled point.  

@@ -1,0 +1,77 @@
+\documentclass[12pt,letterpaper]{report}
+\usepackage[margin=1in]{geometry}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage[english]{babel}
+\usepackage{algorithm}
+\usepackage{csquotes}
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage{placeins}
+\usepackage{blindtext}
+\usepackage{algpseudocode}
+\usepackage{setspace}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usepackage[acronym]{glossaries}
+\onehalfspacing
+\usepackage[protrusion=true,expansion=true]{microtype}
+\blindmathtrue
+\addbibresource{CloudAssure.bib}
+\makeglossaries
+\title{CloudAssure: A Data Transfer Decision Framework for 
+Cloud-based Systems using Dynamic Trust 
+Metrics}
+%\subtitle{CSE-543 \dots Group 1}
+\author{
+    Alnori, Abdulaziz \\ 
+    \texttt{aalnori@asu.edu}
+    \and
+    Buduru, Arun Balaji \\
+    \texttt{abuduru@asu.edu}
+    \and
+    Dhal, Sachit\\
+    \texttt{sdhal@asu.edu}
+    \and
+    Lucero, David\\ 
+    \texttt{dwlucero@asu.edu}
+    \and
+    Nedunoori, Ashwin\\
+    \texttt{anedunoo@asu.edu}
+    \and
+    Wright, Jeremy\\
+    \texttt{jlwrigh1@asu.edu}
+}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\printglossaries
+
+\newacronym{mdp}{MDP}{Markov Decision Process}
+\chapter{Introduction}
+\FloatBarrier
+\input{Chapters/Introduction}
+\FloatBarrier
+
+\chapter{Results}
+\FloatBarrier
+\input{Chapters/Planning}
+\FloatBarrier
+\input{Chapters/Classification}
+\FloatBarrier
+\input{Chapters/TrustManagement}
+\FloatBarrier
+\chapter{Conclusion}
+\FloatBarrier
+\input{Chapters/Conclusion}
+\FloatBarrier
+
+\clearpage
+\addcontentsline{toc}{chapter}{Bibliography}
+\printbibliography
+
+
+\end{document}
